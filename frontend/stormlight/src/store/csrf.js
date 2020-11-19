@@ -14,3 +14,11 @@ const fetch = async (url, options = {}) => {
 
     return res
 }
+
+const restoreCSRF = () => fetch('/api/csrf/restore')
+
+
+export {
+    fetch,
+    restoreCSRF,
+};

@@ -8,9 +8,16 @@ import './index.css';
 import configureStore from './store';
 import App from './App';
 
+import { restoreCSRF, fetch } from './store/csrf'
+
 const store = configureStore()
 
-if (process.env.NODE_ENV !== 'production') window.store = store;
+if (process.env.NODE_ENV !== 'production') {
+  restoreCSRF()
+
+  window.store = store
+  window.csrfFetch = fetch;
+}
 
 const Root = () => {
   return (
