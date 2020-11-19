@@ -3,52 +3,49 @@ import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-function LoginFormPage() {
-  const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
-  const [credential, setCredential] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
+const LoginFormPage = () => {
+    const sessionUser = sessionActions.useSelector(state => state.session.user)
+    const [credential, setCredential] = useState('')
+    const [password, setPassword] = useState('')
+    const [errors, setErrors] = useState([])
 
-  if (sessionUser) return (
-    <Redirect to="/" />
-  );
+    if (sessionUser) return <Redirect to="/" />
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors([]);
-    return dispatch(sessionActions.login({ credential, password }))
-      .catch((res) => {
-        if (res.data && res.data.errors) setErrors(res.data.errors);
-      });
-  }
+    handleSubmit = (e) => {
+        e.preventDefault()
+        try {
+            dispatch(sessionUser.login({
+                credential,
+                password
+            }))
+        } catch (e) {
+            setErrors([...e.errors])
+        }
+    }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-      <label>
-        Username or Email
-        <input
-          type="text"
-          value={credential}
-          onChange={(e) => setCredential(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
-  );
+    return (
+        <>
+            <ul>
+                {errors.map(error => (
+                    <li>{error}</li>
+                ))}
+            </ul>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="credential">Username/email: </label>
+                <input type="text"
+                    name="credential"
+                    value={credential}
+                    onChange={(e) => setCredential(e.target.value)}
+                />
+                <label htmlFor="password">Password: </label>
+                <input type="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+            </form>
+        </>
+    )
 }
 
 export default LoginFormPage;
