@@ -7,7 +7,7 @@ const REMOVE_USER = "session/removeUser"
 const setUser = (user) => {
     return {
         type: SET_USER,
-        user
+        payload: user
     }
 }
 
@@ -17,14 +17,14 @@ const removeUser = () => {
     }
 }
 
-export const login = (user) => async (dispatch) => {
-    const { credentials, password } = user;
+export const login = (userr) => async (dispatch) => {
+    const { credential, password } = userr;
     let res = await fetch('/api/session', {
         method: "POST",
-        body: {
-            credentials,
-            password
-        }
+        body: JSON.stringify({
+            credential,
+            password,
+        })
     })
     const { data: user } = res
     dispatch(setUser(user))
@@ -33,9 +33,17 @@ export const login = (user) => async (dispatch) => {
 const sessionReducer = (state = { user: null }, action) => {
     switch (action.type) {
         case SET_USER:
-
+            return Object.assign({}, state, {
+                user: action.payload
+            })
+        case REMOVE_USER:
+            return Object.assign({}, state, {
+                user: null,
+            })
         default:
             return state
     }
 
 }
+
+export default sessionReducer;

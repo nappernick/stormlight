@@ -9,7 +9,8 @@ import App from './App';
 
 import configureStore from './store';
 
-import { restoreCSRF, fetch } from './store/csrf'
+import { fetch, restoreCSRF } from './store/csrf'
+import * as sessionActions from "./store/session"
 
 const store = configureStore()
 
@@ -18,12 +19,13 @@ if (process.env.NODE_ENV !== 'production') {
 
   window.store = store
   window.csrfFetch = fetch;
+  window.sessionActions = sessionActions;
 }
 
 const Root = () => {
   return (
-    <Provider>
-      <Router store={store}>
+    <Provider store={store}>
+      <Router>
         <App />
       </Router>
     </Provider>
