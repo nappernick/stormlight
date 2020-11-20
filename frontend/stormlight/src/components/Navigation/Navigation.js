@@ -21,16 +21,16 @@ function Navigation({ isLoaded }) {
     }
 
     return (
-        <ul>
-            <li>
+        <>
+            <div>
                 <NavLink exact to="/">
                     <div className="home-icon">
                         <i className="fas fa-home"></i>
                     </div>
                 </NavLink>
                 {isLoaded && sessionLinks}
-            </li>
-        </ul>
+            </div>
+        </>
     );
 }
 

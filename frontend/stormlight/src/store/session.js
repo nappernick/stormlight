@@ -18,6 +18,7 @@ const removeUser = () => {
 }
 
 export const login = (userr) => async (dispatch) => {
+    console.log("login")
     const { credential, password } = userr;
     let res = await fetch('/api/session', {
         method: "POST",
@@ -26,8 +27,10 @@ export const login = (userr) => async (dispatch) => {
             password,
         })
     })
+    console.log("login")
     // const { data: user } = res
     if (res.data.user) dispatch(setUser(res.data.user))
+    return
 }
 
 export const signup = (userr) => async (dispatch) => {
@@ -37,21 +40,23 @@ export const signup = (userr) => async (dispatch) => {
         body: JSON.stringify({ email, username, password })
     })
     // const { data: user } = res
+    console.log("signup")
     dispatch(setUser(res.data.user))
-    return res;
+    return
 }
 
 export const remove = () => async (dispatch) => {
-    let res = await fetch('/api/session', {
+    await fetch('/api/session', {
         method: "DELETE"
     })
     dispatch(removeUser())
+    return
 }
 
 export const restore = () => async (dispatch) => {
     const res = await fetch('/api/session')
-    const { data: user } = res
-    dispatch(setUser(user))
+    if (res.data.user) dispatch(setUser(res.data.user))
+    return
 }
 
 const sessionReducer = (state = { user: null }, action) => {

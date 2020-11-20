@@ -16,20 +16,22 @@ function SignupFormPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log("got here")
         if (password === confirmPassword) {
             setErrors([])
-            return dispatch(sessionActions.signup(e.target.value))
+            dispatch(sessionActions.signup(
+                { username, password, email }
+            ))
                 .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) })
         }
+
         return setErrors(["Check your passwords! They don't currently match."])
     }
     return (
         <>
             <div>
                 <ul>
-                    {errors.map(error => {
-                        return (<li>{error}</li>)
-                    })}
+                    {errors.map(error => <li key={error}>{error}</li>)}
                 </ul>
             </div>
             <form onSubmit={handleSubmit}>
@@ -56,7 +58,7 @@ function SignupFormPage() {
                 <div>
                     <label htmlFor="password">Password: </label>
                     <input
-                        type="password"
+                        type="text"
                         value={password}
                         name='password'
                         placeholder='A strong password (min 6 characters)'
@@ -66,7 +68,7 @@ function SignupFormPage() {
                 <div>
                     <label htmlFor="confirmPassword">Confirm Password: </label>
                     <input
-                        type="password"
+                        type="text"
                         value={confirmPassword}
                         name='confirmPassword'
                         placeholder='Same password as above. Again.'

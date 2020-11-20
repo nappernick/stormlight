@@ -8,7 +8,6 @@ function ProfileButton() {
     const sessionUser = useSelector(state => state.session.user)
 
     const toggleMenu = () => {
-        console.log(sessionUser)
         if (!menu) return setMenu(true)
         else setMenu(false)
     }
@@ -16,12 +15,12 @@ function ProfileButton() {
     return (
         <div className="profile-button">
             <button onClick={toggleMenu}>
-                <i class="fas fa-user-circle"></i>
+                <i className="fas fa-user-circle"></i>
             </button>
             {menu && (
                 <ul>
                     {/* <li>{sessionUser.name}</li> */}
-                    <li>{sessionUser.user.username}</li>
+                    <li>{sessionUser.username}</li>
                     <li><button onClick={() => dispatch(sessionActions.remove())}>Logout</button></li>
                 </ul>
             )}

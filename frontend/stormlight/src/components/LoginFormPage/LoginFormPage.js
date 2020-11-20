@@ -21,6 +21,14 @@ const LoginFormPage = () => {
         })).catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) })
     }
 
+    const handleDemo = async (e) => {
+        e.preventDefault()
+        dispatch(sessionActions.login({
+            credential: "Demo-lition",
+            password: "password"
+        }))
+    }
+
     return (
         <>
             <ul>
@@ -43,6 +51,7 @@ const LoginFormPage = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <button type="submit">Login</button>
+                    <button onClick={handleDemo}>Demo Login</button>
                 </div>
             </form>
         </>

@@ -13,7 +13,7 @@ export async function fetch(url, options = {}) {
     }
     // call the default window's fetch with the url and the options passed in
     const res = await window.fetch(url, options);
-
+    console.log("in the fetch!")
     const contentType = res.headers.get('content-type');
     if (contentType && contentType.includes('application/json')) {
         const data = await res.json();
