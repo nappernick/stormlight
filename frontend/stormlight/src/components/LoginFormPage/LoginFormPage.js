@@ -15,7 +15,7 @@ const LoginFormPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([]);
-        res = dispatch(sessionActions.login({
+        dispatch(sessionActions.login({
             credential,
             password
         })).catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) })
@@ -28,19 +28,23 @@ const LoginFormPage = () => {
                 {errors.map(error => <li>{error}</li>)}
             </ul>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="credential">Username/email: </label>
-                <input type="text"
-                    name="credential"
-                    value={credential}
-                    onChange={(e) => setCredential(e.target.value)}
-                />
-                <label htmlFor="password">Password: </label>
-                <input type="password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button type="submit">Login</button>
+                <div>
+                    <label htmlFor="credential">Username/email: </label>
+                    <input type="text"
+                        name="credential"
+                        value={credential}
+                        onChange={(e) => setCredential(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="password">Password: </label>
+                    <input type="password"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button type="submit">Login</button>
+                </div>
             </form>
         </>
     )
