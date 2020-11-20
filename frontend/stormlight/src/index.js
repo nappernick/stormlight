@@ -11,6 +11,9 @@ import configureStore from './store';
 
 import { fetch, restoreCSRF } from './store/csrf'
 import * as sessionActions from "./store/session"
+import Modal from "react-modal"
+
+Modal.setAppElement("#root")
 
 const store = configureStore()
 

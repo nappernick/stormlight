@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import "./Navigation.css"
@@ -7,7 +7,6 @@ import "./Navigation.css"
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
-    console.log(history)
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
@@ -20,18 +19,17 @@ function Navigation({ isLoaded }) {
             </div>
         )
     }
-    // else {
-    //     sessionLinks = (
-    //         <>
-    //             <NavLink to="/login">Log In</NavLink>
-    //             <NavLink to="/signup">Sign Up</NavLink>
-    //         </>
-    //     );
-    // }
+
+    const handleClick = (e) => {
+        if (!sessionUser && isLoaded) {
+            console.log("here")
+            history.push('/signup')
+        }
+    }
 
     return (
         <>
-            <div className="nav-container">
+            <div className="nav-container" onClick={handleClick}>
                 <NavLink exact to="/" className="home-icon">
                     <div className="home-icon">
                         <i className="fas fa-home"></i>

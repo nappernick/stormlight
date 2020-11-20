@@ -26,7 +26,7 @@ a {
 }
 
 div.home-icon {
-    margin-left: 40px;
+    margin-left: 80px;
 }
 
 a, .profile-icon {
@@ -35,10 +35,11 @@ a, .profile-icon {
 
 .profile-drop {
     position: absolute;
-    right: 70px;
+    right: 55px;
     top: 26px;
     padding: 0;
-    background-color: lightgray;
+    background-color: rgb(230, 230, 230);
+    border: 1px solid lightgray;
     opacity: 1;
 }
 
@@ -48,9 +49,7 @@ li {
     border: none;
     font-family: 'DM Sans', sans-serif;
     color: slategray;
-    margin-top: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
+    margin: 10px;
 }
 
 .logout {
