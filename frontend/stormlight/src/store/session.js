@@ -31,6 +31,13 @@ export const login = (userr) => async (dispatch) => {
     // return res
 }
 
+export const restore = () => async (dispatch) => {
+    const res = await fetch('/api/session')
+    const { data: user } = res
+    dispatch(setUser(user))
+    return res
+}
+
 const sessionReducer = (state = { user: null }, action) => {
     switch (action.type) {
         case SET_USER:
