@@ -7,7 +7,7 @@ const REMOVE_USER = "session/removeUser"
 const setUser = (user) => {
     return {
         type: SET_USER,
-        payload: user
+        user
     }
 }
 
@@ -26,9 +26,8 @@ export const login = (userr) => async (dispatch) => {
             password,
         })
     })
-    const { data: user } = res
-    dispatch(setUser(user))
-    return res
+    // const { data: user } = res
+    if (res.data.user) dispatch(setUser(res.data.user))
 }
 
 export const signup = (userr) => async (dispatch) => {
@@ -37,8 +36,8 @@ export const signup = (userr) => async (dispatch) => {
         method: "POST",
         body: JSON.stringify({ email, username, password })
     })
-    const { data: user } = res
-    dispatch(setUser(user))
+    // const { data: user } = res
+    dispatch(setUser(res.data.user))
     return res;
 }
 
@@ -47,26 +46,20 @@ export const remove = () => async (dispatch) => {
         method: "DELETE"
     })
     dispatch(removeUser())
-    return res;
 }
 
 export const restore = () => async (dispatch) => {
     const res = await fetch('/api/session')
     const { data: user } = res
     dispatch(setUser(user))
-    return res
 }
 
 const sessionReducer = (state = { user: null }, action) => {
     switch (action.type) {
         case SET_USER:
-            return Object.assign({}, state, {
-                user: action.payload
-            })
+            return { ...state, user: action.user }
         case REMOVE_USER:
-            let newState = Object.assign({}, state);
-            newState.user = null;
-            return newState;
+            return { ...state, user: null }
         default:
             return state
     }

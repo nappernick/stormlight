@@ -9,9 +9,9 @@ const LoginFormPage = () => {
     const [credential, setCredential] = useState('')
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
-
+    // debugger
     if (sessionUser) return <Redirect to="/" />
-    let res;
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([]);
@@ -21,7 +21,6 @@ const LoginFormPage = () => {
         })).catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) })
     }
 
-    console.error(res)
     return (
         <>
             <ul>
