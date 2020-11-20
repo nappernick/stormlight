@@ -28,6 +28,7 @@ export const login = (userr) => async (dispatch) => {
     })
     const { data: user } = res
     dispatch(setUser(user))
+    // return res
 }
 
 const sessionReducer = (state = { user: null }, action) => {

@@ -4,31 +4,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 const LoginFormPage = () => {
-    const sessionUser = sessionActions.useSelector(state => state.session.user)
+    const sessionUser = useSelector(state => state.session.user)
+    const dispatch = useDispatch()
     const [credential, setCredential] = useState('')
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
 
     if (sessionUser) return <Redirect to="/" />
-
-    handleSubmit = (e) => {
+    let res;
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        try {
-            dispatch(sessionUser.login({
-                credential,
-                password
-            }))
-        } catch (e) {
-            setErrors([...e.errors])
-        }
+        setErrors([]);
+        res = dispatch(sessionActions.login({
+            credential,
+            password
+        })).catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) })
     }
 
+    console.error(res)
     return (
         <>
             <ul>
-                {errors.map(error => (
-                    <li>{error}</li>
-                ))}
+                {errors.map(error => <li>{error}</li>)}
             </ul>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="credential">Username/email: </label>
@@ -43,6 +40,7 @@ const LoginFormPage = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                <button type="submit">Login</button>
             </form>
         </>
     )
