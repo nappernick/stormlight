@@ -38,7 +38,15 @@ export const signup = (userr) => async (dispatch) => {
         body: JSON.stringify({ email, username, password })
     })
     const { data: user } = res
-    dispatch(setUser(res.data.user))
+    dispatch(setUser(user))
+    return res;
+}
+
+export const remove = () => async (dispatch) => {
+    let res = await fetch('/api/session', {
+        method: "DELETE"
+    })
+    dispatch(removeUser())
     return res;
 }
 
@@ -56,9 +64,9 @@ const sessionReducer = (state = { user: null }, action) => {
                 user: action.payload
             })
         case REMOVE_USER:
-            return Object.assign({}, state, {
-                user: null,
-            })
+            let newState = Object.assign({}, state);
+            newState.user = null;
+            return newState;
         default:
             return state
     }

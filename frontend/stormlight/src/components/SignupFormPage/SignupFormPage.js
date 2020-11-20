@@ -17,9 +17,8 @@ function SignupFormPage() {
         e.preventDefault()
         if (password === confirmPassword) {
             setErrors([])
-            dispatch(sessionActions.signup(e.target.value))
+            return dispatch(sessionActions.signup(e.target.value))
                 .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) })
-            return
         }
         return setErrors(["Check your passwords! They don't currently match."])
     }
@@ -28,43 +27,52 @@ function SignupFormPage() {
             <div>
                 <ul>
                     {errors.map(error => {
-                        <li>{error}</li>
+                        return (<li>{error}</li>)
                     })}
                 </ul>
             </div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="email">Email: </label>
-                <input
-                    type="email"
-                    value={email}
-                    name='email'
-                    placeholder='email@email.com'
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <label htmlFor="username">Username: </label>
-                <input
-                    type="text"
-                    value={username}
-                    name='username'
-                    placeholder='dontuserthisname'
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <label htmlFor="password">Password: </label>
-                <input
-                    type="password"
-                    value={password}
-                    name='password'
-                    placeholder='A strong password (min 6 characters)'
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <label htmlFor="confirmPassword">Confirm Password: </label>
-                <input
-                    type="password"
-                    value={confirmPassword}
-                    name='confirmPassword'
-                    placeholder='Same password as above. Again.'
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
+                <div>
+                    <label htmlFor="email">Email: </label>
+                    <input
+                        type="email"
+                        value={email}
+                        name='email'
+                        placeholder='email@email.com'
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="username">Username: </label>
+                    <input
+                        type="text"
+                        value={username}
+                        name='username'
+                        placeholder='dontuserthisname'
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="password">Password: </label>
+                    <input
+                        type="password"
+                        value={password}
+                        name='password'
+                        placeholder='A strong password (min 6 characters)'
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="confirmPassword">Confirm Password: </label>
+                    <input
+                        type="password"
+                        value={confirmPassword}
+                        name='confirmPassword'
+                        placeholder='Same password as above. Again.'
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </div>
+                <button type="submit">Signup</button>
             </form>
         </>
     )
