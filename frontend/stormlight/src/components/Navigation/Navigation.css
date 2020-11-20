@@ -1,0 +1,58 @@
+div.nav-container {
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+}
+
+div.home-icon, .profile-icon {
+    font-size: 20pt;
+    background-color: white;
+    color: dodgerblue;
+    border: slategray;
+    border-radius: 10%;
+}
+
+a {
+    font-size: 12pt;
+    color: dodgerblue;
+    text-decoration: none;
+}
+
+div.home-icon {
+    margin-left: 40px;
+}
+
+a, .profile-icon {
+    margin-right: 105px;
+}
+
+.profile-drop {
+    position: absolute;
+    right: 70px;
+    top: 26px;
+    padding: 0;
+    background-color: lightgray;
+    opacity: 1;
+}
+
+li {
+    list-style-type: none;
+    font-size: 12px;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    color: slategray;
+    margin-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.logout {
+    cursor: pointer;
+}

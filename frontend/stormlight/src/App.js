@@ -16,15 +16,15 @@ function App() {
   }, [dispatch])
   const sessionUser = useSelector(state => state.session.user)
 
-  if (!sessionUser) return <Redirect to="signup" />
-  
+  if (!sessionUser && isLoaded) { <Redirect exact to="/signup" /> }
+
   return (
     <>
       <Navigation isLoaded={isLoaded} />
       { isLoaded && (
         <Switch>
-          <Route path="/login" component={LoginFormPage} />
-          <Route path="/signup" component={SignupFormPage} />
+          <Route exact path="/login" component={LoginFormPage} />
+          <Route exact path="/signup" component={SignupFormPage} />
         </Switch>
       )}
     </>
