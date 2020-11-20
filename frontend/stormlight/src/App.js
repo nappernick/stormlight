@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { Redirect, Route, Switch } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import * as sessionActions from "./store/session"
 import LoginFormPage from './components/LoginFormPage/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage/SignupFormPage';
@@ -14,7 +14,10 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restore()).then(() => setIsLoaded(true))
   }, [dispatch])
+  const sessionUser = useSelector(state => state.session.user)
 
+  if (!sessionUser) return <Redirect to="signup" />
+  
   return (
     <>
       <Navigation isLoaded={isLoaded} />

@@ -10,7 +10,7 @@ const LoginFormPage = () => {
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
     // debugger
-    if (sessionUser) return <Redirect to="/" />
+    if (sessionUser) return <Redirect to="/dashboard" />
 
     const handleSubmit = async (e) => {
         e.preventDefault()

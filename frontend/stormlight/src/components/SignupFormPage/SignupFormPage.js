@@ -12,7 +12,7 @@ function SignupFormPage() {
     const [email, setEmail] = useState('')
     const sessionUser = useSelector(state => state.session.user)
 
-    if (sessionUser) return <Redirect to="/" />
+    if (sessionUser) return <Redirect to="/dashboard" />
 
     const handleSubmit = (e) => {
         e.preventDefault()
