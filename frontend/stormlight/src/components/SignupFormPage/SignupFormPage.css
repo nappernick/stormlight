@@ -23,7 +23,7 @@ div.form-inner {
     margin: auto;
     height: 90%;
     width: 80%;
-    background-color: green;
+    /* background-color: green; */
 }
 
 form {
@@ -38,6 +38,7 @@ div.input {
 
 input {
     width: 100%;
+    max-width: 600px;
     /* margin-top: 7px; */
     margin-bottom: 20px;
     background-color: aliceblue;
@@ -45,6 +46,17 @@ input {
     box-shadow: none;
     border-radius: 5%;
     height: 24px;
+}
+
+input::placeholder {
+    padding-left: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9pt;
+    color: rgb(175, 175, 175);
+}
+
+.button {
+    margin-top: 10px;
 }
 
 button {
@@ -71,12 +83,7 @@ div.info-text {
     align-items: flex-start;
     justify-content: center;
 }
-input::placeholder {
-    padding-left: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9pt;
-    color: rgb(175, 175, 175);
-}
+
 .text-box {
     width: 50%;
     margin-left: 40px;

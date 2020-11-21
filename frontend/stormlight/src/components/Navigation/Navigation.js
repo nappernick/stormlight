@@ -22,19 +22,17 @@ function Navigation({ isLoaded }) {
 
     const handleClick = (e) => {
         if (!sessionUser && isLoaded) {
-            console.log("here")
-            history.push('/signup')
+            history.push('/signup');
+            <Redirect to="/signup" />
         }
     }
 
     return (
         <>
-            <div className="nav-container" onClick={handleClick}>
-                <NavLink exact to="/" className="home-icon">
-                    <div className="home-icon">
-                        <i className="fas fa-home"></i>
-                    </div>
-                </NavLink>
+            <div className="nav-container">
+                <div className="home-icon" onClick={handleClick}>
+                    <i className="fas fa-home"></i>
+                </div>
                 {isLoaded && sessionLinks}
             </div>
         </>

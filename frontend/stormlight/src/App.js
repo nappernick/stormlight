@@ -28,6 +28,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       { isLoaded && (
         <Switch>
+          {/* <Route exact path="/" component={App} /> */}
           <Route exact path="/login" component={LoginFormPage} />
           <Route exact path="/signup" component={SignupFormPage} />
         </Switch>
