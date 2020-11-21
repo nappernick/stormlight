@@ -1,0 +1,47 @@
+div.container {
+    position: relative;
+    width: 100%;
+    height: 800px;
+}
+
+.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+form.login {
+    grid-column-start: 6;
+    grid-column-end: 10;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    transition: ease all 1s;
+}
+
+input.login {
+    width: 300px;
+}
+
+button.login {
+    margin-bottom: 10px;
+}
+
+
+@media screen and (max-width: 750px) {
+    .image {
+        display: none;
+    }
+    form.login {
+        grid-column-start: 1;
+        grid-column-end: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

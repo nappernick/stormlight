@@ -20,6 +20,8 @@ function App() {
 
   if (!sessionUser && isLoaded) {
     history.push('/signup')
+  } else {
+    <Redirect to="/dashboard" />
   }
 
 

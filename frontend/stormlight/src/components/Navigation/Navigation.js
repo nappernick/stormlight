@@ -18,12 +18,19 @@ function Navigation({ isLoaded }) {
                 <NavLink to="/login">Login</NavLink>
             </div>
         )
+    } else if (history.location.pathname === '/login') {
+        sessionLinks = (
+            <div className="signup">
+                <NavLink to="/signup">Signup</NavLink>
+            </div>
+        )
     }
 
     const handleClick = (e) => {
         if (!sessionUser && isLoaded) {
-            history.push('/signup');
             <Redirect to="/signup" />
+        } else {
+            <Redirect to="/dashboard" />
         }
     }
 
