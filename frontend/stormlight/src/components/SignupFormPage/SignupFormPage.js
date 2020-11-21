@@ -1,83 +1,42 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
-import * as sessionActions from "../../store/session"
-import { Redirect } from 'react-router-dom'
+import "./SignupFormPage.css"
+import FormFields from './FormFields'
 
 function SignupFormPage() {
-    const dispatch = useDispatch()
     const [errors, setErrors] = useState([])
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [email, setEmail] = useState('')
-    const sessionUser = useSelector(state => state.session.user)
-
-    if (sessionUser) return <Redirect to="/" />
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log("got here")
-        if (password === confirmPassword) {
-            setErrors([])
-            dispatch(sessionActions.signup(
-                { username, password, email }
-            ))
-                .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) })
-        }
-
-        return setErrors(["Check your passwords! They don't currently match."])
-    }
     return (
-        <>
-            <div>
-                <ul>
-                    {errors.map(error => <li key={error}>{error}</li>)}
-                </ul>
+        <div className="container">
+            <div className="form-outer">
+                <div className="form-inner">
+                    <div>
+                        <ul>
+                            {errors.map(error => <li key={error}>{error}</li>)}
+                        </ul>
+                    </div>
+                    <FormFields errors={errors} setErrors={setErrors} />
+                </div>
             </div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="email">Email: </label>
-                    <input
-                        type="email"
-                        value={email}
-                        name='email'
-                        placeholder='email@email.com'
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
+            <div className="info-text">
+                <div className="text-box 1">
+                    <h3>Commission-free stock trading</h3>
+                    <p>
+                        We’ve cut the fat that makes other brokerages costly, like manual account management and hundreds of storefront locations, so we can offer zero commission trading.
+                    </p>
                 </div>
-                <div>
-                    <label htmlFor="username">Username: </label>
-                    <input
-                        type="text"
-                        value={username}
-                        name='username'
-                        placeholder='dontuserthisname'
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
+                <div className="text-box 2">
+                    <h3>Account Protection</h3>
+                    <p>
+                        Robinhood Financial is a member of SIPC. Securities in your account are protected up to $500,000. For details, please see www.sipc.org.
+                    </p>
                 </div>
-                <div>
-                    <label htmlFor="password">Password: </label>
-                    <input
-                        type="text"
-                        value={password}
-                        name='password'
-                        placeholder='A strong password (min 6 characters)'
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                <div className="text-box 3">
+                    <h3>Keep tabs on your money</h3>
+                    <p>
+                        Set up customized news and notifications to stay on top of your assets as casually or as relentlessly as you like. Controlling the flow of info is up to you.
+                    </p>
                 </div>
-                <div>
-                    <label htmlFor="confirmPassword">Confirm Password: </label>
-                    <input
-                        type="text"
-                        value={confirmPassword}
-                        name='confirmPassword'
-                        placeholder='Same password as above. Again.'
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit">Signup</button>
-            </form>
-        </>
+            </div>
+        </div >
     )
 }
 

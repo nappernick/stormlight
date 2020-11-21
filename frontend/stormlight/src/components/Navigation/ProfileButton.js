@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import * as sessionActions from "../../store/session"
 import { useDispatch, useSelector } from 'react-redux'
 
+
 function ProfileButton() {
     const [menu, setMenu] = useState(false)
     const dispatch = useDispatch()
@@ -13,18 +14,19 @@ function ProfileButton() {
     }
 
     return (
-        <div className="profile-button">
-            <button onClick={toggleMenu}>
+        <div>
+            <button className="profile-icon" onClick={toggleMenu}>
                 <i className="fas fa-user-circle"></i>
             </button>
             {menu && (
-                <ul>
+                <ul className="profile-drop">
                     {/* <li>{sessionUser.name}</li> */}
                     <li>{sessionUser.username}</li>
-                    <li><button onClick={() => dispatch(sessionActions.remove())}>Logout</button></li>
+                    <li className="logout" onClick={() => dispatch(sessionActions.remove())}>Logout</li>
                 </ul>
-            )}
-        </div>
+            )
+            }
+        </div >
     )
 }
 
