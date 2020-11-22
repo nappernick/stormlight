@@ -1,24 +1,33 @@
 const finnhub = require('finnhub');
-require('dotenv').config()
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
 api_key.apiKey = "" // Replace this
 const finnhubClient = new finnhub.DefaultApi()
-console.log(api_key)
 
+const daySeconds = 864000
 
-const candleFetch = () => {
+const dayCandleFetch = (ticker) => {
     let currentTime = Math.round((new Date()).getTime() / 1000)
-    finnhubClient.stockCandles("AAPL", "W", (currentTime - 3369600), currentTime, {}, (error, data, response) => {
+    finnhubClient.stockCandles(ticker, "D", (currentTime - daySeconds), currentTime, {}, (error, data, response) => {
         console.log(data)
         return data
-        // console.log(response)
-        // if (count === 3) clearInterval(interval)
     })
-}
+};
 
-let count = 0;
-const interval = setInterval(() => {
-    count++
-    candleFetch()
-    if (count === 5) clearInterval(interval)
-}, 2000)
+const weekCandleFetch = (ticker) => {
+    let currentTime = Math.round((new Date()).getTime() / 1000)
+    finnhubClient.stockCandles(ticker, "W", (currentTime - (daySeconds * 7)), currentTime, {}, (error, data, response) => {
+        console.log(data)
+        return data
+    })
+};
+
+const monthCandleFetch = (ticker) => {
+    let currentTime = Math.round((new Date()).getTime() / 1000)
+    finnhubClient.stockCandles(ticker, "M", (currentTime - (daySeconds * 30)), currentTime, {}, (error, data, response) => {
+        console.log(data)
+        return data
+    })
+};
+
+monthCandleFetch("TSLA")
+module.exports = { dayCandleFetch, weekCandleFetch, monthCandleFetch }

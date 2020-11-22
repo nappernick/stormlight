@@ -29,7 +29,7 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={loaded} />
+      <Navigation />
       { loaded && (
         <Switch>
           {/* <Route exact path="/" component={App} /> */}

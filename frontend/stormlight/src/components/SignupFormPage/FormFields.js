@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import * as sessionActions from "../../store/session"
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
 import "./SignupFormPage.css"
 
-function FormFields({ errors, setErrors }) {
+function FormFields({ setErrors }) {
     const dispatch = useDispatch()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [email, setEmail] = useState('')
-    const sessionUser = useSelector(state => state.session.user)
-
-    // if (sessionUser) return <Redirect to="/dashboard" />
+    // const sessionUser = useSelector(state => state.session.user)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -30,7 +28,7 @@ function FormFields({ errors, setErrors }) {
     return (
         <>
             <h2>Make Your Money Move</h2>
-            <p>Robinhood lets you invest in companies you love, commission-free.</p>
+            <p>Stormlight lets you "invest" in companies you love, commission-free. Primarily because you're not actually investing.</p>
             <form onSubmit={handleSubmit}>
                 <div className="input">
                     <input
