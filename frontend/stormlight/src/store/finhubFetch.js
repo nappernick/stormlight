@@ -1,7 +1,7 @@
 const finnhub = require('finnhub');
 require('dotenv').config()
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-api_key.apiKey = "busq5m748v6vuigknau0" // Replace this
+api_key.apiKey = "" // Replace this
 const finnhubClient = new finnhub.DefaultApi()
 console.log(api_key)
 
