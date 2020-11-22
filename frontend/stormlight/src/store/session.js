@@ -18,7 +18,6 @@ const removeUser = () => {
 }
 
 export const login = (userr) => async (dispatch) => {
-    console.log("login")
     const { credential, password } = userr;
     let res = await fetch('/api/session', {
         method: "POST",
@@ -27,8 +26,6 @@ export const login = (userr) => async (dispatch) => {
             password,
         })
     })
-    console.log("login")
-    // const { data: user } = res
     if (res.data.user) dispatch(setUser(res.data.user))
     return
 }
@@ -39,8 +36,6 @@ export const signup = (userr) => async (dispatch) => {
         method: "POST",
         body: JSON.stringify({ email, username, password })
     })
-    // const { data: user } = res
-    console.log("signup")
     dispatch(setUser(res.data.user))
     return
 }

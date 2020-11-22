@@ -3,6 +3,7 @@ import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import "./Navigation.css"
+import LoginLink from './LoginLink';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -13,11 +14,7 @@ function Navigation({ isLoaded }) {
             <ProfileButton user={sessionUser} />
         );
     } else if (history.location.pathname === "/signup") {
-        sessionLinks = (
-            <div className="login">
-                <NavLink to="/login">Login</NavLink>
-            </div>
-        )
+        sessionLinks = <LoginLink />
     } else if (history.location.pathname === '/login') {
         sessionLinks = (
             <div className="signup">

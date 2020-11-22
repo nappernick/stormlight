@@ -5,17 +5,20 @@ api_key.apiKey = "" // Replace this
 const finnhubClient = new finnhub.DefaultApi()
 console.log(api_key)
 
-let currentTime = Math.round((new Date()).getTime() / 1000) - 172800
-let dayBeforeTime = Math.round((new Date()).getTime() / 1000) - 259200
-console.log(currentTime)
-finnhubClient.stockCandles("AAPL", "D", currentTime, dayBeforeTime, {}, (error, data, response) => {
-    console.log(data)
-    // console.log(response)
-    // if (count === 3) clearInterval(interval)
-});
 
-// let count = 0;
-// const interval = setInterval(() => {
-//     count++
+const candleFetch = () => {
+    let currentTime = Math.round((new Date()).getTime() / 1000)
+    finnhubClient.stockCandles("AAPL", "W", (currentTime - 3369600), currentTime, {}, (error, data, response) => {
+        console.log(data)
+        return data
+        // console.log(response)
+        // if (count === 3) clearInterval(interval)
+    })
+}
 
-// }, 2000)
+let count = 0;
+const interval = setInterval(() => {
+    count++
+    candleFetch()
+    if (count === 5) clearInterval(interval)
+}, 2000)
