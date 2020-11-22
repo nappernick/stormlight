@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import undraw from "../../public/Assets/undraw_Login_re_4vu2.svg"
+import undraw from "../../Assets/undraw_Login_re_4vu2.svg"
 import "./LoginFormPage.css"
 
 const LoginFormPage = () => {

@@ -19,7 +19,7 @@ function App() {
   }, [dispatch])
 
   if (!sessionUser && isLoaded) {
-    history.push('/signup')
+    history.push('/login')
   } else {
     <Redirect to="/dashboard" />
   }
