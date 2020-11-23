@@ -1,33 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import "./Navigation.css"
-import LoginLink from './LoginLink';
-import SignupLink from './SignupLink';
-import { useEffect } from 'react';
+import AuthLink from './AuthLink';
 
 function Navigation() {
     const isLoaded = useSelector(state => state.loaded.loaded)
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
+    const [authLocation, setAuthLocation] = useState(history.location.pathname)
 
-    let sessionLinks;
-    if (sessionUser) {
-        sessionLinks = (
-            <ProfileButton user={sessionUser} />
-        );
-    } else if (history.location.pathname === "/signup") {
-        sessionLinks = <LoginLink />
-    } else if (history.location.pathname === "/login") {
-        sessionLinks = <SignupLink />
-    }
+    useEffect(() => {
+        // console.log("here", authLocation)
+        setAuthLocation(history.location.pathname)
+        // if (sessionUser) {
+        //     sessionLinks = <ProfileButton user={sessionUser} />
+        // } else {
+        //     sessionLinks = <AuthLink location={authLocation === "/signup" ? "login" : "signup"} />
+        // }
+    }, [history.location.pathname])
 
     const handleClick = (e) => {
+        console.log(sessionUser, isLoaded)
         if (!sessionUser && isLoaded) {
-            <Redirect to="/signup" />
+            history.push("/signup")
+            // <Redirect to="/signup" />
         } else {
-            <Redirect to="/dashboard" />
+            history.push("/dashboard")
+            // < Redirect to = "/dashboard" />
         }
     }
 
@@ -37,7 +38,7 @@ function Navigation() {
                 <div className="home-icon" onClick={handleClick}>
                     <i className="fas fa-home"></i>
                 </div>
-                {isLoaded && sessionLinks}
+                {isLoaded ? sessionUser ? <ProfileButton user={sessionUser} /> : <AuthLink location={authLocation === "/signup" ? "login" : "signup"} /> : ''}
             </div>
         </>
     );

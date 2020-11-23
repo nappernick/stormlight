@@ -1,31 +1,61 @@
 import React, { useState } from 'react'
 import * as sessionActions from "../../store/session"
 import { useDispatch, useSelector } from 'react-redux'
+import Dropdown from 'rc-dropdown';
+import Menu, { Item as MenuItem, Divider } from 'rc-menu';
+import 'rc-dropdown/assets/index.css';
 
 
 function ProfileButton() {
-    const [menu, setMenu] = useState(false)
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
+    // const [menu, setMenu] = useState(false)
 
-    const toggleMenu = () => {
-        if (!menu) return setMenu(true)
-        else setMenu(false)
+    // const toggleMenu = () => {
+    //     if (!menu) return setMenu(true)
+    //     else setMenu(false)
+    // }
+
+    function onSelect({ key }) {
+        dispatch(sessionActions.remove())
     }
+
+    function onVisibleChange(visible) {
+        console.log(visible);
+    }
+
+    const menuCallback = () => (
+        <Menu onSelect={onSelect}>
+            <MenuItem disabled>{sessionUser.username}</MenuItem>
+            <Divider />
+            <MenuItem key="2">Logout</MenuItem>
+        </Menu>
+    );
 
     return (
         <div>
-            <button className="profile-icon" onClick={toggleMenu}>
-                <i className="fas fa-user-circle"></i>
-            </button>
-            {menu && (
+            {/* <button className="profile-icon" onClick={toggleMenu}> */}
+            <Dropdown
+                trigger={['click']}
+                overlay={menuCallback}
+                animation="slide-up"
+                onVisibleChange={onVisibleChange}
+            >
+                <button className="profile-icon" style={{ width: 100 }}>
+                    <i className="fas fa-user-circle"></i>
+                </button>
+            </Dropdown>
+            {/* {menu && (
                 <ul className="profile-drop">
-                    {/* <li>{sessionUser.name}</li> */}
+                    <li>{sessionUser.name}</li>
                     <li>{sessionUser.username}</li>
-                    <li className="logout" onClick={() => dispatch(sessionActions.remove())}>Logout</li>
+                    <li className="logout" onClick={() =>
+                        dispatch(sessionActions.remove())}>
+                        Logout
+                    </li>
                 </ul>
             )
-            }
+            } */}
         </div >
     )
 }

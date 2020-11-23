@@ -5,7 +5,14 @@ const finnhubClient = new finnhub.DefaultApi()
 
 const daySeconds = 864000
 
-const dayCandleFetch = (ticker) => {
+export const currentPrice = (ticker) => {
+    finnhubClient.quote(ticker, (error, data, response) => {
+        return data
+    });
+}
+
+
+export const dayCandleFetch = (ticker) => {
     let currentTime = Math.round((new Date()).getTime() / 1000)
     finnhubClient.stockCandles(ticker, "D", (currentTime - daySeconds), currentTime, {}, (error, data, response) => {
         console.log(data)
@@ -13,7 +20,7 @@ const dayCandleFetch = (ticker) => {
     })
 };
 
-const weekCandleFetch = (ticker) => {
+export const weekCandleFetch = (ticker) => {
     let currentTime = Math.round((new Date()).getTime() / 1000)
     finnhubClient.stockCandles(ticker, "W", (currentTime - (daySeconds * 7)), currentTime, {}, (error, data, response) => {
         console.log(data)
@@ -21,7 +28,7 @@ const weekCandleFetch = (ticker) => {
     })
 };
 
-const monthCandleFetch = (ticker) => {
+export const monthCandleFetch = (ticker) => {
     let currentTime = Math.round((new Date()).getTime() / 1000)
     finnhubClient.stockCandles(ticker, "M", (currentTime - (daySeconds * 30)), currentTime, {}, (error, data, response) => {
         console.log(data)
@@ -29,5 +36,5 @@ const monthCandleFetch = (ticker) => {
     })
 };
 
-monthCandleFetch("TSLA")
-module.exports = { dayCandleFetch, weekCandleFetch, monthCandleFetch }
+currentPrice("TSLA")
+// module.exports = { currentPrice, dayCandleFetch, weekCandleFetch, monthCandleFetch }

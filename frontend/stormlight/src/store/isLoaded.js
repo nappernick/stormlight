@@ -1,4 +1,4 @@
-const LOADED = "app/loaded"
+const LOADED = "loaded/loaded"
 
 const loaded = () => {
     return {
@@ -14,7 +14,7 @@ const loadedReducer = (state = { loaded: false }, action) => {
         case LOADED:
             return { ...state, loaded: true }
         default:
-            return state
+            return state 
     }
 
 }

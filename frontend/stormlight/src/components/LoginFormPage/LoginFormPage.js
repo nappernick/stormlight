@@ -15,11 +15,11 @@ const LoginFormPage = () => {
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
     // debugger
-    if (sessionUser) { <Redirect to="/dashboard" /> }
+    if (sessionUser) history.push("/dashboard")
 
     useEffect(() => {
         dispatch(load())
-    }, [dispatch, history])
+    }, [dispatch])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -28,6 +28,7 @@ const LoginFormPage = () => {
             credential,
             password
         })).catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) })
+        return history.push("/dashboard")
     }
 
     const handleDemo = async (e) => {
@@ -36,6 +37,7 @@ const LoginFormPage = () => {
             credential: "Demo-lition",
             password: "password"
         }))
+        return history.push("/dashboard")
     }
 
     return (

@@ -6,6 +6,7 @@ import { load } from "./store/isLoaded"
 import LoginFormPage from './components/LoginFormPage/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage/SignupFormPage';
 import Navigation from './components/Navigation/Navigation';
+import DashboardPage from './components/Dashboard/DashboardPage';
 
 
 
@@ -32,9 +33,10 @@ function App() {
       <Navigation />
       { loaded && (
         <Switch>
-          {/* <Route exact path="/" component={App} /> */}
-          <Route exact path="/login" component={LoginFormPage} />
-          <Route exact path="/signup" component={SignupFormPage} />
+          {/* <Route path="/" component={App} /> */}
+          <Route path="/login" component={LoginFormPage} />
+          <Route path="/signup" component={SignupFormPage} />
+          <Route path="/dashboard" component={DashboardPage} />
         </Switch>
       )}
     </>
