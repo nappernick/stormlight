@@ -4,7 +4,10 @@ import PurchaseModal from '../PurchasePage/PurchaseModal'
 function DashboardPage() {
     return (
         <div>
-            <PurchaseModal />
+            <div className="modal">
+                <PurchaseModal />
+            </div>
+            
         </div>
     )
 }

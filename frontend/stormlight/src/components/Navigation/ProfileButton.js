@@ -9,14 +9,8 @@ import 'rc-dropdown/assets/index.css';
 function ProfileButton() {
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
-    // const [menu, setMenu] = useState(false)
 
-    // const toggleMenu = () => {
-    //     if (!menu) return setMenu(true)
-    //     else setMenu(false)
-    // }
-
-    function onSelect({ key }) {
+    function onSelect() {
         dispatch(sessionActions.remove())
     }
 
@@ -28,7 +22,7 @@ function ProfileButton() {
         <Menu onSelect={onSelect}>
             <MenuItem disabled>{sessionUser.username}</MenuItem>
             <Divider />
-            <MenuItem key="2">Logout</MenuItem>
+            <MenuItem style={{ cursor: "pointer" }} key="2">Logout</MenuItem>
         </Menu>
     );
 

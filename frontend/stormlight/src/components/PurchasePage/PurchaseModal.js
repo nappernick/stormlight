@@ -6,10 +6,13 @@ const customStyles = {
     content: {
         top: '50%',
         left: '50%',
-        right: 'auto',
+        right: '50%',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        border: '3px solid black',
+        fontFamily: "'DM Sans', sans-serif"
+
     }
 };
 
@@ -32,13 +35,13 @@ function PurchaseModal() {
 
     return (
         <div>
-            <button onClick={openModal}>Open Modal</button>
+            <button onClick={openModal}>Buy Stock</button>
             <Modal
                 isOpen={showModal}
                 onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
                 style={customStyles}
-                contentLabel="Example Modal"
+                contentLabel="Purchase Stock Modal"
             >
                 <Purchase closeModal={closeModal} />
             </Modal>
