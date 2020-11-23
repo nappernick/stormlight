@@ -5,25 +5,24 @@ import ProfileButton from './ProfileButton';
 import "./Navigation.css"
 import AuthLink from './AuthLink';
 
-function Navigation() {
-    const isLoaded = useSelector(state => state.loaded.loaded)
+function Navigation({ authLocation, setAuthLocation }) {
+    // const isLoaded = useSelector(state => state.loaded.loaded)
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
-    const [authLocation, setAuthLocation] = useState(history.location.pathname)
+    // const [authLocation, setAuthLocation] = useState(history.location.pathname)
 
-    useEffect(() => {
-        // console.log("here", authLocation)
-        setAuthLocation(history.location.pathname)
-        // if (sessionUser) {
-        //     sessionLinks = <ProfileButton user={sessionUser} />
-        // } else {
-        //     sessionLinks = <AuthLink location={authLocation === "/signup" ? "login" : "signup"} />
-        // }
-    }, [history.location.pathname])
+    // useEffect(() => {
+    //     // console.log("here", authLocation)
+    //     setAuthLocation(history.location.pathname)
+    //     // if (sessionUser) {
+    //     //     sessionLinks = <ProfileButton user={sessionUser} />
+    //     // } else {
+    //     //     sessionLinks = <AuthLink location={authLocation === "/signup" ? "login" : "signup"} />
+    //     // }
+    // }, [history.location.pathname])
 
     const handleClick = (e) => {
-        console.log(sessionUser, isLoaded)
-        if (!sessionUser && isLoaded) {
+        if (!sessionUser) {
             history.push("/signup")
             // <Redirect to="/signup" />
         } else {
@@ -38,7 +37,10 @@ function Navigation() {
                 <div className="home-icon" onClick={handleClick}>
                     <i className="fas fa-home"></i>
                 </div>
-                {isLoaded ? sessionUser ? <ProfileButton user={sessionUser} /> : <AuthLink location={authLocation === "/signup" ? "login" : "signup"} /> : ''}
+                {sessionUser ?
+                    <ProfileButton user={sessionUser} /> :
+                    <AuthLink authLocation={authLocation} setAuthLocation={setAuthLocation} />
+                }
             </div>
         </>
     );

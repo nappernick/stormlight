@@ -1,10 +1,13 @@
 import React from 'react'
-import { NavLink } from "react-router-dom"
 
-function AuthLink({ location }) {
+function AuthLink({ authLocation, setAuthLocation }) {
+    const toggleAuthLoc = (e) => {
+        if (authLocation === "login") setAuthLocation("signup")
+        else setAuthLocation("login")
+    }
     return (
-        <div className={location} >
-            <NavLink to={`/${location}`}>{location}</NavLink>
+        <div className='' >
+            <button onClick={toggleAuthLoc}>{authLocation === "signup" ? "Login" : "Signup"}</button>
         </ div>
     )
 }

@@ -17,9 +17,9 @@ const LoginFormPage = () => {
     // debugger
     if (sessionUser) history.push("/dashboard")
 
-    useEffect(() => {
-        dispatch(load())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(load())
+    // }, [dispatch])
 
     const handleSubmit = async (e) => {
         e.preventDefault()

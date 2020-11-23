@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import * as sessionActions from "./store/session"
@@ -8,13 +8,12 @@ import SignupFormPage from './components/SignupFormPage/SignupFormPage';
 import Navigation from './components/Navigation/Navigation';
 import DashboardPage from './components/Dashboard/DashboardPage';
 
-
-
 function App() {
   const dispatch = useDispatch()
   const history = useHistory()
   const loaded = useSelector(state => state.loaded.loaded)
   const sessionUser = useSelector(state => state.session.user)
+  const [authLocation, setAuthLocation] = useState("login")
 
   useEffect(() => {
     dispatch(sessionActions.restore())
@@ -27,18 +26,20 @@ function App() {
     <Redirect to="/dashboard" />
   }
 
-
+  if (!loaded) return null
   return (
     <>
-      <Navigation />
-      { loaded && (
-        <Switch>
-          {/* <Route path="/" component={App} /> */}
-          <Route path="/login" component={LoginFormPage} />
-          <Route path="/signup" component={SignupFormPage} />
-          <Route path="/dashboard" component={DashboardPage} />
-        </Switch>
-      )}
+      <Navigation authLocation={authLocation} setAuthLocation={setAuthLocation} />
+      <Switch>
+        {/* <Route path="/" component={App} /> */}
+        <Route path="/login" component={
+          authLocation === "login" ?
+            LoginFormPage :
+            SignupFormPage
+        } />
+        {/* <Route path="/signup" component={SignupFormPage} /> */}
+        <Route path="/dashboard" component={DashboardPage} />
+      </Switch>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { currentPrice } from "./finhubFetch.js"
+import { currentPrice } from "../utils"
 import { fetch } from "./csrf.js"
 
 const SET_PURCHASE = "purchase/setPurchase"
