@@ -4,11 +4,13 @@ import Modal from 'react-modal';
 
 const customStyles = {
     content: {
-        top: '50%',
+        top: '40%',
         left: '70%',
         right: '40%',
         bottom: 'auto',
+        height: "45%",
         marginRight: '-50%',
+        paddingTop: "0px",
         transform: 'translate(-100%, -50%)',
         border: '1px solid lightgrey',
         fontFamily: "'DM Sans', sans-serif",

@@ -3,11 +3,13 @@ import thunk from "redux-thunk"
 import sessionReducer from "./session"
 import loadedReducer from "./isLoaded"
 import purchaseReducer from "./purchase"
+import stockReducer from "./stocks"
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     loaded: loadedReducer,
     purchase: purchaseReducer,
+    stock: stockReducer,
 })
 
 let enhancer;

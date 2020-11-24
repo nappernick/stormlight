@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import "./Navigation.css"

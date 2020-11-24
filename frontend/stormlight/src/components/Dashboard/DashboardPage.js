@@ -2,17 +2,20 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import PurchaseModal from '../PurchasePage/PurchaseModal'
 import PortofolioLineGraph from './Graphs/PortofolioLineGraph'
+import "./Dashboard.css"
 
 function DashboardPage() {
     const sessionUser = useSelector(state => state.session.user)
     if (!sessionUser) return null
     return (
-        <div>
-            <div className="purchaseModal">
-                <PurchaseModal />
-            </div>
-            <div className="addFundsModal">
-                {/* create table of acounts & in modal link to account creation */}
+        <div className="page-container">
+            <div className="modals-container">
+                <div className="purchaseModal">
+                    <PurchaseModal />
+                </div>
+                <div className="addFundsModal">
+                    {/* create table of acounts & in modal link to account creation */}
+                </div>
             </div>
             <div className="portofolioLineGraph">
                 <PortofolioLineGraph />

@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom"
-import { useDispatch } from "react-redux"
-// import { load } from "../../store/isLoaded"
+import React, { useState } from 'react'
 import "./SignupFormPage.css"
 import FormFields from './FormFields'
 
 function SignupFormPage() {
-    const dispatch = useDispatch()
-    const history = useHistory()
     const [errors, setErrors] = useState([])
 
     return (

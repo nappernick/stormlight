@@ -9,12 +9,12 @@ const router = express.Router()
 
 router.post("/", asyncHandler(async (req, res, next) => {
     const { ticker, buyPrice, numStock, userId } = req.body
-    const stock = await Stock.create(
+    const stock = await Stock.create({
         ticker,
         buyPrice,
         numStock,
         userId
-    )
+    })
     return res.json({ stock, })
 })
 )

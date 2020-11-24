@@ -7,6 +7,7 @@ import LoginFormPage from './components/LoginFormPage/LoginFormPage';
 import SignupFormPage from './components/SignupFormPage/SignupFormPage';
 import Navigation from './components/Navigation/Navigation';
 import DashboardPage from './components/Dashboard/DashboardPage';
+import { initializeStock } from './store/stocks';
 
 function App() {
   const dispatch = useDispatch()
@@ -17,7 +18,8 @@ function App() {
 
   useEffect(() => {
     dispatch(sessionActions.restore())
-      .then(() => dispatch(load()))
+      .then(() => dispatch(load()));
+    if (sessionUser) dispatch(initializeStock(sessionUser.id))
   }, [dispatch])
 
   if (!sessionUser && loaded) {

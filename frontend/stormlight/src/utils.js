@@ -2,7 +2,7 @@ import fetch from 'cross-fetch';
 require('dotenv').config();
 let finnHubApi = process.env.REACT_APP_FINHUB_API_KEY
 let alphaApi = process.env.REACT_APP_ALPHA_API_KEY
-const daySeconds = 864000
+// const daySeconds = 864000
 
 export const currentPrice = async (ticker) => {
     let res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${finnHubApi}`)
@@ -10,8 +10,8 @@ export const currentPrice = async (ticker) => {
     return json
 }
 
-export const intraDayFetch = async (ticker) => {
-    let res = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&outputsize=compact&apikey=${alphaApi}`)
+export const intraDayFetch = async (ticker, interval) => {
+    let res = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=${interval}&outputsize=compact&apikey=${alphaApi}`)
     let json = await res.json()
     return json
 }

@@ -1,10 +1,10 @@
 import { fetch } from "./csrf.js"
 
-const SET_PURCHASE = "purchase/setPurchase"
+const SET_STOCK = "stocks/setStock"
 
-export const setPurchase = (ticker, numStock, buyPrice, userId) => {
+export const setStock = (ticker, numStock, buyPrice, userId) => {
     return {
-        type: SET_PURCHASE,
+        type: SET_STOCK,
         payload: {
             ticker,
             numStock,
@@ -12,6 +12,15 @@ export const setPurchase = (ticker, numStock, buyPrice, userId) => {
             userId,
         }
     }
+}
+
+export const initializeStock = (userId) => async (dispatch) => {
+    const res = await fetch(`/api/stocks/${userId}`)
+    console.log(res)
+    console.log("here")
+    // if (!res.data.errors) dispatch(setStock(ticker, numStock, buyPrice, userId))
+    console.log(res.data.errors)
+    return res
 }
 
 export const purchaseStock = (ticker, numStock, buyPrice, userId) => async (dispatch) => {
@@ -22,18 +31,18 @@ export const purchaseStock = (ticker, numStock, buyPrice, userId) => async (disp
         body: data
     })
 
-    if (!res.data.errors) dispatch(setPurchase(ticker, numStock, buyPrice, userId))
+    if (!res.data.errors) dispatch(setStock(ticker, numStock, buyPrice, userId))
     console.log(res.data.errors)
     return res
 }
 
-const purchaseReducer = (state = { purchase: {} }, action) => {
+const stockReducer = (state = { purchase: {} }, action) => {
     switch (action.type) {
-        case SET_PURCHASE:
+        case SET_STOCK:
             return { ...state, purchase: action.payload }
         default:
             return state
     }
 }
 
-export default purchaseReducer;
+export default stockReducer;

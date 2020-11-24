@@ -12,6 +12,15 @@ function PortofolioLineGraph() {
     const [intraDayData, setIntraDayData] = useState({})
     const userId = useSelector(state => state.session.user.id)
 
+    const normalizeData = (checkObj, closeObj, tickers) => {
+        //get count of tickers
+        let countTickers = tickers.length
+        for (let key in checkObj) {
+            if (checkObj[key] !== countTickers) delete closeObj[key]
+        }
+        return closeObj
+    }
+
     const getSetStocks = async () => {
         const stocksFetch = await fetch(`/api/stocks/${userId}`)
         if (stocksFetch.ok) {
@@ -30,28 +39,34 @@ function PortofolioLineGraph() {
     const getCloseData = async () => {
         let stockArr = intraDay
         let closeObj = {}
+        let checkObj = {}
+        let tickers = []
         stockArr.forEach(ele => {
             for (let key in ele) {
                 let ticker = key
+                if (!tickers.includes(ticker)) tickers.push(ticker)
                 for (let innerKey in ele[key]) {
                     let inner = parseInt(ele[key][innerKey]["4. close"], 10)
-                    let stock = stocks[ticker]['numStock']
-                    let stockTotal = inner * stock
+                    let stockPrice = stocks[ticker]['numStock']
+                    let stockTotal = inner * stockPrice
                     if (closeObj[innerKey]) closeObj[innerKey] += stockTotal
                     else closeObj[innerKey] = stockTotal;
+                    // below here is the check for data completeness
+                    if (checkObj[innerKey]) checkObj[innerKey]++
+                    else checkObj[innerKey] = 1
                 }
             }
         })
-
+        normalizeData(checkObj, closeObj, tickers)
         if (Object.values(closeObj)) setIntraDayData(closeObj)
-        // normalizeData()
     }
 
-    const getIntraDay = async () => {
+    const getIntraDay = async (interval) => {
+        if (!interval) interval = "15min"
         let stockArr = []
         for (let ticker in stocks) {
-            const res = await intraDayFetch(ticker)
-            stockArr.push({ [ticker]: res["Time Series (5min)"] })
+            const res = await intraDayFetch(ticker, interval)
+            stockArr.push({ [ticker]: res[`Time Series (${interval})`] })
         }
         setIntraDay(stockArr)
 

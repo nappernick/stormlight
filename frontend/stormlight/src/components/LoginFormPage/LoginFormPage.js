@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { useHistory } from "react-router-dom"
 import * as sessionActions from '../../store/session';
-import { load } from "../../store/isLoaded"
 import undraw from "../../Assets/undraw_Login_re_4vu2.svg"
 import "./LoginFormPage.css"
 
@@ -14,12 +12,8 @@ const LoginFormPage = () => {
     const [credential, setCredential] = useState('')
     const [password, setPassword] = useState('')
     const [errors, setErrors] = useState([])
-    // debugger
-    if (sessionUser) history.push("/dashboard")
 
-    // useEffect(() => {
-    //     dispatch(load())
-    // }, [dispatch])
+    if (sessionUser) history.push("/dashboard")
 
     const handleSubmit = async (e) => {
         e.preventDefault()

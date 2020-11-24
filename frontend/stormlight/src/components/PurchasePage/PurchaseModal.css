@@ -1,6 +1,5 @@
 div.modal-interior {
     cursor: pointer;
-    width: 80%;
     margin-top: 50px;
     margin-bottom: 50px;
     display: flex;
@@ -19,11 +18,13 @@ form {
 div.form-interior {
     display: flex;
     flex-direction: column;
-    width: 180px;
+    width: 200px;
 }
 
 div.buy-price {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    font-size: 15px;
+    align-self: center;
 }
 
 button.modal-button {
