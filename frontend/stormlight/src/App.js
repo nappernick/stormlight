@@ -19,8 +19,10 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restore())
       .then(() => dispatch(load()));
-    if (sessionUser) dispatch(initializeStock(sessionUser.id))
   }, [dispatch])
+  useEffect(() => {
+    if (sessionUser) dispatch(initializeStock(sessionUser.id))
+  }, [sessionUser])
 
   if (!sessionUser && loaded) {
     history.push('/login')

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { currentPrice } from "../../utils";
-import { purchaseStock } from "../../store/purchase"
+import { purchaseStock } from "../../store/stocks"
 import "./PurchaseModal.css"
 
 function Purchase({ closeModal }) {
