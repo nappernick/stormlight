@@ -5,14 +5,15 @@ import Modal from 'react-modal';
 const customStyles = {
     content: {
         top: '50%',
-        left: '50%',
-        right: '50%',
+        left: '70%',
+        right: '40%',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        border: '3px solid black',
-        fontFamily: "'DM Sans', sans-serif"
-
+        transform: 'translate(-100%, -50%)',
+        border: '1px solid lightgrey',
+        fontFamily: "'DM Sans', sans-serif",
+        display: "flex",
+        justifyContent: "center",
     }
 };
 

@@ -1,3 +1,33 @@
-div {
+div.modal-interior {
     cursor: pointer;
+    width: 80%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+div.form-interior {
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+}
+
+div.buy-price {
+    margin-bottom: 15px;
+}
+
+button.modal-button {
+    margin: auto;
+    justify-self: center;
+    align-self: center;
 }
