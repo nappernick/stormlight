@@ -20,12 +20,10 @@ export const initializeStock = (userId) => async (dispatch) => {
         const { ticker, numStock, userId } = stock
         dispatch(setStock(ticker, numStock, userId))
     })
-    console.log(res.data.errors)
     return res
 }
 
 export const purchaseStock = (ticker, numStock, buyPrice, userId) => async (dispatch) => {
-    console.log(ticker, numStock, buyPrice, userId)
     const data = JSON.stringify({ ticker, numStock, buyPrice, userId })
     const res = await fetch("/api/stocks", {
         method: "POST",
@@ -33,7 +31,6 @@ export const purchaseStock = (ticker, numStock, buyPrice, userId) => async (disp
     })
 
     if (!res.data.errors) dispatch(setStock(ticker, numStock, userId))
-    console.log(res.data.errors)
     return res
 }
 

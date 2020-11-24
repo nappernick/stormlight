@@ -7,7 +7,7 @@ import { intraDayFetch } from '../../../utils';
 import LineGraph from './LineGraph';
 
 function PortofolioLineGraph() {
-    const [stocks, setStocks] = useState({})
+    const stocks = useSelector(state => state.stock)
     const [intraDay, setIntraDay] = useState([])
     const [intraDayData, setIntraDayData] = useState({})
     const userId = useSelector(state => state.session.user.id)
@@ -19,21 +19,6 @@ function PortofolioLineGraph() {
             if (checkObj[key] !== countTickers) delete closeObj[key]
         }
         return closeObj
-    }
-
-    const getSetStocks = async () => {
-        const stocksFetch = await fetch(`/api/stocks/${userId}`)
-        if (stocksFetch.ok) {
-            let res = stocksFetch.data.stock
-            let obj = {}
-            for (let key in res) {
-                let ele = res[key]
-                let { ticker } = ele
-                Object.assign(obj, { [ticker]: { ...ele } })
-            }
-            setStocks(obj)
-        }
-
     }
 
     const getCloseData = async () => {
@@ -71,10 +56,29 @@ function PortofolioLineGraph() {
         setIntraDay(stockArr)
 
     }
+    // const [stocks, setStocks] = useState({})
+    // const getSetStocks = async () => {
+    //     const stocksFetch = await fetch(`/api/stocks/${userId}`)
+    //     if (stocksFetch.ok) {
+    //         let res = stocksFetch.data.stock
+    //         let obj = {}
+    //         for (let key in res) {
+    //             let ele = res[key]
+    //             let { ticker } = ele
+    //             Object.assign(obj, { [ticker]: { ...ele } })
+    //         }
+    //         setStocks(obj)
+    //     }
 
-    useEffect(() => {
-        getSetStocks();
-    }, [])
+    // }
+
+    // useEffect(() => {
+    //     getSetStocks();
+    // }, [])
+    // useEffect(() => {
+    //     getIntraDay();
+    // }, [])
+    
     useEffect(() => {
         getIntraDay();
     }, [stocks])
