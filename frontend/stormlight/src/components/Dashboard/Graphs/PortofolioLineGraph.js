@@ -22,16 +22,15 @@ function PortofolioLineGraph() {
         for (let key in intraDayObj) {
             let dates = Object.keys(intraDayObj[key])
             intraDayDataKeys.forEach(date => {
-                // if (!dates.includes(date)) badDates.push(date)
-                console.log(dates.includes(date))
-                console.log(date)
-                console.log(dates)
-                debugger
+                if (!dates.includes(date)) badDates.push(date)
+                console.log(!dates.includes(date))
+                // debugger
             })
         }
-        // console.log("bad dates:", badDates)
-        // console.log("bad dates length:", badDates.length)
-        // console.log(intraDayDataKeys.length - badDates.length)
+        console.log("dates length:", intraDayDataKeys.length)
+        // console.log(intraDayDataKeys)
+        console.log("bad dates length:", badDates.length)
+        console.log(intraDayDataKeys.length - badDates.length)
     }
     normalizeData()
 
