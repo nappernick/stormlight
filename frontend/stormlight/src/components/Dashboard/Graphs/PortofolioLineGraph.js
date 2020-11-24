@@ -83,7 +83,7 @@ function PortofolioLineGraph() {
     }, [intraDay])
     return (
         <div>
-            <LineGraph stocks={stocks} intraDay={intraDay} intraDayData={intraDayData} />
+            <LineGraph intraDay={intraDay} intraDayData={intraDayData} />
         </div>
     )
 }

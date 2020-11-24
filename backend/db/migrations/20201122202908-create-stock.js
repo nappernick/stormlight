@@ -10,7 +10,6 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ticker: {
-        unique: true,
         type: Sequelize.STRING(5)
       },
       buyPrice: {

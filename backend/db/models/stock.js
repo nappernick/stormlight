@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: {
-          args: [2, 6],
+          args: [0, 6],
           msg: "Must be a valid stock ticker."
         },
       },

@@ -37,7 +37,7 @@ export const purchaseStock = (ticker, numStock, buyPrice, userId) => async (disp
     return res
 }
 
-const stockReducer = (state = { stocks: {} }, action) => {
+const stockReducer = (state = {}, action) => {
     switch (action.type) {
         case SET_STOCK:
             return Object.assign(state, { [action.payload.ticker]: action.payload })
