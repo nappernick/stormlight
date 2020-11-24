@@ -7,6 +7,7 @@ import LineGraph from './LineGraph';
 
 function PortofolioLineGraph() {
     const stocks = useSelector(state => state.stock)
+    let stockObjLen = Object.values(stocks).length
     const [intraDay, setIntraDay] = useState([])
     const [loading, setLoading] = useState(true)
     const [intraDayData, setIntraDayData] = useState({})
@@ -43,22 +44,32 @@ function PortofolioLineGraph() {
         })
         normalizeData(checkObj, closeObj, tickers)
         if (Object.values(closeObj)) setIntraDayData(closeObj)
+
     }
 
     const getIntraDay = async (interval) => {
         if (!interval) interval = "15min"
+        const stockObj = stocks
         let stockArr = []
-        for (let ticker in stocks) {
+        for (let ticker in stockObj) {
             const res = await intraDayFetch(ticker, interval)
             stockArr.push({ [ticker]: res[`Time Series (${interval})`] })
         }
-        setIntraDay(stockArr)
+        if (stockArr.length) setIntraDay(stockArr)
     }
-    
-    if (!Object.values(stocks).length && loading) return null
+
+    useEffect(() => {
+        if (stockObjLen) getIntraDay()
+    }, [stockObjLen])
+    useEffect(() => {
+        if (stockObjLen) getCloseData()
+    })
+    debugger
+    if (!stockObjLen && loading) return null
+    debugger
     return (
         <div>
-            <LineGraph intraDay={intraDay} intraDayData={intraDayData} />
+            <LineGraph stocks={stocks} intraDay={intraDay} intraDayData={intraDayData} />
         </div>
     )
 }
