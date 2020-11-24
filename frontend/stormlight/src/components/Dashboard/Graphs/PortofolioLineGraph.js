@@ -12,28 +12,6 @@ function PortofolioLineGraph() {
     const [intraDayData, setIntraDayData] = useState({})
     const userId = useSelector(state => state.session.user.id)
 
-    const normalizeData = () => {
-        let intraDayObj = {}
-        let intraDayDataKeys = Object.keys(intraDayData)
-        let badDates = [];
-        intraDay.forEach(obj => {
-            Object.assign(intraDayObj, obj)
-        })
-        for (let key in intraDayObj) {
-            let dates = Object.keys(intraDayObj[key])
-            intraDayDataKeys.forEach(date => {
-                if (!dates.includes(date)) badDates.push(date)
-                console.log(!dates.includes(date))
-                // debugger
-            })
-        }
-        console.log("dates length:", intraDayDataKeys.length)
-        // console.log(intraDayDataKeys)
-        console.log("bad dates length:", badDates.length)
-        console.log(intraDayDataKeys.length - badDates.length)
-    }
-    normalizeData()
-
     const getSetStocks = async () => {
         const stocksFetch = await fetch(`/api/stocks/${userId}`)
         if (stocksFetch.ok) {
@@ -66,6 +44,7 @@ function PortofolioLineGraph() {
         })
 
         if (Object.values(closeObj)) setIntraDayData(closeObj)
+        // normalizeData()
     }
 
     const getIntraDay = async () => {
@@ -89,7 +68,7 @@ function PortofolioLineGraph() {
     }, [intraDay])
     return (
         <div>
-            <LineGraph stocks={stocks} intraDayData={intraDayData} />
+            <LineGraph stocks={stocks} intraDay={intraDay} intraDayData={intraDayData} />
         </div>
     )
 }
