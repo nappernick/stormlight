@@ -10,7 +10,6 @@ function PortofolioLineGraph() {
     const stocks = useSelector(state => state.stock)
     const [intraDay, setIntraDay] = useState([])
     const [intraDayData, setIntraDayData] = useState({})
-    const userId = useSelector(state => state.session.user.id)
 
     const normalizeData = (checkObj, closeObj, tickers) => {
         //get count of tickers
@@ -78,6 +77,7 @@ function PortofolioLineGraph() {
     // useEffect(() => {
     //     getIntraDay();
     // }, [])
+    
     
     useEffect(() => {
         getIntraDay();
