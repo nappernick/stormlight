@@ -2,13 +2,15 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
 import { useSelector } from 'react-redux';
-import { fetch } from '../../../store/csrf';
 import { intraDayFetch } from '../../../utils';
 import LineGraph from './LineGraph';
 
 function PortofolioLineGraph() {
     const stocks = useSelector(state => state.stock)
+    // let stocks = {}
+    // if (Object.values(stateStocks).length) stocks = stateStocks
     const [intraDay, setIntraDay] = useState([])
+    const [loading, setLoading] = useState(true)
     const [intraDayData, setIntraDayData] = useState({})
 
     const normalizeData = (checkObj, closeObj, tickers) => {
@@ -77,14 +79,19 @@ function PortofolioLineGraph() {
     // useEffect(() => {
     //     getIntraDay();
     // }, [])
-    
-    
+
+
     useEffect(() => {
         getIntraDay();
-    }, [stocks])
+        if (Object.values(stocks)) setLoading(false);
+
+    }, [Object.values(stocks)])
     useEffect(() => {
         getCloseData()
     }, [intraDay])
+    let stocksArr = Object.values(stocks)
+    if (!stocksArr.length && loading) return null
+    debugger
     return (
         <div>
             <LineGraph intraDay={intraDay} intraDayData={intraDayData} />

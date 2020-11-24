@@ -17,7 +17,7 @@ function App() {
   const [authLocation, setAuthLocation] = useState("login")
 
   useEffect(() => {
-    dispatch(sessionActions.restore())
+    dispatch(sessionActions.restore())  
       .then(() => dispatch(load()));
   }, [dispatch])
   useEffect(() => {
