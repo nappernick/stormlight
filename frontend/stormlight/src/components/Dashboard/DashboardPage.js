@@ -3,6 +3,9 @@ import { useSelector } from 'react-redux'
 import PurchaseModal from '../PurchasePage/PurchaseModal'
 import PortofolioLineGraph from './Graphs/PortofolioLineGraph'
 import "./Dashboard.css"
+import { createContext } from 'react'
+
+const intradayDataContext = createContext()
 
 function DashboardPage() {
     const sessionUser = useSelector(state => state.session.user)
