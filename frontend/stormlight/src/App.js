@@ -26,7 +26,7 @@ function App() {
       dispatch(initializeStock(sessionUser.id))
       dispatch(initializeIntraDay(sessionUser.id))
     }
-  }, [sessionUser, dispatch])
+  }, [sessionUser])
 
   if (!sessionUser && loaded) {
     history.push('/login')

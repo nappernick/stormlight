@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { Line } from "react-chartjs-2"
 import { useEffect } from 'react'
 
-function ListItem({ ticker, dailyData }) {
+function ListItem({ ticker, dailyData, toggle, setToggle }) {
+    console.log(toggle)
     const TickerDiv = styled.div`
     display: flex;
     justify-content: space-between;
@@ -29,6 +30,7 @@ function ListItem({ ticker, dailyData }) {
 
         data.push(dailyData[key]["4. close"])
         labels.push(dailyData[key])
+        setToggle(!toggle)
     }
 
     const chartData = {
@@ -61,8 +63,8 @@ function ListItem({ ticker, dailyData }) {
         },
     }
 
-    useEffect(async () => {
-    }, [dailyData])
+    useEffect(() => {
+    }, [])
 
     return (
         <TickerDiv>
