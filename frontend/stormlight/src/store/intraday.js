@@ -15,7 +15,7 @@ export const initializeIntraDay = (userId, interval) => async (dispatch) => {
     const res = await fetch(`/api/stocks/${userId}`)
     const stockObj = { ...Object.values(res.data["stock"]) }
     if (!res.data.errors) Object.values(stockObj).forEach(async (stock) => {
-        const { ticker, numStock, userId } = stock
+        const { ticker } = stock
         const intraDay = await intraDayFetch(ticker, interval)
         dispatch(setIntraDay({ [ticker]: intraDay[`Time Series (${interval})`] }))
     })

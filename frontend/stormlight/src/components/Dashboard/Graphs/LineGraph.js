@@ -3,7 +3,6 @@ import { Line } from "react-chartjs-2"
 import "./Graph.css"
 
 function LineGraph({ intraDayData }) {
-    console.log(intraDayData)
 
     const data = {
         labels: Object.keys(intraDayData).reverse(),

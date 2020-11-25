@@ -1,15 +1,12 @@
 import React from 'react'
 import { intradayDataContext } from "../DashboardPage"
-import ListItem from './ListItem'
+import List from './List'
 
 function ListStocks() {
     return (
-        <div>
-            <intradayDataContext.Consumer>
-                {(value) => {
-                < ListItem intraDayData={value} />}}
-            </intradayDataContext.Consumer>
-        </div>
+        <intradayDataContext.Consumer>
+            {(value) => <List intraDayData={value} />}
+        </intradayDataContext.Consumer>
     )
 }
 
