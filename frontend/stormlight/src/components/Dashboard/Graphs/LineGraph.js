@@ -3,6 +3,7 @@ import { Line } from "react-chartjs-2"
 import "./Graph.css"
 
 function LineGraph({ intraDayData }) {
+    console.log(intraDayData)
 
     const data = {
         labels: Object.keys(intraDayData).reverse(),
@@ -15,7 +16,7 @@ function LineGraph({ intraDayData }) {
             },
         ]
     }
-    const options = { 
+    const options = {
         legend: {
             display: false,
         },
@@ -32,7 +33,7 @@ function LineGraph({ intraDayData }) {
     }
     return (
         <div className="graph-container">
-            <Line data={data} options={options} height={250} />
+            {intraDayData && <Line data={data} options={options} height={250} />}
         </div>
     )
 }

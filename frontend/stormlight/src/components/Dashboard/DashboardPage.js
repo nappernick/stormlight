@@ -6,6 +6,7 @@ import "./Dashboard.css"
 import { createContext } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import ListStocks from './Lists/ListStocks'
 
 export const intradayDataContext = createContext()
 
@@ -14,7 +15,6 @@ function DashboardPage() {
     const stocks = useSelector(state => state.stock)
     const intraDay = useSelector(state => state.intraday)
     const [intraDayData, setIntraDayData] = useState({})
-    console.log(intraDayData)
 
     const normalizeData = (checkObj, closeObj, tickers) => {
         let countTickers = tickers.length
@@ -59,7 +59,7 @@ function DashboardPage() {
     if (!sessionUser) return null
     return (
         <div className="page-container">
-            <intradayDataContext.Provider value={this.intraDayData}>
+            <intradayDataContext.Provider value={intraDayData}>
                 <div className="modals-container">
                     <div className="purchaseModal">
                         <PurchaseModal />
@@ -75,7 +75,7 @@ function DashboardPage() {
                     {/* create piechart of each stock's total, updates every minute */}
                 </div>
                 <div className="listStocks">
-                    {/* list of stocks with mini chart & current prices */}
+                    <ListStocks />
                 </div>
             </intradayDataContext.Provider>
         </div>

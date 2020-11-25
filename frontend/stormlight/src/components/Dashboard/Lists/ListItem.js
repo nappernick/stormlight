@@ -1,13 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import LineGraph from './LineGraph';
 
-function ListItem() {
+function ListItem({ intraDayData }) {
     const stocks = useSelector(state => state.stocks)
-    
+    console.log(intraDayData)
     return (
         <div>
-            <h4></h4>
+            <h4>Hi</h4>
         </div>
     )
 }

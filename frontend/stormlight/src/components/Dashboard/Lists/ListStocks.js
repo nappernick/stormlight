@@ -1,13 +1,14 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { intradayDataContext } from "../DashboardPage"
+import ListItem from './ListItem'
 
 function ListStocks() {
-    const intraDay = useSelector(state => state.intraday)
     return (
         <div>
-            {intraDay.forEach(el => {
-                <ListItem />
-            })}
+            <intradayDataContext.Consumer>
+                {(value) => {
+                < ListItem intraDayData={value} />}}
+            </intradayDataContext.Consumer>
         </div>
     )
 }
