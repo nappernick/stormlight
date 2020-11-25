@@ -23,8 +23,10 @@ function ListStocks() {
             Object.assign(intradayObject, { [tick]: { ...Object.values(el)[0] } })
             return tick
         })
+        debugger
     }
     useEffect(() => {
+        debugger
         buildTickers()
     }, [stocks, intraday])
 
