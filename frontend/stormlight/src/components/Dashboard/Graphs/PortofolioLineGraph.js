@@ -6,9 +6,7 @@ import { intradayDataContext } from "../DashboardPage"
 function PortofolioLineGraph() {
     return (
         <div>
-            <intradayDataContext.Consumer>
-                {(value) => <LineGraph intraDayData={value} />}
-            </intradayDataContext.Consumer>
+            <LineGraph />
         </div>
     )
 }

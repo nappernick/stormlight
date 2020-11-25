@@ -30,7 +30,7 @@ function ListItem({ ticker, dailyData, toggle, setToggle }) {
 
         data.push(dailyData[key]["4. close"])
         labels.push(dailyData[key])
-        setToggle(!toggle)
+        // setToggle(!toggle)
     }
 
     const chartData = {
