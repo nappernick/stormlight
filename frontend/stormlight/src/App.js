@@ -8,6 +8,7 @@ import SignupFormPage from './components/SignupFormPage/SignupFormPage';
 import Navigation from './components/Navigation/Navigation';
 import DashboardPage from './components/Dashboard/DashboardPage';
 import { initializeStock } from './store/stocks';
+import { initializeIntraDay } from './store/intraday';
 
 function App() {
   const dispatch = useDispatch()
@@ -17,12 +18,15 @@ function App() {
   const [authLocation, setAuthLocation] = useState("login")
 
   useEffect(() => {
-    dispatch(sessionActions.restore())  
+    dispatch(sessionActions.restore())
       .then(() => dispatch(load()));
   }, [dispatch])
   useEffect(() => {
-    if (sessionUser) dispatch(initializeStock(sessionUser.id))
-  }, [sessionUser])
+    if (sessionUser) {
+      dispatch(initializeStock(sessionUser.id))
+      dispatch(initializeIntraDay(sessionUser.id))
+    }
+  }, [sessionUser, dispatch])
 
   if (!sessionUser && loaded) {
     history.push('/login')

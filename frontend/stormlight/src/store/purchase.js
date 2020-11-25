@@ -16,6 +16,8 @@ export const setPurchase = (ticker, numStock, buyPrice, userId) => {
 
 export const purchaseStock = (ticker, numStock, buyPrice, userId) => async (dispatch) => {
     console.log(ticker, numStock, buyPrice, userId)
+    // const currStocks = await fetch(`/api/stocks/${userId}`)
+    // for (let key in currStocks.data.stock) {}
     const data = JSON.stringify({ ticker, numStock, buyPrice, userId })
     const res = await fetch("/api/stocks", {
         method: "POST",
@@ -23,7 +25,6 @@ export const purchaseStock = (ticker, numStock, buyPrice, userId) => async (disp
     })
 
     if (!res.data.errors) dispatch(setPurchase(ticker, numStock, buyPrice, userId))
-    console.log(res.data.errors)
     return res
 }
 

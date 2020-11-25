@@ -7,9 +7,11 @@ import LineGraph from './LineGraph';
 
 function PortofolioLineGraph() {
     const stocks = useSelector(state => state.stock)
-    let stockObjLen = Object.values(stocks).length
-    const [intraDay, setIntraDay] = useState([])
-    const [loading, setLoading] = useState(true)
+    // let stockObjLen = Object.values(stocks).length
+    // const [intraDay, setIntraDay] = useState([])
+    const intraDay = useSelector(state => state.intraday)
+
+    // const [loading, setLoading] = useState(true)
     const [intraDayData, setIntraDayData] = useState({})
 
     const normalizeData = (checkObj, closeObj, tickers) => {
@@ -26,7 +28,8 @@ function PortofolioLineGraph() {
         let closeObj = {}
         let checkObj = {}
         let tickers = []
-        stockArr.forEach(ele => {
+
+        stockArr && stockArr.forEach(ele => {
             for (let key in ele) {
                 let ticker = key
                 if (!tickers.includes(ticker)) tickers.push(ticker)
@@ -40,73 +43,42 @@ function PortofolioLineGraph() {
                     if (checkObj[innerKey]) checkObj[innerKey]++
                     else checkObj[innerKey] = 1
                 }
+
             }
+
         })
         normalizeData(checkObj, closeObj, tickers)
-        if (Object.values(closeObj)) setIntraDayData(closeObj)
+        if (Object.values(closeObj)) return closeObj
 
     }
 
-    const getIntraDay = async (interval) => {
-        if (!interval) interval = "15min"
-        const stockObj = stocks
-        let stockArr = []
-        for (let ticker in stockObj) {
-            const res = await intraDayFetch(ticker, interval)
-            stockArr.push({ [ticker]: res[`Time Series (${interval})`] })
-        }
-        if (stockArr.length) setIntraDay(stockArr)
-    }
+    // const getIntraDay = async (interval) => {
+    //     if (!interval) interval = "15min"
+    //     const stockObj = stocks
+    //     let stockArr = []
+    //     for (let ticker in stockObj) {
+    //         const res = await intraDayFetch(ticker, interval)
+    //         stockArr.push({ [ticker]: res[`Time Series (${interval})`] })
+    //     }
+    //     if (stockArr.length) return stockArr
+    // }
 
+    // useEffect(() => {
+    //     async function updateIntraday() {
+    //         setIntraDay(await getIntraDay())
+    //     }
+    //     updateIntraday();
+    // }, [stocks])
     useEffect(() => {
-        if (stockObjLen) getIntraDay()
-    }, [stockObjLen])
-    useEffect(() => {
-        if (stockObjLen) getCloseData()
-    })
-    debugger
-    if (!stockObjLen && loading) return null
-    debugger
+        async function updateIntraDayData() { setIntraDayData(await getCloseData()) }
+        updateIntraDayData()
+    }, [stocks, intraDay])
+    
     return (
         <div>
-            <LineGraph stocks={stocks} intraDay={intraDay} intraDayData={intraDayData} />
+            <LineGraph intraDayData={intraDayData} />
         </div>
     )
 }
 
 export default PortofolioLineGraph
-
-
-// const [stocks, setStocks] = useState({})
-    // const getSetStocks = async () => {
-    //     const stocksFetch = await fetch(`/api/stocks/${userId}`)
-    //     if (stocksFetch.ok) {
-    //         let res = stocksFetch.data.stock
-    //         let obj = {}
-    //         for (let key in res) {
-    //             let ele = res[key]
-    //             let { ticker } = ele
-    //             Object.assign(obj, { [ticker]: { ...ele } })
-    //         }
-    //         setStocks(obj)
-    //     }
-
-    // }
-
-    // useEffect(() => {
-    //     getSetStocks();
-    // }, [])
-    // useEffect(() => {
-    //     getIntraDay();
-    // }, [])
-
-
-    // useEffect(() => {
-    //     getIntraDay();
-    //     if (Object.values(stocks)) setLoading(false);
-
-    // }, [stocks, getIntraDay])
-    // useEffect(() => {
-    //     getCloseData()
-    // }, [intraDay, getCloseData])
-    // let stocksArr = Object.values(stocks)

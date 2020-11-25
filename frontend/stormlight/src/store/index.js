@@ -2,14 +2,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux"
 import thunk from "redux-thunk"
 import sessionReducer from "./session"
 import loadedReducer from "./isLoaded"
-import purchaseReducer from "./purchase"
 import stockReducer from "./stocks"
+import intradayReducer from "./intraday"
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     loaded: loadedReducer,
-    purchase: purchaseReducer,
     stock: stockReducer,
+    intraday: intradayReducer,
 })
 
 let enhancer;

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { currentPrice } from "../../utils";
 import { purchaseStock } from "../../store/stocks"
 import "./PurchaseModal.css"
+import { fetch } from "../../store/csrf";
 
 function Purchase({ closeModal }) {
     const dispatch = useDispatch()
@@ -22,9 +23,12 @@ function Purchase({ closeModal }) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
+        let stocks = await fetch(`/api/stocks/${userId}`)
+        console.log(stocks.data.stock)
         dispatch(purchaseStock(ticker, parseInt(numStock, 10), buyPrice, userId))
+            .then((res) => console.log(res))
             .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-        if (!errors.length) closeModal()
+        // if (!errors.length) closeModal()
         // setTimeout(() => {if (!errors.length) closeModal()}, 500)
 
     }
