@@ -6,7 +6,6 @@ import "./Dashboard.css"
 import { createContext } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import styled from 'styled-components'
 import ListStocks from './Lists/ListStocks'
 
 export const intradayDataContext = createContext()
@@ -59,33 +58,20 @@ function DashboardPage() {
     }, [stocks, intraDay])
     if (!sessionUser) return null
 
-    const PageContainer = styled.div`
-    display: flex;
-    justify-content: space-around;
-    `
-
     return (
-        <PageContainer>
+        <div className="page-container">
             <intradayDataContext.Provider value={intraDayData}>
-                <div className="modals-container">
+                <div className="portofolioLineGraph">
                     <div className="purchaseModal">
                         <PurchaseModal />
                     </div>
-                    <div className="addFundsModal">
-                        {/* create table of acounts & in modal link to account creation */}
-                    </div>
-                </div>
-                <div className="portofolioLineGraph">
                     <PortofolioLineGraph />
-                </div>
-                <div className="portofolioPieChart">
-                    {/* create piechart of each stock's total, updates every minute */}
                 </div>
                 <div className="listStocks">
                     <ListStocks />
                 </div>
             </intradayDataContext.Provider>
-        </PageContainer>
+        </div>
     )
 }
 

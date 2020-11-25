@@ -1,4 +1,23 @@
-div.modals-container {
+div.portofolioLineGraph {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 700px;
+}
+
+div.graph-container {
+    width: 600px;
+    height: 600px;
+}
+
+div.page-container {
     display: flex;
     justify-content: space-around;
+}
+
+div.listStocks {
+    margin-right: 200px;
+    margin-top: 50px;
 }

@@ -28,7 +28,7 @@ function Purchase({ closeModal }) {
         dispatch(purchaseStock(ticker, parseInt(numStock, 10), buyPrice, userId))
             .then((res) => console.log(res))
             .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-        // if (!errors.length) closeModal()
+        if (!errors.length) closeModal()
         // setTimeout(() => {if (!errors.length) closeModal()}, 500)
 
     }
