@@ -15,7 +15,7 @@ function Purchase({ closeModal }) {
 
     const handleTickerChange = async (e) => {
         setTicker(e.target.value)
-        let price = await currentPrice(e.target.value)
+        let price = e.target.value ? await currentPrice(e.target.value) : "Loading..."
         // ! Setting the buy price to an old state value.. not sure why
         if (price) setBuyPrice(price.c)
     }

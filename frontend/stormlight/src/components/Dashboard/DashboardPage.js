@@ -6,6 +6,7 @@ import "./Dashboard.css"
 import { createContext } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import styled from 'styled-components'
 import ListStocks from './Lists/ListStocks'
 
 export const intradayDataContext = createContext()
@@ -57,8 +58,14 @@ function DashboardPage() {
         updateIntraDayData()
     }, [stocks, intraDay])
     if (!sessionUser) return null
+
+    const PageContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+    `
+
     return (
-        <div className="page-container">
+        <PageContainer>
             <intradayDataContext.Provider value={intraDayData}>
                 <div className="modals-container">
                     <div className="purchaseModal">
@@ -78,7 +85,7 @@ function DashboardPage() {
                     <ListStocks />
                 </div>
             </intradayDataContext.Provider>
-        </div>
+        </PageContainer>
     )
 }
 
