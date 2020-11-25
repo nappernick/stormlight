@@ -22,7 +22,7 @@ export const polygonApi = async (ticker) => {
     const date = new Date().getDate() - 1
     const month = new Date().getMonth() + 1
     const year = new Date().getFullYear()
-    let res = await fetch(`https://api.polygon.io/v1/open-close/${ticker}/${year + "-" + month + "-" + date}?apiKey=v7FUlIGFdi4wkuAjoXZWt1ZsxHPLr3Br`)
+    let res = await fetch(`https://api.polygon.io/v1/open-close/${ticker}/${year + "-" + month + "-" + date}?apiKey=`)
     let json = await res.json()
     console.log(json)
     return json
