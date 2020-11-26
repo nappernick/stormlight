@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Line } from "react-chartjs-2"
-import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
-function ListItem({ ticker, dailyData, toggle, setToggle }) {
-    console.log(toggle)
+function ListItem({ ticker }) {
+    const intraday = useSelector(state => state.intraday)
     const TickerDiv = styled.div`
     display: flex;
     justify-content: space-between;
@@ -20,17 +20,21 @@ function ListItem({ ticker, dailyData, toggle, setToggle }) {
     let labels = [];
     let recentDate = "2020-01-01 00:00:01";
     let buyPrice = 0
-    if (dailyData && Object.keys(dailyData)) for (let key in dailyData) {
+    let intradayObject = {};
+    if (intraday.length) intraday.flatMap(el => {
+        const tickerArr = Object.keys(el)
+        if (ticker === tickerArr[0]) Object.assign(intradayObject, { ...Object.values(el)[0] })
+        return
+    })
+    if (intradayObject && Object.keys(intradayObject)) for (let key in intradayObject) {
         if (key > recentDate) {
             recentDate = key;
-            let price
-            buyPrice = parseInt(dailyData[key]["4. close"], 10).toFixed(2)
+            buyPrice = parseInt(intradayObject[key]["4. close"], 10).toFixed(2)
         }
         recentDate = key > recentDate ? key : recentDate
 
-        data.push(dailyData[key]["4. close"])
-        labels.push(dailyData[key])
-        // setToggle(!toggle)
+        data.push(intradayObject[key]["4. close"])
+        labels.push(intradayObject[key])
     }
 
     const chartData = {
@@ -62,9 +66,6 @@ function ListItem({ ticker, dailyData, toggle, setToggle }) {
             }],
         },
     }
-
-    useEffect(() => {
-    }, [])
 
     return (
         <TickerDiv>
