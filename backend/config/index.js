@@ -11,4 +11,8 @@ module.exports = {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN,
   },
+  apiConfig: {
+    finnHubApi: process.env.FINHUB_API_KEY,
+    alphaApi: process.env.ALPHA_API_KEY,
+  }
 };
