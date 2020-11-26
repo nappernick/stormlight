@@ -12,7 +12,7 @@ export const setPurchase = (ticker, numStock, buyPrice, userId) => {
             userId,
         }
     }
-}
+} 
 
 export const purchaseStock = (ticker, numStock, buyPrice, userId) => async (dispatch) => {
     console.log(ticker, numStock, buyPrice, userId)

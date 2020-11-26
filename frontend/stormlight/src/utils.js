@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-// require('dotenv').config();
+require('dotenv').config();
 let finnHubApi = process.env.REACT_APP_FINHUB_API_KEY
 let alphaApi = process.env.REACT_APP_ALPHA_API_KEY
 // const daySeconds = 864000
@@ -18,15 +18,6 @@ export const intraDayFetch = async (ticker, interval) => {
     return json
 }
 
-export const polygonApi = async (ticker) => {
-    const date = new Date().getDate() - 1
-    const month = new Date().getMonth() + 1
-    const year = new Date().getFullYear()
-    let res = await fetch(`https://api.polygon.io/v1/open-close/${ticker}/${year + "-" + month + "-" + date}?apiKey=`)
-    let json = await res.json()
-    console.log(json)
-    return json
-}
 // export const dailyCandle = async (ticker) => {
 //     let currentTime = Math.round((new Date()).getTime() / 1000)
 //     let res = await fetch(`https://finnhub.io/api/v1/stock/candle?symbol=${ticker}&resolution=D&from=${currentTime - daySeconds}&to=${currentTime}&token=${api}`)
