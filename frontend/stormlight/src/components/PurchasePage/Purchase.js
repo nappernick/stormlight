@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { currentPrice } from "../../utils";
+import { currentPriceApi } from "../../utils";
 import { purchaseStock } from "../../store/stocks"
 import "./PurchaseModal.css"
 import { fetch } from "../../store/csrf";
@@ -16,9 +16,10 @@ function Purchase({ closeModal }) {
 
     const handleTickerChange = async (e) => {
         setTicker(e.target.value)
-        let price = e.target.value ? await currentPrice(e.target.value) : "Loading..."
+        let price = await currentPriceApi(e.target.value)
         // ! Setting the buy price to an old state value.. not sure why
-        if (price) setBuyPrice(price.c)
+        console.log(price)
+        if (price) setBuyPrice(price)
     }
 
     const handleSubmit = async (e) => {
@@ -58,7 +59,7 @@ function Purchase({ closeModal }) {
                         value={ticker}
                         onChange={handleTickerChange}
                     />
-                    <div className="buy-price">Current Buy Price: ${buyPrice.toFixed(2)}</div>
+                    <div className="buy-price">Current Buy Price: ${buyPrice.length === 0 ? 0 : buyPrice.toFixed(2)}</div>
                     <input
                         placeholder='Number of Shares to purchase'
                         value={numStock}

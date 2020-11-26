@@ -31,7 +31,7 @@ function App() {
   if (!sessionUser && loaded) {
     history.push('/login')
   } else {
-    <Redirect to="/dashboard" />
+    history.push('/dashboard')
   }
 
   if (!loaded) return null

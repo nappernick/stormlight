@@ -1,4 +1,4 @@
-import { intraDayFetch } from "../utils.js"
+import { intraDayFetch, intradayfetchapi } from "../utils.js"
 import { fetch } from "./csrf.js"
 
 const SET_INTRADAY = "stocks/setIntraDay"
@@ -17,8 +17,8 @@ export const addIntraDay = (userId, tickerr, interval) => async (dispatch) => {
     if (!res.data.errors) Object.values(stockObj).forEach(async (stock) => {
         const { ticker } = stock
         if (tickerr === ticker) {
-            const intraDay = await intraDayFetch(ticker, interval)
-            dispatch(setIntraDay({ [ticker]: intraDay[`Time Series (${interval})`] }))
+            const intraDay = await intradayfetchapi(ticker, interval)
+            dispatch(setIntraDay({ [ticker]: intraDay.data.stock[`Time Series (${interval})`] }))
         }
     })
 }
@@ -29,8 +29,8 @@ export const initializeIntraDay = (userId, interval) => async (dispatch) => {
     const stockObj = { ...Object.values(res.data["stock"]) }
     if (!res.data.errors) Object.values(stockObj).forEach(async (stock) => {
         const { ticker } = stock
-        const intraDay = await intraDayFetch(ticker, interval)
-        dispatch(setIntraDay({ [ticker]: intraDay[`Time Series (${interval})`] }))
+        const intraDay = await intradayfetchapi(ticker, interval)
+        dispatch(setIntraDay({ [ticker]: intraDay.data.stock[`Time Series (${interval})`] }))
     })
 }
 

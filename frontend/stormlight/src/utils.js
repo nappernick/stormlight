@@ -1,14 +1,16 @@
 import fetch from 'cross-fetch';
-require('dotenv').config();
+import { fetch as apiFetch } from "./store/csrf.js"
+// require('dotenv').config();
 let finnHubApi = process.env.REACT_APP_FINHUB_API_KEY
 let alphaApi = process.env.REACT_APP_ALPHA_API_KEY
 // const daySeconds = 864000
 
-export const currentPrice = async (ticker) => {
-    let res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${finnHubApi}`)
-    console.log(res)
-    let json = await res.json()
-    return json
+export const currentPriceApi = async (ticker) => {
+    let res = await apiFetch(`/api/stocks/${ticker}`)
+    let currentPrice = res.data.test.c
+    console.log(res.data.test.c)
+    return currentPrice;
+
 }
 
 export const intraDayFetch = async (ticker, interval) => {
@@ -17,6 +19,14 @@ export const intraDayFetch = async (ticker, interval) => {
     console.log(json)
     return json
 }
+
+export const intradayfetchapi = async (ticker, interval) => {
+    let res = await apiFetch(`/api/stocks/${interval}/${ticker}`)
+    // let json = await res.json()
+    console.log(res.data)
+    return res
+}
+
 
 // export const dailyCandle = async (ticker) => {
 //     let currentTime = Math.round((new Date()).getTime() / 1000)
