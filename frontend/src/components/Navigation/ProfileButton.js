@@ -12,6 +12,7 @@ function ProfileButton() {
 
     function onSelect() {
         dispatch(sessionActions.remove())
+        window.location.reload();
     }
 
     function onVisibleChange(visible) {

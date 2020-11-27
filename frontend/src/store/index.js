@@ -5,12 +5,40 @@ import loadedReducer from "./isLoaded"
 import stockReducer from "./stocks"
 import intradayReducer from "./intraday"
 
+// const USER_LOGOUT = "userLogout"
+
+// export const userLogout = () => {
+//     return {
+//         type: USER_LOGOUT,
+//     }
+// }
+
+// const appReducer = combineReducers({
+//     session: sessionReducer,
+//     loaded: loadedReducer,
+//     stock: stockReducer,
+//     intraday: intradayReducer,
+// })
+
 const rootReducer = combineReducers({
     session: sessionReducer,
     loaded: loadedReducer,
     stock: stockReducer,
     intraday: intradayReducer,
+
 })
+// const rootReducer = (state, action) => {
+//     if (action.type === 'USER_LOGOUT') {
+//         state = {
+//             session: { user: null },
+//             loaded: false,
+//             stock: {},
+//             intraday: [],
+//         }
+//     }
+
+//     return appReducer(state, action)
+// }
 
 let enhancer;
 

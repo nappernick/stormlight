@@ -37,7 +37,13 @@ export const initializeIntraDay = (userId, interval) => async (dispatch) => {
 const intradayReducer = (state = [], action) => {
     switch (action.type) {
         case SET_INTRADAY:
-            return [...state, action.payload]
+            let index = state.findIndex(el => Object.keys(el)[0] === Object.keys(action.payload)[0]);
+            // debugger
+            if (index == -1) {
+                // debugger
+                return [...state, action.payload];
+            }
+            return state
         default:
             return state
     }
