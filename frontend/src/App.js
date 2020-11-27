@@ -15,6 +15,7 @@ function App() {
   const history = useHistory()
   const loaded = useSelector(state => state.loaded.loaded)
   const sessionUser = useSelector(state => state.session.user)
+  const stocks = useSelector(state => state.stock)
   const [authLocation, setAuthLocation] = useState("login")
 
   useEffect(() => {
@@ -27,6 +28,9 @@ function App() {
       dispatch(initializeIntraDay(sessionUser.id))
     }
   }, [sessionUser])
+  useEffect(() => {
+    if (sessionUser) dispatch(initializeIntraDay(sessionUser.id))
+  }, [])
 
   if (!sessionUser && loaded) {
     history.push('/login')

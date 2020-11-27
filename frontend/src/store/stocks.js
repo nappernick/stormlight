@@ -1,5 +1,6 @@
 import { intraDayFetch } from "../utils.js"
 import { fetch } from "./csrf.js"
+import { addIntraDay } from "./intraday.js"
 
 const SET_STOCK = "stocks/setStock"
 
@@ -31,7 +32,10 @@ export const purchaseStock = (ticker, numStock, buyPrice, userId) => async (disp
         body: data
     })
 
-    if (!res.data.errors) dispatch(setStock(ticker, numStock, userId))
+    if (!res.data.errors) {
+        dispatch(setStock(ticker, numStock, userId))
+        dispatch(addIntraDay(userId, ticker))
+    }
     return res
 }
 
@@ -40,9 +44,9 @@ const stockReducer = (state = {}, action) => {
         case SET_STOCK:
             return {
                 ...state,
-                [action.payload.ticker]: action.payload, 
+                [action.payload.ticker]: action.payload,
             }
-            // return Object.assign(state, { [action.payload.ticker]: action.payload })
+        // return Object.assign(state, { [action.payload.ticker]: action.payload })
         // case SET_INTRADAY:
         //     return {
         //         ...state,

@@ -19,7 +19,7 @@ function ListItem({ ticker }) {
     let data = [];
     let labels = [];
     let recentDate = "2020-01-01 00:00:01";
-    let buyPrice = 0
+    let buyPrice = data.length ? 0 : "Loading..."
     let intradayObject = {};
     if (intraday.length) intraday.flatMap(el => {
         const tickerArr = Object.keys(el)
@@ -45,7 +45,7 @@ function ListItem({ ticker }) {
                 fill: false,
                 borderWidth: .5,
                 backgroundColor: "rgba(75,192,192,1)",
-                borderColor: "rgba(75,192,192,1)",
+                borderColor: "#AFC23F",
                 pointRadius: 0,
             }
         ]

@@ -4,12 +4,15 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import "./Graph.css"
 import { useSelector } from 'react-redux'
+import styled from "styled-components"
 
-function LineGraph() {
+function LineGraph({ setCurrValue }) {
     const stocks = useSelector(state => state.stock)
     const intraDay = useSelector(state => state.intraday)
     const [intraDayData, setIntraDayData] = useState({})
+    setCurrValue(Object.values(intraDayData)[0])
 
+    //Removing times from data set where API doesn't have data for all stocks
     const normalizeData = (checkObj, closeObj, tickers) => {
         let countTickers = tickers.length
         for (let key in checkObj) {
@@ -18,6 +21,7 @@ function LineGraph() {
         return closeObj
     }
 
+    // Building the close data object, which sets the intraDatData slice of state
     const getCloseData = async () => {
         let stockArr = intraDay
         let closeObj = {}
@@ -51,20 +55,47 @@ function LineGraph() {
         updateIntraDayData()
     }, [stocks, intraDay])
 
+
+    // Formatting the date & time labels
+    const formatAMPM = (date) => {
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        const strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+    }
+    const labelsRev = Object.keys(intraDayData).reverse()
+    const formattedLabels = labelsRev.map(label => {
+        const dateTimeFormatted = new Date(label + " UTC")
+        const dateString = dateTimeFormatted.toString()
+        const time = formatAMPM(dateTimeFormatted)
+        const dayMonth = dateString.slice(4, 10)
+        return `${dayMonth} at ${time}`
+    })
+
     const data = {
-        labels: Object.keys(intraDayData).reverse(),
+        labels: formattedLabels,
         datasets: [
             {
                 data: Object.values(intraDayData).reverse(),
                 fill: false,
-                backgroundColor: "rgba(75,192,192,0.2)",
-                borderColor: "rgba(75,192,192,1)"
+                backgroundColor: "rgba(32, 120, 121,0.2)",
+                borderColor: "#3399FF"
             },
         ]
     }
     const options = {
         legend: {
             display: false,
+            labels: {
+            },
+        },
+        bezierCurve: false,
+        tooltips: {
+            mode: 'index'
         },
         scales: {
             yAxes: [{
@@ -72,9 +103,17 @@ function LineGraph() {
                     // Include a dollar sign in the ticks
                     callback: function (value) {
                         return '$' + value;
-                    }
-                }
+                    },
+                    fontColor: "#215C8A",
+                    fontFamily: 'DM Sans',
+                },
+                gridLines: {
+                    color: "rgba(0, 0, 0, 0)",
+                },
             }],
+            xAxes: [{
+                display: false,
+            }]
         }
     }
     return (

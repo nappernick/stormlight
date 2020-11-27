@@ -39,8 +39,8 @@ router.get("/:ticker(\\w+)$", asyncHandler(async (req, res) => {
     })
 }))
 
-router.get("/:interval(\\d{0,2})(\\w+)/:ticker(\\w+)$", asyncHandler(async(req, res) => {
-    const {interval, ticker} = req.params;
+router.get("/:interval(\\d{0,2})(\\w+)/:ticker(\\w+)$", asyncHandler(async (req, res) => {
+    const { interval, ticker } = req.params;
     let rez = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=${interval}min&outputsize=compact&apikey=${alphaApi}`)
     let stock = await rez.json()
     return res.json({

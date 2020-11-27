@@ -10,14 +10,11 @@ function DashboardPage() {
     const sessionUser = useSelector(state => state.session.user)
     
     if (!sessionUser) return null
-
+ 
     return (
         <div className="page-container">
                 <div className="portofolioLineGraph">
-                    <div className="purchaseModal">
-                        <PurchaseModal />
-                    </div>
-                    <PortofolioLineGraph />
+                    <PortofolioLineGraph user={sessionUser}/>
                 </div>
                 <div className="listStocks">
                     <ListStocks />

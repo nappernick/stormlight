@@ -8,7 +8,7 @@ div.nav-container {
     left: 0;
     right: 0;
     border-bottom: 1px solid lightgray;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 div.home-icon, .profile-icon {
@@ -30,7 +30,7 @@ div.home-icon {
 }
 
 a, .profile-icon {
-    margin-right: 105px;
+    margin-right: 80px;
 }
 
 .profile-drop {
@@ -55,4 +55,3 @@ li {
 .logout {
     cursor: pointer;
 }
-

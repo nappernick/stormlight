@@ -18,15 +18,12 @@ function Purchase({ closeModal }) {
         setTicker(e.target.value)
         let price = await currentPriceApi(e.target.value)
         // ! Setting the buy price to an old state value.. not sure why
-        console.log(price)
         if (price) setBuyPrice(price)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
-        let stocks = await fetch(`/api/stocks/${userId}`)
-        console.log(stocks.data.stock)
         dispatch(purchaseStock(ticker, parseInt(numStock, 10), buyPrice, userId))
             .then((res) => console.log(res))
             .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });

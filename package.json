@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/nappernick/stormlight/issues"
   },
-  "homepage": "https://github.com/nappernick/stormlight#readme"
+  "homepage": "https://github.com/nappernick/stormlight#readme",
+  "dependencies": {
+    "react-number-format": "^4.4.1"
+  }
 }
