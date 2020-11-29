@@ -31,7 +31,7 @@ function ProfileButton() {
         <div>
             {/* <button className="profile-icon" onClick={toggleMenu}> */}
             <Dropdown
-                trigger={['click']}
+                trigger={['hover']}
                 overlay={menuCallback}
                 animation="slide-up"
                 onVisibleChange={onVisibleChange}

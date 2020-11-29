@@ -11,7 +11,7 @@ div.portofolioLineGraph {
 div.graph-container {
     width: 600px;
     height: 490px;
-    box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px;
+    /* box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px; */
     font-family: 'Amiko', sans-serif;
     padding-left: 30px;
     padding-right: 50px;

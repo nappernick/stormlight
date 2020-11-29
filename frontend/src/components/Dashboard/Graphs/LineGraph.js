@@ -95,7 +95,7 @@ function LineGraph({ setCurrValue }) {
         },
         bezierCurve: false,
         tooltips: {
-            mode: 'index'
+            mode: 'x'
         },
         scales: {
             yAxes: [{
@@ -112,7 +112,7 @@ function LineGraph({ setCurrValue }) {
                 },
             }],
             xAxes: [{
-                display: false,
+                // display: false,
             }]
         }
     }

@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/nappernick/stormlight#readme",
   "dependencies": {
+    "lodash": "^4.17.20",
     "react-number-format": "^4.4.1"
   }
 }

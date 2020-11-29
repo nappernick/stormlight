@@ -3,12 +3,17 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
+import { setIntraDay } from '../../../store/intraday';
 import PurchaseModal from '../../PurchasePage/PurchaseModal';
 import ListItem from './ListItem'
 
 function ListStocks() {
     const stocks = useSelector(state => state.stock)
     const intraday = useSelector(state => state.intraday)
+    const [stocksLen, setStocksLen] = useState(0)
+    const [stocksTickerArr, setStocksTickerArr] = useState([])
+    const [intradayLen, setIntradayLen] = useState(0)
+
 
     const ListContainer = styled.div`
     display: flex;
@@ -30,18 +35,22 @@ function ListStocks() {
     const HorizontalLine = styled.hr`
     width: 200px
     `
-
     const PurchaseModalDiv = styled.div`
     margin-top: 15px;
     `
+    useEffect(() => {
+        setStocksLen(Object.values(stocks).length)
+        setStocksTickerArr(Object.keys(stocks))
+        setIntradayLen(intraday.length)
+    }, [stocks, intraday])
     return (
         <ListContainer>
             <ListHeader>Current Portfolio Stock Data</ListHeader>
             <HorizontalLine />
-            {Object.values(stocks).length && Object.values(stocks) && intraday.length && Object.keys(stocks).map((el) => {
-                return <li key={el}><ListItem ticker={el} /></li>
+            {stocksLen && Object.values(stocks) && intradayLen && stocksTickerArr.map((el) => {
+                return <li key={el}><ListItem ticker={el} test={intradayLen} /></li>
             }) || ""}
-            {Object.values(stocks).length === 0 && "Buy a stock!"}
+            {stocksLen === 0 && "Buy a stock!"}
 
             <PurchaseModalDiv>
                 <PurchaseModal />

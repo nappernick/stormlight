@@ -1,8 +1,10 @@
 import { intraDayFetch } from "../utils.js"
 import { fetch } from "./csrf.js"
 import { addIntraDay } from "./intraday.js"
+import { omit } from "lodash"
 
 const SET_STOCK = "stocks/setStock"
+const UNSET_STOCK = "stocks/unSetStock"
 
 export const setStock = (ticker, numStock, userId) => {
     return {
@@ -12,6 +14,13 @@ export const setStock = (ticker, numStock, userId) => {
             numStock,
             userId,
         }
+    }
+}
+
+export const unsetStock = (ticker) => {
+    return {
+        type: UNSET_STOCK,
+        payload: ticker,
     }
 }
 
@@ -46,16 +55,8 @@ const stockReducer = (state = {}, action) => {
                 ...state,
                 [action.payload.ticker]: action.payload,
             }
-        // return Object.assign(state, { [action.payload.ticker]: action.payload })
-        // case SET_INTRADAY:
-        //     return {
-        //         ...state,
-        //         intraday: {
-        //             ...state.intraday,
-        //             action.payload
-        //         }
-        //     }
-        //     return Object.assign(state.intraday, { action.payload })
+        case UNSET_STOCK:
+            return omit(state, action.payload)
         default:
             return state
     }

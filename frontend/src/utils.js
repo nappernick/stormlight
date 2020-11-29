@@ -7,8 +7,8 @@ let alphaApi = process.env.REACT_APP_ALPHA_API_KEY
 
 export const currentPriceApi = async (ticker) => {
     let res = await apiFetch(`/api/stocks/${ticker}`)
-    let currentPrice = res.data.test.c
-    console.log(res.data.test.c)
+    if (!res.data.test) res = await apiFetch(`/api/stocks/${ticker}`)
+    let currentPrice = res.data.test ? res.data.test.c : new Error("Could not find that stock. Reload the page & try again.")
     return currentPrice;
 
 }
@@ -16,14 +16,12 @@ export const currentPriceApi = async (ticker) => {
 export const intraDayFetch = async (ticker, interval) => {
     let res = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=${interval}&outputsize=compact&apikey=${alphaApi}`)
     let json = await res.json()
-    console.log(json)
+    // console.log(json)
     return json
 }
 
 export const intradayfetchapi = async (ticker, interval) => {
     let res = await apiFetch(`/api/stocks/${interval}/${ticker}`)
-    // let json = await res.json()
-    console.log(res.data)
     return res
 }
 

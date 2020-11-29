@@ -1,10 +1,33 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Line } from "react-chartjs-2"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import Dropdown from 'rc-dropdown';
+import Menu, { Item as MenuItem } from 'rc-menu';
+import { removeIntraDay } from '../../../store/intraday';
 
 function ListItem({ ticker }) {
+    const dispatch = useDispatch()
+    const userId = useSelector(state => state.session.user.id)
     const intraday = useSelector(state => state.intraday)
+
+    // Sell stock dropdown on hover functions
+    function onSelect() {
+        dispatch(removeIntraDay(userId, ticker))
+    }
+
+    function onVisibleChange(visible) {
+        console.log(visible);
+    }
+
+    const menuCallback = () => (
+        <Menu onSelect={onSelect}>
+            <MenuItem style={{ cursor: "pointer" }} key="2">{`Sell ${ticker}?`}</MenuItem>
+        </Menu>
+    );
+
+
+    // Styled components
     const TickerDiv = styled.div`
     display: flex;
     justify-content: space-between;
@@ -14,6 +37,9 @@ function ListItem({ ticker }) {
     const ChartDiv = styled.div`
     height: 50px;
     width: 50px;
+    `
+    const buyPriceHFour = styled.h4`
+
     `
     //* Build the array of data for chart:
     let data = [];
@@ -73,7 +99,14 @@ function ListItem({ ticker }) {
             <ChartDiv>
                 <Line data={chartData} options={options} height={250} width={250} />
             </ChartDiv>
-            <h4>${buyPrice}</h4>
+            <Dropdown
+                trigger={['hover']}
+                overlay={menuCallback}
+                animation="slide-up"
+                onVisibleChange={onVisibleChange}
+            >
+                <buyPriceHFour>${buyPrice}</buyPriceHFour>
+            </Dropdown>
         </TickerDiv>
     )
 }

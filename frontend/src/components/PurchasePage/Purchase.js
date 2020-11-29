@@ -56,7 +56,7 @@ function Purchase({ closeModal }) {
                         value={ticker}
                         onChange={handleTickerChange}
                     />
-                    <div className="buy-price">Current Buy Price: ${buyPrice.length === 0 ? 0 : buyPrice.toFixed(2)}</div>
+                    <div className="buy-price">Current Buy Price: ${buyPrice.length === 0 || ticker.length === 0 ? 0 : buyPrice.toFixed(2)}</div>
                     <input
                         placeholder='Number of Shares to purchase'
                         value={numStock}
@@ -67,7 +67,7 @@ function Purchase({ closeModal }) {
                         type="submit"
                     >
                         {numStock && buyPrice ?
-                            `$${(numStock * buyPrice).toFixed(2)}` :
+                            `$${numStock && buyPrice ? (numStock * buyPrice).toFixed(2) : 0}` :
                             'Purchase'
                         }
                     </button>

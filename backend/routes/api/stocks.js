@@ -22,6 +22,21 @@ router.post("/", asyncHandler(async (req, res, next) => {
 })
 )
 
+router.delete('/:id([0-9]+)/:ticker(\\w+)$', asyncHandler(async (req, res) => {
+    const { ticker, id } = req.params;
+    const toDelete = await Stock.findOne({
+        where: {
+            userId: id,
+            ticker
+        }
+    })
+    await Stock.destroy({
+        where: {
+            id: toDelete.dataValues.id
+        }
+    })
+}))
+
 router.get('/:id([0-9]+)', asyncHandler(async (req, res, next) => {
     const { id } = req.params
     const stock = await Stock.findAll({ where: { userId: id } })

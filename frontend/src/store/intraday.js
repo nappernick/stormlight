@@ -1,13 +1,34 @@
-import { intraDayFetch, intradayfetchapi } from "../utils.js"
+import { intradayfetchapi } from "../utils.js"
 import { fetch } from "./csrf.js"
+import { unsetStock } from "./stocks.js"
 
 const SET_INTRADAY = "stocks/setIntraDay"
+const UNSET_INTRADAY = "stocks/removeIntraDay"
 
 export const setIntraDay = (intraDayArray) => {
     return {
         type: SET_INTRADAY,
         payload: intraDayArray,
     }
+}
+
+export const unsetIntraDay = (ticker) => {
+    return {
+        type: UNSET_INTRADAY,
+        payload: ticker,
+    }
+}
+
+export const removeIntraDay = (userId, ticker) => async (dispatch) => {
+    dispatch(unsetIntraDay(ticker))
+    dispatch(unsetStock(ticker))
+    await fetch(`api/stocks/${userId}/${ticker}`, {
+        method: "DELETE",
+    })
+    // if (res.data.errors) window.alert("Couldn't sell that stock - reload the page & try again.")
+    // else {
+
+    // }
 }
 
 export const addIntraDay = (userId, tickerr, interval) => async (dispatch) => {
@@ -37,13 +58,19 @@ export const initializeIntraDay = (userId, interval) => async (dispatch) => {
 const intradayReducer = (state = [], action) => {
     switch (action.type) {
         case SET_INTRADAY:
-            let index = state.findIndex(el => Object.keys(el)[0] === Object.keys(action.payload)[0]);
+            let setIndex = state.findIndex(el => Object.keys(el)[0] === Object.keys(action.payload)[0]);
             // debugger
-            if (index == -1) {
+            if (setIndex === -1) {
                 // debugger
                 return [...state, action.payload];
             }
             return state
+        case UNSET_INTRADAY:
+            let unsetIndex = state.findIndex(el => Object.keys(el)[0] === action.payload);
+            return [
+                ...state.slice(0, unsetIndex),
+                ...state.slice(unsetIndex + 1)
+            ]
         default:
             return state
     }
