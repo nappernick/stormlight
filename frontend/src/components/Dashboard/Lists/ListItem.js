@@ -11,13 +11,9 @@ function ListItem({ ticker }) {
     const userId = useSelector(state => state.session.user.id)
     const intraday = useSelector(state => state.intraday)
 
-    // Sell stock dropdown on hover functions
+    //* Sell stock dropdown on hover functions
     function onSelect() {
         dispatch(removeIntraDay(userId, ticker))
-    }
-
-    function onVisibleChange(visible) {
-        console.log(visible);
     }
 
     const menuCallback = () => (
@@ -27,7 +23,7 @@ function ListItem({ ticker }) {
     );
 
 
-    // Styled components
+    //* Styled components
     const TickerDiv = styled.div`
     display: flex;
     justify-content: space-between;
@@ -63,6 +59,7 @@ function ListItem({ ticker }) {
         labels.push(intradayObject[key])
     }
 
+    //* Build chart data
     const chartData = {
         labels: labels,
         datasets: [
@@ -103,7 +100,6 @@ function ListItem({ ticker }) {
                 trigger={['hover']}
                 overlay={menuCallback}
                 animation="slide-up"
-                onVisibleChange={onVisibleChange}
             >
                 <buyPriceHFour>${buyPrice}</buyPriceHFour>
             </Dropdown>

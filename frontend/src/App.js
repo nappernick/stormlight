@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Route, Switch, useHistory } from "react-router-dom"
+import { Route, Switch, useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import * as sessionActions from "./store/session"
 import { load } from "./store/isLoaded"
@@ -15,7 +15,6 @@ function App() {
   const history = useHistory()
   const loaded = useSelector(state => state.loaded.loaded)
   const sessionUser = useSelector(state => state.session.user)
-  const stocks = useSelector(state => state.stock)
   const [authLocation, setAuthLocation] = useState("login")
 
   useEffect(() => {
@@ -27,7 +26,7 @@ function App() {
       dispatch(initializeStock(sessionUser.id))
       dispatch(initializeIntraDay(sessionUser.id))
     }
-  }, [sessionUser])
+  }, [sessionUser, dispatch])
   useEffect(() => {
     if (sessionUser) dispatch(initializeIntraDay(sessionUser.id))
   }, [])

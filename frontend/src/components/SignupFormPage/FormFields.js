@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from "react-redux"
 import * as sessionActions from "../../store/session"
-// import { Redirect } from 'react-router-dom'
 import "./SignupFormPage.css"
 
 function FormFields({ setErrors }) {
@@ -10,11 +9,9 @@ function FormFields({ setErrors }) {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [email, setEmail] = useState('')
-    // const sessionUser = useSelector(state => state.session.user)
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("got here")
         if (password === confirmPassword) {
             setErrors([])
             dispatch(sessionActions.signup(
@@ -50,7 +47,7 @@ function FormFields({ setErrors }) {
                 </div>
                 <div className="input">
                     <input
-                        type="text"
+                        type="password"
                         value={password}
                         name='password'
                         placeholder='A strong password (min 6 characters)'

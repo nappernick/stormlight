@@ -25,10 +25,6 @@ export const removeIntraDay = (userId, ticker) => async (dispatch) => {
     await fetch(`api/stocks/${userId}/${ticker}`, {
         method: "DELETE",
     })
-    // if (res.data.errors) window.alert("Couldn't sell that stock - reload the page & try again.")
-    // else {
-
-    // }
 }
 
 export const addIntraDay = (userId, tickerr, interval) => async (dispatch) => {
@@ -59,9 +55,7 @@ const intradayReducer = (state = [], action) => {
     switch (action.type) {
         case SET_INTRADAY:
             let setIndex = state.findIndex(el => Object.keys(el)[0] === Object.keys(action.payload)[0]);
-            // debugger
             if (setIndex === -1) {
-                // debugger
                 return [...state, action.payload];
             }
             return state

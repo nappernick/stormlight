@@ -25,10 +25,8 @@ function Purchase({ closeModal }) {
         e.preventDefault()
         setErrors([])
         dispatch(purchaseStock(ticker, parseInt(numStock, 10), buyPrice, userId))
-            .then((res) => console.log(res))
             .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
         dispatch(addIntraDay(userId, ticker))
-            .then((res) => console.log(res))
             .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
         if (!errors.length) closeModal()
         // setTimeout(() => {if (!errors.length) closeModal()}, 500)

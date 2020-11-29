@@ -1,9 +1,7 @@
 import fetch from 'cross-fetch';
 import { fetch as apiFetch } from "./store/csrf.js"
-// require('dotenv').config();
 let finnHubApi = process.env.REACT_APP_FINHUB_API_KEY
 let alphaApi = process.env.REACT_APP_ALPHA_API_KEY
-// const daySeconds = 864000
 
 export const currentPriceApi = async (ticker) => {
     let res = await apiFetch(`/api/stocks/${ticker}`)
@@ -16,7 +14,6 @@ export const currentPriceApi = async (ticker) => {
 export const intraDayFetch = async (ticker, interval) => {
     let res = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=${interval}&outputsize=compact&apikey=${alphaApi}`)
     let json = await res.json()
-    // console.log(json)
     return json
 }
 

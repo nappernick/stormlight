@@ -6,20 +6,8 @@ import "./Navigation.css"
 import AuthLink from './AuthLink';
 
 function Navigation({ authLocation, setAuthLocation }) {
-    // const isLoaded = useSelector(state => state.loaded.loaded)
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
-    // const [authLocation, setAuthLocation] = useState(history.location.pathname)
-
-    // useEffect(() => {
-    //     // console.log("here", authLocation)
-    //     setAuthLocation(history.location.pathname)
-    //     // if (sessionUser) {
-    //     //     sessionLinks = <ProfileButton user={sessionUser} />
-    //     // } else {
-    //     //     sessionLinks = <AuthLink location={authLocation === "/signup" ? "login" : "signup"} />
-    //     // }
-    // }, [history.location.pathname])
 
     const handleClick = (e) => {
         if (!sessionUser) {

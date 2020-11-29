@@ -15,10 +15,6 @@ function ProfileButton() {
         window.location.reload();
     }
 
-    function onVisibleChange(visible) {
-        console.log(visible);
-    }
-
     const menuCallback = () => (
         <Menu onSelect={onSelect}>
             <MenuItem disabled>{sessionUser.username}</MenuItem>
@@ -34,7 +30,6 @@ function ProfileButton() {
                 trigger={['hover']}
                 overlay={menuCallback}
                 animation="slide-up"
-                onVisibleChange={onVisibleChange}
             >
                 <button className="profile-icon" style={{ width: 100 }}>
                     <i className="fas fa-user-circle"></i>
