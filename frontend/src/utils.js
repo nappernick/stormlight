@@ -1,7 +1,5 @@
 import fetch from 'cross-fetch';
 import { fetch as apiFetch } from "./store/csrf.js"
-let finnHubApi = process.env.REACT_APP_FINHUB_API_KEY
-let alphaApi = process.env.REACT_APP_ALPHA_API_KEY
 
 export const currentPriceApi = async (ticker) => {
     let res = await apiFetch(`/api/stocks/${ticker}`)

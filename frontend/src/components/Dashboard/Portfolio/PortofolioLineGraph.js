@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { Switch, Route, NavLink, useHistory } from "react-router-dom"
 import LineGraph from './LineGraph';
 import NumberFormat from 'react-number-format';

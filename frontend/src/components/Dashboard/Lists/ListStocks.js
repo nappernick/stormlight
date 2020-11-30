@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { setIntraDay } from '../../../store/intraday';
 import PurchaseModal from '../../PurchasePage/PurchaseModal';
 import ListItem from './ListItem'
 

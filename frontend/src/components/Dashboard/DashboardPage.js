@@ -1,6 +1,5 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import PurchaseModal from '../PurchasePage/PurchaseModal'
 import PortofolioLineGraph from './Portfolio/PortofolioLineGraph'
 import "./Dashboard.css"
 import ListStocks from './Lists/ListStocks'
