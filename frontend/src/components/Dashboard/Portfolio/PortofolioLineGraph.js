@@ -16,7 +16,7 @@ function PortofolioLineGraph({ user }) {
     font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 22pt;
-    color: #215C8A;
+    color: rgb(0, 78, 171);
     margin-top: 0px;
     margin-left: 20px;
     margin-bottom: 10px;
