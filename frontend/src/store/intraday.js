@@ -89,7 +89,7 @@ const intradayReducer = (state = [], action) => {
             let matchIdx = indexOf(state, find(state, action.payload.ticker))
             if (matchIdx) return [
                 ...state.slice(0, matchIdx),
-                action.payload.data,
+                { [action.payload.ticker]: action.payload.data },
                 ...state.slice(matchIdx + 1)
             ]
             return state

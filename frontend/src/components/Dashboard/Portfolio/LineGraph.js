@@ -11,9 +11,22 @@ function LineGraph() {
     const stocks = useSelector(state => state.stock)
     const intraDay = useSelector(state => state.intraday)
     const intraDayData = useSelector(state => state.intradayData)
+    const [numOfStocks, setNumOfStocks] = useState({})
     useEffect(() => {
-        dispatch(createIntradaData(intraDay, stocks))
-    }, [dispatch, stocks, intraDay])
+        dispatch(createIntradaData(intraDay, numOfStocks))
+    }, [dispatch, intraDay])
+
+    useEffect(() => {
+        for (let stock in stocks) {
+            let ele = stocks[stock]
+            let ticker = ele["ticker"]
+            let numStocks = ele["numStock"]
+            setNumOfStocks({
+                ...numOfStocks,
+                [ticker]: numStocks,
+            })
+        }
+    }, [stocks, setNumOfStocks])
 
 
     // Formatting the date & time labels
