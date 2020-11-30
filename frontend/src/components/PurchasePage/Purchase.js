@@ -1,36 +1,48 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { currentPriceApi } from "../../utils";
-import { purchaseStock } from "../../store/stocks"
+import { purchaseStock, updateStockNum } from "../../store/stocks"
 import "./PurchaseModal.css"
-import { fetch } from "../../store/csrf";
-import { addIntraDay } from "../../store/intraday";
+import { addIntraDay, updateDataForIntraday } from "../../store/intraday";
 
 function Purchase({ closeModal }) {
     const dispatch = useDispatch()
     const userId = useSelector(state => state.session.user.id)
+    const stocks = useSelector(state => state.stock)
     const [ticker, setTicker] = useState('')
     const [buyPrice, setBuyPrice] = useState(0)
     const [numStock, setNumStock] = useState('')
     const [errors, setErrors] = useState([])
 
     const handleTickerChange = async (e) => {
-        setTicker(e.target.value)
-        let price = await currentPriceApi(e.target.value)
-        // ! Setting the buy price to an old state value.. not sure why
-        if (price) setBuyPrice(price)
+        setTicker(e.target.value.toUpperCase())
+        setErrors([])
+        let price
+        if (e.target.value.length) {
+            try {
+                price = await currentPriceApi(e.target.value.toUpperCase())
+            } catch (error) {
+                setErrors(["You must enter a valid ticker"])
+            }
+        }
+        if (parseFloat(e.target.value)) setErrors(["You must enter a valid ticker"])
+        if (price && !errors.length) setBuyPrice(price)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
-        dispatch(purchaseStock(ticker, parseInt(numStock, 10), buyPrice, userId))
-            .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-        dispatch(addIntraDay(userId, ticker))
-            .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-        if (!errors.length) closeModal()
-        // setTimeout(() => {if (!errors.length) closeModal()}, 500)
-
+        if (!stocks[ticker]) {
+            dispatch(purchaseStock(ticker, parseInt(numStock, 10), buyPrice, userId))
+                .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
+            dispatch(addIntraDay(userId, ticker))
+                .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
+            if (!errors.length) closeModal()
+        } else {
+            dispatch(updateStockNum(ticker, numStock, buyPrice, userId))
+                .then(() => dispatch(updateDataForIntraday(ticker, userId)))
+                // .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
+        }
     }
 
     const handleNumStockChange = (e) => setNumStock(e.target.value)

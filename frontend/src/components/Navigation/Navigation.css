@@ -8,22 +8,16 @@ div.nav-container {
     left: 0;
     right: 0;
     border-bottom: 1px solid lightgray;
-    padding-bottom: 5px;
 }
 
 div.home-icon, .profile-icon {
     font-size: 20pt;
     background-color: white;
-    color: dodgerblue;
+    color: rgb(0, 78, 171);
     border: slategray;
     border-radius: 10%;
 }
 
-a {
-    font-size: 12pt;
-    color: dodgerblue;
-    text-decoration: none;
-}
 
 div.home-icon {
     margin-left: 80px;

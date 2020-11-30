@@ -22,11 +22,23 @@ router.post("/", asyncHandler(async (req, res, next) => {
 })
 )
 
-router.delete('/:id([0-9]+)/:ticker(\\w+)$', asyncHandler(async (req, res) => {
-    const { ticker, id } = req.params;
+router.put('/:userId([0-9]+)', asyncHandler(async (req, res, next) => {
+    const { userId } = req.params
+    const { ticker, numStock, buyPrice } = req.body
+    const stock = await Stock.findOne({ where: { userId, ticker } })
+    stock.numStock += parseFloat(numStock)
+    stock.buyPrice = buyPrice
+    await stock.save();
+    return res.json({
+        stock,
+    })
+}))
+
+router.delete('/:userId([0-9]+)/:ticker(\\w+)$', asyncHandler(async (req, res) => {
+    const { ticker, userId } = req.params;
     const toDelete = await Stock.findOne({
         where: {
-            userId: id,
+            userId,
             ticker
         }
     })

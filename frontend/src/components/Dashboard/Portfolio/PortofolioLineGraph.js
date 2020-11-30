@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
+import { Switch, Route, NavLink, useHistory } from "react-router-dom"
 import LineGraph from './LineGraph';
 import NumberFormat from 'react-number-format';
 import styled from "styled-components"
+import { useSelector } from 'react-redux';
+import PieChart from './PieChart';
 
 
 function PortofolioLineGraph({ user }) {
-    const [currValue, setCurrValue] = useState("0")
+    const history = useHistory()
+    const intraDayData = useSelector(state => state.intradayData)
     const PortfolioValue = styled.h2`
     display: flex;
+    justify-content: space-between;
     font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 22pt;
@@ -19,10 +24,17 @@ function PortofolioLineGraph({ user }) {
     return (
         <div>
             <PortfolioValue>
-                <div>{`Current Portfolio Value: `}</div>
-                <NumberFormat style={{ marginLeft: '20px' }} value={currValue} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                <div className="headerContainer">
+                    <div>{`Portfolio Value: `}</div>
+                    <NumberFormat style={{ marginLeft: '20px' }} value={Object.values(intraDayData)[0]} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                </div>
+                {history.location.pathname !== "/dashboard" && <NavLink to="/dashboard" className="chart-button override">Line Graph</NavLink>}
+                {history.location.pathname === "/dashboard" && <NavLink to="/dashboard/pie" className="chart-button override">Pie Graph</NavLink>}
             </PortfolioValue>
-            <LineGraph setCurrValue={setCurrValue} currValue={currValue} />
+            <Switch>
+                <Route exact path="/dashboard" component={LineGraph} />
+                <Route path="/dashboard/pie" component={PieChart} />
+            </Switch>
         </div>
     )
 }

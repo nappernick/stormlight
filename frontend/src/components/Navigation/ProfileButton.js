@@ -32,7 +32,7 @@ function ProfileButton() {
                 animation="slide-up"
             >
                 <button className="profile-icon" style={{ width: 100 }}>
-                    <i className="fas fa-user-circle"></i>
+                    <i className="fas fa-user-circle  fa-lg"></i>
                 </button>
             </Dropdown>
             {/* {menu && (

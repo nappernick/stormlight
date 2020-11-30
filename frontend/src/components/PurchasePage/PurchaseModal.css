@@ -32,3 +32,9 @@ button.modal-button {
     justify-self: center;
     align-self: center;
 }
+
+ul,
+ul > li {
+    margin-right: 25px;
+    color: red;
+}

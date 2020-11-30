@@ -4,14 +4,41 @@ div.portofolioLineGraph {
     justify-content: center;
     align-items: center;
     width: 70%;
-    height: 700px;
+    height: 690px;
     margin-right: 10px;
 }
 
 div.graph-container {
     width: 600px;
-    height: 490px;
-    /* box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px; */
+    height: 500px;
+    box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px;
+    font-family: 'Amiko', sans-serif;
+    padding-left: 30px;
+    padding-right: 50px;
+    padding-bottom: 30px;
+    padding-top: 20px;
+    margin-bottom: 70px;
+}
+
+
+a {
+    font-size: 12pt;
+    color: dodgerblue;
+    text-decoration: none;
+}
+
+a.chart-button.override {
+    margin-right: 15px;
+    align-self: center;
+}
+div.headerContainer {
+    display: flex;
+}
+
+div.pie-container {
+    width: 600px;
+    height: 500px;
+    box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px;
     font-family: 'Amiko', sans-serif;
     padding-left: 30px;
     padding-right: 50px;

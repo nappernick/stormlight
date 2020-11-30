@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import logo from "../../Assets/stormlight.png"
 import "./Navigation.css"
 import AuthLink from './AuthLink';
 
@@ -23,7 +24,7 @@ function Navigation({ authLocation, setAuthLocation }) {
         <>
             <div className="nav-container">
                 <div className="home-icon" onClick={handleClick}>
-                    <i className="fas fa-home"></i>
+                    <img src={logo} height="60px" alt="Stormlight logo" />
                 </div>
                 {sessionUser ?
                     <ProfileButton user={sessionUser} /> :

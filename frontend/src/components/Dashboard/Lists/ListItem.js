@@ -34,7 +34,7 @@ function ListItem({ ticker }) {
     height: 50px;
     width: 50px;
     `
-    const buyPriceHFour = styled.h4`
+    const BuyPriceHFour = styled.h4`
 
     `
     //* Build the array of data for chart:
@@ -46,12 +46,12 @@ function ListItem({ ticker }) {
     if (intraday.length) intraday.flatMap(el => {
         const tickerArr = Object.keys(el)
         if (ticker === tickerArr[0]) Object.assign(intradayObject, { ...Object.values(el)[0] })
-        return
+        return null
     })
     if (intradayObject && Object.keys(intradayObject)) for (let key in intradayObject) {
         if (key > recentDate) {
             recentDate = key;
-            buyPrice = parseInt(intradayObject[key]["4. close"], 10).toFixed(2)
+            buyPrice = parseFloat(intradayObject[key]["4. close"]).toFixed(2)
         }
         recentDate = key > recentDate ? key : recentDate
 
@@ -64,7 +64,7 @@ function ListItem({ ticker }) {
         labels: labels,
         datasets: [
             {
-                data: data,
+                data: data.reverse(),
                 fill: false,
                 borderWidth: .5,
                 backgroundColor: "rgba(75,192,192,1)",
@@ -101,7 +101,7 @@ function ListItem({ ticker }) {
                 overlay={menuCallback}
                 animation="slide-up"
             >
-                <buyPriceHFour>${buyPrice}</buyPriceHFour>
+                <BuyPriceHFour>${buyPrice}</BuyPriceHFour>
             </Dropdown>
         </TickerDiv>
     )

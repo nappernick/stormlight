@@ -11,12 +11,6 @@ export const currentPriceApi = async (ticker) => {
 
 }
 
-export const intraDayFetch = async (ticker, interval) => {
-    let res = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=${interval}&outputsize=compact&apikey=${alphaApi}`)
-    let json = await res.json()
-    return json
-}
-
 export const intradayfetchapi = async (ticker, interval) => {
     let res = await apiFetch(`/api/stocks/${interval}/${ticker}`)
     return res

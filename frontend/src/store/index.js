@@ -4,6 +4,7 @@ import sessionReducer from "./session"
 import loadedReducer from "./isLoaded"
 import stockReducer from "./stocks"
 import intradayReducer from "./intraday"
+import intradayDataReducer from "./intradayData"
 
 // const USER_LOGOUT = "userLogout"
 
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
     loaded: loadedReducer,
     stock: stockReducer,
     intraday: intradayReducer,
+    intradayData: intradayDataReducer,
 
 })
 // const rootReducer = (state, action) => {

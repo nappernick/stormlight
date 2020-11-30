@@ -1,9 +1,11 @@
 import { intradayfetchapi } from "../utils.js"
 import { fetch } from "./csrf.js"
 import { unsetStock } from "./stocks.js"
+import { find, indexOf } from "lodash"
 
 const SET_INTRADAY = "stocks/setIntraDay"
 const UNSET_INTRADAY = "stocks/removeIntraDay"
+const UPDATE_INTRADAY = "stocks/updateIntraDay"
 
 export const setIntraDay = (intraDayArray) => {
     return {
@@ -17,6 +19,24 @@ export const unsetIntraDay = (ticker) => {
         type: UNSET_INTRADAY,
         payload: ticker,
     }
+}
+
+export const updateIntraday = (ticker, data) => {
+    return {
+        type: UPDATE_INTRADAY,
+        payload: {
+            ticker,
+            data
+        }
+    }
+}
+
+export const updateDataForIntraday = (ticker, userId, interval) => async (dispatch) => {
+    if (!interval) interval = "15min"
+    const intraDay = await intradayfetchapi(ticker, interval)
+    const data = intraDay.data.stock[`Time Series (${interval})`]
+    dispatch(updateIntraday(ticker, data))
+    return data
 }
 
 export const removeIntraDay = (userId, ticker) => async (dispatch) => {
@@ -65,6 +85,14 @@ const intradayReducer = (state = [], action) => {
                 ...state.slice(0, unsetIndex),
                 ...state.slice(unsetIndex + 1)
             ]
+        case UPDATE_INTRADAY:
+            let matchIdx = indexOf(state, find(state, action.payload.ticker))
+            if (matchIdx) return [
+                ...state.slice(0, matchIdx),
+                action.payload.data,
+                ...state.slice(matchIdx + 1)
+            ]
+            return state
         default:
             return state
     }
