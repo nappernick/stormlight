@@ -1,4 +1,3 @@
-import fetch from 'cross-fetch';
 import { fetch as apiFetch } from "./store/csrf.js"
 
 export const currentPriceApi = async (ticker) => {
