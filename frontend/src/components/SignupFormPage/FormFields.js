@@ -56,7 +56,7 @@ function FormFields({ setErrors }) {
                 </div>
                 <div className="input">
                     <input
-                        type="text"
+                        type="password"
                         value={confirmPassword}
                         name='confirmPassword'
                         placeholder='Same password as above. Again.'

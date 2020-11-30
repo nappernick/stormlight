@@ -12,11 +12,9 @@ function PieChart() {
     if (intraday.length) intraday.forEach(el => {
         let ticker = Object.keys(el)[0]
         tickers.push(Object.keys(el)[0])
-        if (stocks[ticker]) {
-            for (let key in el) {
-                let subtotal = stocks[ticker]["numStock"] * parseFloat(Object.values(el[key])[0]["4. close"])
-                totals.push(subtotal)
-            }
+        for (let key in el) {
+            let subtotal = stocks[ticker]["numStock"] * parseFloat(Object.values(el[key])[0]["4. close"])
+            totals.push(subtotal)
         }
     })
 
@@ -47,9 +45,9 @@ function PieChart() {
                 label: function (tooltipItem, data) {
                     let value = data.datasets[0].data[tooltipItem.index];
                     if (parseInt(value) >= 1000) {
-                        return data.labels[tooltipItem.index] + ": " + '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        return data.labels[tooltipItem.index] + ": " + '$' + value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     } else {
-                        return data.labels[tooltipItem.index] + ": " + '$' + value;
+                        return data.labels[tooltipItem.index] + ": " + '$' + value.toFixed(2);
                     }
                 }
             }
