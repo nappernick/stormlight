@@ -14,7 +14,7 @@ function LineGraph() {
     const [numOfStocks, setNumOfStocks] = useState({})
     useEffect(() => {
         dispatch(createIntradaData(intraDay, numOfStocks))
-    }, [dispatch, intraDay])
+    }, [dispatch, stocks, intraDay])
 
     useEffect(() => {
         for (let stock in stocks) {
