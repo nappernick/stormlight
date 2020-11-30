@@ -13,7 +13,7 @@ function LineGraph() {
     const intraDayData = useSelector(state => state.intradayData)
     useEffect(() => {
         dispatch(createIntradaData(intraDay, stocks))
-    }, [dispatch, intraDay])
+    }, [dispatch, stocks, intraDay])
 
 
     // Formatting the date & time labels
