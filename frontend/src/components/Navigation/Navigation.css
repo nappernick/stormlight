@@ -27,6 +27,7 @@ a, .profile-icon {
     margin-right: 80px;
     display: flex;
     align-items: center;
+    width: 40px;
 }
 
 .profile-drop {

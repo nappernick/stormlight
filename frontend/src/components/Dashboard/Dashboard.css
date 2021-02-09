@@ -1,15 +1,19 @@
 div.portofolioLineGraph {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    width: 70%;
-    margin: 10px 10px 0 0 ;
+    /* width: 60%; */
+    margin: 30px 10px 0 0 ;
     margin-right: 10px;
 }
 
 div.graph-container {
-    width: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 700px;
     height: 400px;
     /* box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px; */
     font-family: 'Amiko', sans-serif;
@@ -26,13 +30,15 @@ a {
 a.chart-button.override {
     margin-right: 15px;
     align-self: center;
+    width: 90px;
 }
 div.headerContainer {
     display: flex;
 }
 
 div.pie-container {
-    width: 800px;
+    width: 700px;
+    /* height: 400px; */
     /* box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px; */
     font-family: 'Amiko', sans-serif;
     padding: 0 0 0 30px;
@@ -44,5 +50,5 @@ div.page-container {
 }
 
 div.listStocks {
-    margin: 30px 5% 30px 0;
+    margin: 30px 0 30px 0;
 }

@@ -31,7 +31,7 @@ function ProfileButton() {
                 overlay={menuCallback}
                 animation="slide-up"
             >
-                <button className="profile-icon" style={{ width: 100 }}>
+                <button className="profile-icon">
                     <i className="fas fa-user-circle  fa-lg"></i>
                 </button>
             </Dropdown>

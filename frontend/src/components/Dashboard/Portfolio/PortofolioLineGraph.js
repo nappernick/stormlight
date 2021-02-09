@@ -18,7 +18,7 @@ function PortofolioLineGraph({ user }) {
     color: rgb(0, 78, 171);
     margin-top: 0px;
     margin-left: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     `
     return (
         <div className="portfolio__line_graph_container">
