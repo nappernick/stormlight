@@ -56,7 +56,7 @@ function PieChart() {
 
     return (
         <div className="pie-container">
-            <Doughnut data={data} height={250} options={options} />
+            <Doughnut data={data} options={options} />
         </div>
     )
 }

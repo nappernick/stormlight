@@ -15,7 +15,7 @@ const normalizeData = (checkObj, closeObj, tickers) => {
         if (checkObj[key] !== countTickers) delete closeObj[key]
     }
     return closeObj
-}
+} 
 
 export const createIntradaData = (intraDay, numOfStocks) => async (dispatch) => {
     let stockArr = intraDay

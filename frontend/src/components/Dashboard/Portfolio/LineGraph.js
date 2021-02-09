@@ -13,7 +13,7 @@ function LineGraph() {
     const intraDayData = useSelector(state => state.intradayData)
     const [numOfStocks, setNumOfStocks] = useState({})
     useEffect(() => {
-        dispatch(createIntradaData(intraDay, numOfStocks))
+        if (Object.keys(numOfStocks).length) dispatch(createIntradaData(intraDay, numOfStocks))
     }, [dispatch, stocks, intraDay])
 
     useEffect(() => {
@@ -103,7 +103,7 @@ function LineGraph() {
     }
     return (
         <div className="graph-container">
-            {intraDayData && <Line data={data} options={options} height={250} />}
+            {intraDayData && <Line data={data} options={options} />}
         </div>
     )
 }

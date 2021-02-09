@@ -24,7 +24,7 @@ function Navigation({ authLocation, setAuthLocation }) {
         <>
             <div className="nav-container">
                 <div className="home-icon" onClick={handleClick}>
-                    <img src={logo} height="60px" alt="Stormlight logo" />
+                    <img src={logo} height="50px" alt="Stormlight logo" />
                 </div>
                 {sessionUser ?
                     <ProfileButton user={sessionUser} /> :

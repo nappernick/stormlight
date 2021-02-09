@@ -4,20 +4,16 @@ div.portofolioLineGraph {
     justify-content: center;
     align-items: center;
     width: 70%;
-    height: 690px;
+    margin: 10px 10px 0 0 ;
     margin-right: 10px;
 }
 
 div.graph-container {
-    width: 600px;
-    height: 500px;
-    box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px;
+    width: 800px;
+    height: 400px;
+    /* box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px; */
     font-family: 'Amiko', sans-serif;
-    padding-left: 30px;
-    padding-right: 50px;
-    padding-bottom: 30px;
-    padding-top: 20px;
-    margin-bottom: 70px;
+    padding: 0 0 0 30px;
 }
 
 
@@ -36,15 +32,10 @@ div.headerContainer {
 }
 
 div.pie-container {
-    width: 600px;
-    height: 500px;
-    box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px;
+    width: 800px;
+    /* box-shadow: rgba(50, 50, 93, 0.25) -9px 6px 12px -8px, rgba(0, 0, 0, 0.3) 0px 3px 10px -3px; */
     font-family: 'Amiko', sans-serif;
-    padding-left: 30px;
-    padding-right: 50px;
-    padding-bottom: 30px;
-    padding-top: 20px;
-    margin-bottom: 70px;
+    padding: 0 0 0 30px;
 }
 
 div.page-container {
@@ -53,8 +44,5 @@ div.page-container {
 }
 
 div.listStocks {
-    margin-right: 12%;
-    margin-left: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin: 30px 5% 30px 0;
 }

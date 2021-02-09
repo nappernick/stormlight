@@ -21,7 +21,7 @@ function PortofolioLineGraph({ user }) {
     margin-bottom: 10px;
     `
     return (
-        <div>
+        <div className="portfolio__line_graph_container">
             <PortfolioValue>
                 <div className="headerContainer">
                     <div>{`Portfolio Value: `}</div>
