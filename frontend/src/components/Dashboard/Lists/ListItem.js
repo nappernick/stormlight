@@ -41,7 +41,7 @@ function ListItem({ ticker }) {
     let data = [];
     let labels = [];
     let recentDate = "2020-01-01 00:00:01";
-    let buyPrice = data.length ? 0 : "Loading..."
+    let buyPrice = 0
     let intradayObject = {};
     if (intraday.length) intraday.flatMap(el => {
         const tickerArr = Object.keys(el)
@@ -59,6 +59,11 @@ function ListItem({ ticker }) {
         labels.push(intradayObject[key])
     }
 
+    console.log(data[0])
+    console.log(ticker)
+    const initialPrice = data ? data[data.length - 1] : 0
+    const endPrice = data ? data[0] : 0
+
     //* Build chart data
     const chartData = {
         labels: labels,
@@ -68,7 +73,7 @@ function ListItem({ ticker }) {
                 fill: false,
                 borderWidth: .5,
                 backgroundColor: "rgba(75,192,192,1)",
-                borderColor: "#AFC23F",
+                borderColor: endPrice > initialPrice ? "#AFC23F" : "#e7545f",
                 pointRadius: 0,
             }
         ]
@@ -101,7 +106,7 @@ function ListItem({ ticker }) {
                 overlay={menuCallback}
                 animation="slide-up"
             >
-                <BuyPriceHFour>${buyPrice}</BuyPriceHFour>
+                <BuyPriceHFour>{data.length ? `$${buyPrice}` : "Loading..."}</BuyPriceHFour>
             </Dropdown>
         </TickerDiv>
     )

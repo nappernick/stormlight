@@ -34,6 +34,7 @@ function LineGraph({ setIntraDayEnd }) {
     // Formatting the date & time labels
     const formatAMPM = (date) => {
         let hours = date.getHours();
+        hours = hours < 6 ? hours + 7 : hours - 5
         let minutes = date.getMinutes();
         const ampm = hours >= 12 ? 'pm' : 'am';
         hours = hours % 12;
@@ -57,7 +58,7 @@ function LineGraph({ setIntraDayEnd }) {
             {
                 data: Object.values(intraDayData).reverse(),
                 fill: false,
-                backgroundColor: "rgba(32, 120, 121,0.2)",
+                backgroundColor: "rgba(0, 0, 0,0)",
                 borderColor: "#3399FF",
                 pointHitRadius: 10,
             },
@@ -67,18 +68,24 @@ function LineGraph({ setIntraDayEnd }) {
     const options = {
         tooltips: {
             enabled: true,
-            mode: 'single',
+            mode: 'index',
+            axis: "x",
             callbacks: {
                 label: function (tooltipItem, data) {
                     var value = data.datasets[0].data[tooltipItem.index];
                     setIntraDayEnd(parseFloat(value))
-                    if (parseInt(value) >= 1000) {
-                        return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                    } else {
-                        return '$' + value;
-                    }
+                    return ""
+                    // if (parseInt(value) >= 1000) {
+                    //     return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    // } else {
+                    //     return '$' + value;
+                    // }
                 }
             },
+            yPadding: "12",
+            titleFontColor: '#5a6571',
+            bodyFontColor: '#5a6571',
+            backgroundColor: 'rgba(0, 0, 0, 0)',
             // Removes the color square from tooltip
             displayColors: false,
         },
@@ -101,17 +108,18 @@ function LineGraph({ setIntraDayEnd }) {
         bezierCurve: false,
         scales: {
             yAxes: [{
-                ticks: {
-                    // Include a dollar sign in the ticks
-                    callback: function (value) {
-                        return '$' + value;
-                    },
-                    fontColor: "#215C8A",
-                    fontFamily: 'DM Sans',
-                },
-                gridLines: {
-                    color: "rgba(0, 0, 0, 0.05)",
-                },
+                display: false,
+                // ticks: {
+                //     // Include a dollar sign in the ticks
+                //     callback: function (value) {
+                //         return '$' + value;
+                //     },
+                //     fontColor: "#215C8A",
+                //     fontFamily: 'DM Sans',
+                // },
+                // gridLines: {
+                //     color: "rgba(0, 0, 0, 0.05)",
+                // },
             }],
             xAxes: [{
                 display: false,
