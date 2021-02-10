@@ -12,11 +12,15 @@ export const setNews = (stories) => {
 export const initializeNews = () => async (dispatch) => {
     let res = await newsFetch()
     // res = await res.json()
-    console.log(res.data.news)
-    for (let index = 0; index < 3; index++) {
-
-
+    const stories = []
+    for (let index = 0; stories.length < 3; index++) {
+        const story = res.data.news[index]
+        if (story.category === "top news") {
+            console.log(story)
+            stories.push(story)
+        }
     }
+    dispatch(setNews(stories))
 }
 
 const newsReducer = (state = [], action) => {
