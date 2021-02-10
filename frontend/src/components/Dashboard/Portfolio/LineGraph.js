@@ -6,7 +6,7 @@ import "./Graph.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { createIntradaData } from '../../../store/intradayData'
 
-function LineGraph() {
+function LineGraph({ setIntraDayEnd }) {
     const dispatch = useDispatch()
     const stocks = useSelector(state => state.stock)
     const intraDay = useSelector(state => state.intraday)
@@ -15,6 +15,8 @@ function LineGraph() {
     useEffect(() => {
         if (Object.keys(numOfStocks).length) dispatch(createIntradaData(intraDay, numOfStocks))
     }, [dispatch, stocks, intraDay])
+
+
 
     useEffect(() => {
         for (let stock in stocks) {
@@ -56,7 +58,8 @@ function LineGraph() {
                 data: Object.values(intraDayData).reverse(),
                 fill: false,
                 backgroundColor: "rgba(32, 120, 121,0.2)",
-                borderColor: "#3399FF"
+                borderColor: "#3399FF",
+                pointHitRadius: 10,
             },
         ]
     }
@@ -68,6 +71,7 @@ function LineGraph() {
             callbacks: {
                 label: function (tooltipItem, data) {
                     var value = data.datasets[0].data[tooltipItem.index];
+                    setIntraDayEnd(parseFloat(value))
                     if (parseInt(value) >= 1000) {
                         return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     } else {
@@ -76,11 +80,22 @@ function LineGraph() {
                 }
             }
         },
+        elements: {
+            // Make the circles on the graph disappear
+            point: {
+                radius: 0
+            },
+            // Make the lines straight, instead of curved
+            line: {
+                tension: 0
+            }
+        },
         legend: {
             display: false,
             labels: {
             },
         },
+        // Make the lines straight, instead of curved
         bezierCurve: false,
         scales: {
             yAxes: [{
@@ -93,7 +108,7 @@ function LineGraph() {
                     fontFamily: 'DM Sans',
                 },
                 gridLines: {
-                    color: "rgba(0, 0, 0, 0)",
+                    color: "rgba(0, 0, 0, 0.05)",
                 },
             }],
             xAxes: [{

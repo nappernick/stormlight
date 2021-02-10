@@ -48,7 +48,7 @@ div.pie-container {
 div.page-container-upper {
     display: flex;
     justify-content: space-around;
-    height: 450px;
+    height: 440px;
 }
 
 .list-stocks {
@@ -59,4 +59,18 @@ div.page-container-upper {
 
 div.listStocks {
     margin: 30px 0 30px 0;
+}
+
+div.portfolio_change___dollar {
+    margin-right: 5px;
+}
+
+div.portfolio_change___dollar.negative,
+div.portfolio_change___percentage.negative {
+    color: #C63641;
+}
+
+div.portfolio_change___dollar.positive,
+div.portfolio_change___percentage.positive {
+    color: #AFC23F;
 }

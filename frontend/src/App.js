@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     dispatch(sessionActions.restore())
-      .then(() => dispatch(load()))
+      .then(() => { if (!loaded) return dispatch(load()) })
       .then(() => dispatch(initializeNews()));
   }, [dispatch])
   useEffect(() => {
@@ -51,7 +51,7 @@ function App() {
             SignupFormPage
         } />
         {/* <Route path="/signup" component={SignupFormPage} /> */}
-        <Route path="/dashboard" component={DashboardPage} />
+        <Route path="/dashboard" component={DashboardPage} />GME
       </Switch>
     </>
   )

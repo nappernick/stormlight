@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux"
+
 const LOADED = "loaded/loaded"
 
 const loaded = () => {
@@ -14,7 +16,7 @@ const loadedReducer = (state = { loaded: false }, action) => {
         case LOADED:
             return { ...state, loaded: true }
         default:
-            return state 
+            return state
     }
 
 }
