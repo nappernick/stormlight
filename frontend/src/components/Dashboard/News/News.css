@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: flex-start;
     height: auto;
-    margin: 50px 0 20px 105px;
+    margin: 50px 0 20px 115px;
 }
 
 .news__header_container {
@@ -13,6 +13,7 @@
 
 .news__header_container > h2 {
     font-size: 25px;
+    color: rgb(0, 78, 171);
     margin-bottom: 10px;
 }
 

@@ -48,6 +48,7 @@ div.pie-container {
 div.page-container-upper {
     display: flex;
     justify-content: space-around;
+    height: 450px;
 }
 
 .list-stocks {
