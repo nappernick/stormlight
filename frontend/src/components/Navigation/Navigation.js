@@ -64,7 +64,7 @@ function Navigation({ authLocation, setAuthLocation }) {
                     res.data.search.bestMatches.forEach(match => {
                         searchResult.push({
                             "value": match["1. symbol"],
-                            "label": `${match["1. symbol"]} ${match["2. name"]}`
+                            "label": `${match["1. symbol"]} ${match["2. name"].split(" - ")[0]}`
                         })
                     })
                     setOptions(searchResult)
@@ -89,14 +89,15 @@ function Navigation({ authLocation, setAuthLocation }) {
                             borderRadius: 5,
                             colors: {
                                 ...theme.colors,
-                                primary: "dodgerblue",
-                                primary25: "dodgerblue",
+                                primary: "rgba(30, 143, 255, .25)",
+                                primary25: "rgba(30, 143, 255, .25)",
                                 // primary50: "#e98641"
                             }
                         })}
                         onInputChange={handleInputChange}
                         placeholder="Search Stock Symbols... "
-                        onChange={(values) => {
+                        onChange={(e) => {
+                            console.log(e.value)
                             // return history.push(`/users/${authenticated.id}/projects/${values.value}`)
                             // return history.push(`/projects`)
                         }} />
