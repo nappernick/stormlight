@@ -11,9 +11,8 @@ function PortfolioValue({ intraDayEnd, intraDayStart, startEndDiff }) {
         font-size: 15px;
         color: #5a6571;
         display: flex;
-        margin-left: 10px;
-        justify-content: space-between;
-        width: 130px
+        margin-left: 12px;
+        min-width: 120px
         `
     return (
         <HeaderContainer>
@@ -28,10 +27,10 @@ function PortfolioValue({ intraDayEnd, intraDayStart, startEndDiff }) {
                 className="portfolio_value__num"
             />
             <ChangeContainer>
-                <div className={`portfolio_change___dollar ${startEndDiff > 0 ? "positive" : "negative"}`}>
+                <div className={`portfolio_change___dollar ${startEndDiff >= 0 ? Math.abs(startEndDiff) === 0 ? "" : "positive" : "negative"}`}>
                     {startEndDiff === "NaN" ? "" : `${startEndDiff > 0 ? "" : "-"}$${Math.abs(startEndDiff).toFixed(2)}`}
                 </div>
-                <div className={`portfolio_change___percentage ${startEndDiff > 0 ? "positive" : "negative"}`}>
+                <div className={`portfolio_change___percentage ${startEndDiff >= 0 ? Math.abs(startEndDiff) === 0 ? "" : "positive" : "negative"}`}>
                     {startEndDiff === "NaN" ? "" : `(${(startEndDiff / intraDayStart * 100).toFixed(2)}%)`}
                 </div>
             </ChangeContainer>
