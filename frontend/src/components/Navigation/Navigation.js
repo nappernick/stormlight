@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import Select from "react-select"
 import logo from "../../Assets/stormlight.png"
-import "./Navigation.css"
 import AuthLink from './AuthLink';
+import { fetch as apiFetch } from "../../store/csrf.js"
+import "./Navigation.css"
 
 const customStyles = {
     control: (provided, state) => ({
@@ -35,11 +36,15 @@ const customStyles = {
         ...provided,
         height: '30px',
     }),
+    dropdownIndicator: (provided, state) => ({
+        display: 'none',
+    })
 }
 
 function Navigation({ authLocation, setAuthLocation }) {
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory()
+    const [options, setOptions] = useState([])
 
     const handleClick = (e) => {
         if (!sessionUser) {
@@ -48,6 +53,22 @@ function Navigation({ authLocation, setAuthLocation }) {
         } else {
             history.push("/dashboard")
             // < Redirect to = "/dashboard" />
+        }
+    }
+
+    const handleInputChange = (input) => {
+        if (input) {
+            let searchResult = []
+            apiFetch(`/api/stocks/search/${input}`)
+                .then((res) => {
+                    res.data.search.bestMatches.forEach(match => {
+                        searchResult.push({
+                            "value": match["1. symbol"],
+                            "label": `${match["1. symbol"]} ${match["2. name"]}`
+                        })
+                    })
+                    setOptions(searchResult)
+                })
         }
     }
 
@@ -60,19 +81,21 @@ function Navigation({ authLocation, setAuthLocation }) {
                 {sessionUser && <div className="search__container">
                     <Select
                         styles={customStyles}
-                        // options={}
+                        options={options}
+                        pageSize={10}
                         isSearchable={true}
                         theme={theme => ({
                             ...theme,
                             borderRadius: 5,
                             colors: {
                                 ...theme.colors,
-                                primary: "#fbb430",
-                                primary25: "#fbb430",
+                                primary: "dodgerblue",
+                                primary25: "dodgerblue",
                                 // primary50: "#e98641"
                             }
                         })}
-                        placeholder="Search Projects... "
+                        onInputChange={handleInputChange}
+                        placeholder="Search Stock Symbols... "
                         onChange={(values) => {
                             // return history.push(`/users/${authenticated.id}/projects/${values.value}`)
                             // return history.push(`/projects`)

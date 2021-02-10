@@ -21,6 +21,7 @@ div.home-icon, .profile-icon {
 
 div.home-icon {
     margin-left: 20px;
+    display: flex;
 }
 
 a, .profile-icon {
@@ -51,4 +52,10 @@ li {
 
 .logout {
     cursor: pointer;
+}
+
+.search__container {
+    position: absolute;
+    top: 5;
+    left: 180px;
 }
