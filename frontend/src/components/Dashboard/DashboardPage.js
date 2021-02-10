@@ -11,14 +11,21 @@ function DashboardPage() {
     if (!sessionUser) return null
 
     return (
-        <div className="page-container">
-            <div className="portofolioLineGraph">
-                <PortofolioLineGraph />
+        <>
+            <div className="page-container-upper">
+                <div className="portofolioLineGraph">
+                    <PortofolioLineGraph />
+                </div>
+                <div className="listStocks">
+                    <ListStocks />
+                </div>
             </div>
-            <div className="listStocks">
-                <ListStocks />
+            <div className="page-container-lower">
+                <div className="news">
+                    
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

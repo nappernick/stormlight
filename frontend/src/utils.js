@@ -13,6 +13,11 @@ export const intradayfetchapi = async (ticker, interval) => {
     return res
 }
 
+export const newsFetch = async () => {
+    let res = await apiFetch(`/api/stocks/news`)
+    return res
+}
+
 
 // export const dailyCandle = async (ticker) => {
 //     let currentTime = Math.round((new Date()).getTime() / 1000)
