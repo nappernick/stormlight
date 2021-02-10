@@ -17,7 +17,7 @@ function PortofolioLineGraph({ user }) {
     font-size: 22pt;
     color: rgb(0, 78, 171);
     margin-top: 0px;
-    margin-left: 20px;
+    margin-left: 30px;
     margin-bottom: 20px;
     `
     return (

@@ -5,6 +5,7 @@ import loadedReducer from "./isLoaded"
 import stockReducer from "./stocks"
 import intradayReducer from "./intraday"
 import intradayDataReducer from "./intradayData"
+import newsReducer from "./news"
 
 // const USER_LOGOUT = "userLogout"
 
@@ -27,7 +28,7 @@ const rootReducer = combineReducers({
     stock: stockReducer,
     intraday: intradayReducer,
     intradayData: intradayDataReducer,
-
+    news: newsReducer,
 })
 // const rootReducer = (state, action) => {
 //     if (action.type === 'USER_LOGOUT') {

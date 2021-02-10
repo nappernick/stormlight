@@ -14,7 +14,7 @@ export const intradayfetchapi = async (ticker, interval) => {
 }
 
 export const newsFetch = async () => {
-    let res = await apiFetch(`/api/stocks/news`)
+    let res = await apiFetch(`/api/stocks/news/`)
     return res
 }
 

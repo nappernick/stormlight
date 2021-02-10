@@ -9,6 +9,7 @@ import Navigation from './components/Navigation/Navigation';
 import DashboardPage from './components/Dashboard/DashboardPage';
 import { initializeStock } from './store/stocks';
 import { initializeIntraDay } from './store/intraday';
+import { initializeNews } from "./store/news"
 
 function App() {
   const dispatch = useDispatch()
@@ -19,7 +20,8 @@ function App() {
 
   useEffect(() => {
     dispatch(sessionActions.restore())
-      .then(() => dispatch(load()));
+      .then(() => dispatch(load()))
+      .then(() => dispatch(initializeNews()));
   }, [dispatch])
   useEffect(() => {
     if (sessionUser) {

@@ -75,7 +75,7 @@ router.get("/:interval(\\d{0,2})(\\w+)/:ticker(\\w+)$", asyncHandler(async (req,
     })
 }))
 
-router.get("/news", asyncHandler(async (req, res) => {
+router.get("/news/", asyncHandler(async (req, res) => {
     let newsRes = await fetch(`https://finnhub.io/api/v1/news?category=general&token=${finnHubApi}`)
     let news = await newsRes.json()
     return res.json({
