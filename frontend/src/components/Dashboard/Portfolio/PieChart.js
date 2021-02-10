@@ -43,14 +43,25 @@ function PieChart() {
             mode: 'single',
             callbacks: {
                 label: function (tooltipItem, data) {
+                    console.log(data.labels[tooltipItem.index])
                     let value = data.datasets[0].data[tooltipItem.index];
                     if (parseInt(value) >= 1000) {
-                        return data.labels[tooltipItem.index] + ": " + '$' + value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        // Using an array allows for multiline text - each item
+                        // in the array is a line
+                        return [
+                            data.labels[tooltipItem.index] + ": " + '$' + value.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                            `${stocks[data.labels[tooltipItem.index]]["numStock"]} Stocks Owned`
+                        ];
                     } else {
-                        return data.labels[tooltipItem.index] + ": " + '$' + value.toFixed(2);
+                        return [
+                            data.labels[tooltipItem.index] + ": " + '$' + value.toFixed(2),
+                            `${stocks[data.labels[tooltipItem.index]]["numStock"]} Stocks Owned`
+                        ];
                     }
                 }
-            }
+            },
+            // Removes the color square from tooltip
+            displayColors: false,
         },
     }
 

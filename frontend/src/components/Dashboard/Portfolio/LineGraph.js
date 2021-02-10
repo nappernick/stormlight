@@ -78,7 +78,9 @@ function LineGraph({ setIntraDayEnd }) {
                         return '$' + value;
                     }
                 }
-            }
+            },
+            // Removes the color square from tooltip
+            displayColors: false,
         },
         elements: {
             // Make the circles on the graph disappear
