@@ -24,8 +24,8 @@ function PortofolioLineGraph({ user }) {
         <div className="portfolio__line_graph_container">
             <PortfolioValue>
                 <div className="headerContainer">
-                    <div>{`Portfolio Value: `}</div>
-                    <NumberFormat style={{ marginLeft: '20px' }} value={Object.values(intraDayData)[0]} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                    <div>{`Portfolio Value`}</div>
+                    <NumberFormat style={{ marginLeft: '10px' }} value={Object.values(intraDayData)[0]} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                 </div>
                 {history.location.pathname !== "/dashboard" && <NavLink to="/dashboard" className="chart-button override">Line Graph</NavLink>}
                 {history.location.pathname === "/dashboard" && <NavLink to="/dashboard/pie" className="chart-button override">Pie Graph</NavLink>}
