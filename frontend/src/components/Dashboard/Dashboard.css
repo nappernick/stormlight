@@ -5,7 +5,8 @@ div.portofolioLineGraph {
     align-items: center;
     /* width: 60%; */
     margin: 30px 10px 0 0 ;
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    margin-right: 400px;
 }
 
 div.graph-container {
@@ -47,6 +48,12 @@ div.pie-container {
 div.page-container-upper {
     display: flex;
     justify-content: space-around;
+}
+
+.list-stocks {
+    position: absolute;
+    top: 65px;
+    right: 70px;
 }
 
 div.listStocks {

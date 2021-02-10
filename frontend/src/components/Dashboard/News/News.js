@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import Story from './Story'
+import './News.css'
 
 function News() {
     const news = useSelector(store => store.news)
@@ -9,9 +11,7 @@ function News() {
                 <h2>Recent News:</h2>
             </div>
             <div className="news__stories_container">
-                {news && news.forEach(story => {
-                    
-                })}
+                {news && news.map(story => <Story story={story} />)}
             </div>
         </div>
     )
