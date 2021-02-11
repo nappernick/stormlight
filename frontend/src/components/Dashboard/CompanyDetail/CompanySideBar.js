@@ -12,7 +12,7 @@ function CompanySideBar() {
                     Buy {stockTicker}
                 </div>
                 <div className="purchase-details">
-                    <div className="shares">
+                    <div className="shares flex">
                         <div className="shares-title">
                             Shares
                         </div>
@@ -20,7 +20,7 @@ function CompanySideBar() {
                             <input type="number" />
                         </div>
                     </div>
-                    <div className="market-price">
+                    <div className="market-price flex">
                         <div className="market-price-title">
                             Market Price
                         </div>
@@ -28,7 +28,7 @@ function CompanySideBar() {
                             {/*// ! COMING SOON */}
                         </div>
                     </div>
-                    <div className="estimated-cost">
+                    <div className="estimated-cost flex">
                         <div className="estimated-cost-title">
                             Estimated Cost
                         </div>

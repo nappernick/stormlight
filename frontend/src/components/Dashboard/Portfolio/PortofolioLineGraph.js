@@ -1,6 +1,6 @@
 import { Switch, Route, NavLink, useHistory } from "react-router-dom"
 import LineGraph from './LineGraph';
-import styled, { useTheme } from "styled-components"
+import styled from "styled-components"
 import { useSelector } from 'react-redux';
 import PieChart from './PieChart';
 import { useEffect, useState } from "react";
