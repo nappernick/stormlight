@@ -1,10 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import styled from 'styled-components'
 
 function CompanySideBar() {
     const { stockTicker } = useParams()
+    const SideBarDiv = styled.div``
     return (
-        <>
+        <SideBarDiv>
             <div className="side-bar-container">
                 <div className="header">
                     Buy {stockTicker}
@@ -50,7 +52,7 @@ function CompanySideBar() {
                     </div>
                 </div>
             </div>
-        </>
+        </SideBarDiv>
     )
 }
 
