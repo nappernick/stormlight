@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { intradayfetchapi } from '../../../utils'
+import React, { useState } from 'react'
+import LineGraph from '../Portfolio/LineGraph'
 
-function CompanyDetail({ ticker }) {
-    const [companyIntraDayData, setCompanyIntraDayData] = useState([])
-
-    useEffect((interval) => {
-        if (!interval) interval = "15min"
-        let res = intradayfetchapi(ticker, interval)
-        console.log(res)
-    }, [])
-
+function CompanyDetail() {
+    const [intraDayEnd, setIntraDayEnd] = useState(0)
     return (
         <div>
-
+            <LineGraph setIntraDayEnd={setIntraDayEnd} />
         </div>
     )
 }

@@ -99,7 +99,7 @@ function Navigation({ authLocation, setAuthLocation }) {
                         onChange={(e) => {
                             console.log(e.value)
                             // return history.push(`/users/${authenticated.id}/projects/${values.value}`)
-                            // return history.push(`/projects`)
+                            return history.push(`/stock-detail/${e.value}`)
                         }} />
                 </div>}
                 {sessionUser ?

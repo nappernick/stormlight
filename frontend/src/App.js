@@ -10,6 +10,7 @@ import DashboardPage from './components/Dashboard/DashboardPage';
 import { initializeStock } from './store/stocks';
 import { initializeIntraDay } from './store/intraday';
 import { initializeNews } from "./store/news"
+import CompanyDetail from './components/Dashboard/CompanyDetail/CompanyDetail';
 
 function App() {
   const dispatch = useDispatch()
@@ -51,7 +52,8 @@ function App() {
             SignupFormPage
         } />
         {/* <Route path="/signup" component={SignupFormPage} /> */}
-        <Route path="/dashboard" component={DashboardPage} />GME
+        <Route path="/dashboard" component={DashboardPage} />
+        <Route path="/stock-detail/:stockTicker" component={CompanyDetail} />
       </Switch>
     </>
   )

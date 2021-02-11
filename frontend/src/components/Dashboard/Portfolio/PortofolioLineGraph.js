@@ -41,7 +41,11 @@ function PortofolioLineGraph({ user }) {
     return (
         <div className="portfolio__line_graph_container">
             <StyledValueContainer>
-                <PortfolioValue intraDayEnd={intraDayEnd} intraDayStart={intraDayStart} startEndDiff={startEndDiff} />
+                <PortfolioValue
+                    intraDayEnd={intraDayEnd}
+                    intraDayStart={intraDayStart}
+                    startEndDiff={startEndDiff}
+                />
                 {history.location.pathname !== "/dashboard" && <NavLink
                     to="/dashboard"
                     className="chart-button override"
@@ -56,7 +60,9 @@ function PortofolioLineGraph({ user }) {
                     Pie Graph</NavLink>}
             </StyledValueContainer>
             <Switch>
-                <Route exact path="/dashboard" render={() => <LineGraph setIntraDayEnd={setIntraDayEnd} />} />
+                <Route exact path="/dashboard" render={() => (
+                    <LineGraph setIntraDayEnd={setIntraDayEnd} />
+                )} />
                 <Route path="/dashboard/pie" component={PieChart} />
             </Switch>
         </div>

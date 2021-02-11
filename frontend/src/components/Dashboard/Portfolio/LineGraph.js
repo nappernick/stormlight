@@ -5,21 +5,27 @@ import { useEffect } from 'react'
 import "./Graph.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { createIntradaData } from '../../../store/intradayData'
+import { fetchCoData, formatAMPM } from '../../../utils'
+import { useParams } from 'react-router-dom'
 
 function LineGraph({ setIntraDayEnd }) {
+    const { stockTicker } = useParams()
     const dispatch = useDispatch()
     const stocks = useSelector(state => state.stock)
     const intraDay = useSelector(state => state.intraday)
     const intraDayData = useSelector(state => state.intradayData)
+    const [interval, setInterval] = useState("15min")
+    const [companyIntraDayData, setCompanyIntraDayData] = useState({})
     const [numOfStocks, setNumOfStocks] = useState({})
+
+
     useEffect(() => {
         if (Object.keys(numOfStocks).length) dispatch(createIntradaData(intraDay, numOfStocks))
     }, [dispatch, stocks, intraDay])
 
-
-
     useEffect(() => {
-        for (let stock in stocks) {
+        console.log(stockTicker)
+        if (!stockTicker) for (let stock in stocks) {
             let ele = stocks[stock]
             let ticker = ele["ticker"]
             let numStocks = ele["numStock"]
@@ -28,22 +34,14 @@ function LineGraph({ setIntraDayEnd }) {
                 [ticker]: numStocks,
             })
         }
-    }, [stocks, setNumOfStocks])
+        else {
+            fetchCoData(setCompanyIntraDayData, stockTicker, interval)
+        }
+    }, [stocks, stockTicker, setNumOfStocks, setCompanyIntraDayData])
 
-
+    console.log(companyIntraDayData)
     // Formatting the date & time labels
-    const formatAMPM = (date) => {
-        let hours = date.getHours();
-        hours = hours < 6 ? hours + 7 : hours - 5
-        let minutes = date.getMinutes();
-        const ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        const strTime = hours + ':' + minutes + ' ' + ampm;
-        return strTime;
-    }
-    const labelsRev = Object.keys(intraDayData).reverse()
+    const labelsRev = companyIntraDayData && Object.keys(companyIntraDayData).length ? Object.keys(companyIntraDayData).reverse() : Object.keys(intraDayData).reverse()
     const formattedLabels = labelsRev.map(label => {
         const dateTimeFormatted = new Date(label + " UTC")
         const dateString = dateTimeFormatted.toString()
@@ -56,7 +54,7 @@ function LineGraph({ setIntraDayEnd }) {
         labels: formattedLabels,
         datasets: [
             {
-                data: Object.values(intraDayData).reverse(),
+                data: companyIntraDayData && Object.values(companyIntraDayData).length ? Object.values(companyIntraDayData).reverse() : Object.values(intraDayData).reverse(),
                 fill: false,
                 backgroundColor: "rgba(0, 0, 0,0)",
                 borderColor: "#3399FF",
@@ -128,7 +126,7 @@ function LineGraph({ setIntraDayEnd }) {
     }
     return (
         <div className="graph-container">
-            {intraDayData && <Line data={data} options={options} />}
+            {(intraDayData || companyIntraDayData) && <Line data={data} options={options} />}
         </div>
     )
 }

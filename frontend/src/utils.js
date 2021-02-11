@@ -18,6 +18,26 @@ export const newsFetch = async () => {
     return res
 }
 
+export const formatAMPM = (date) => {
+    let hours = date.getHours();
+    hours = hours < 6 ? hours + 7 : hours - 5
+    let minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    const strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+}
+
+export const fetchCoData = async (setCompanyIntraDayData, ticker, interval) => {
+    const intraDay = await intradayfetchapi(ticker, interval)
+    const data = intraDay.data.stock[`Time Series (${interval})`]
+    for (const date in data) {
+        data[date] = data[date]["4. close"]
+    }
+    setCompanyIntraDayData(data)
+}
 
 // export const dailyCandle = async (ticker) => {
 //     let currentTime = Math.round((new Date()).getTime() / 1000)
