@@ -14,6 +14,7 @@ function CompanySideBar() {
     const [numShares, setNumShares] = useState(0)
     const [marketPrice, setMarketPrice] = useState(0)
     const [isOwned, setIsOwned] = useState(false)
+    const [isWatched, setIsWatched] = useState(false)
     const SideBarDiv = styled.div``
 
     const handleSale = async () => dispatch(removeIntraDay(userId, stockTicker))

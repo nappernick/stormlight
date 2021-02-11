@@ -40,7 +40,6 @@ router.delete('/user/:userId([0-9]+)/ticker/:ticker(\\w+)$', asyncHandler(async 
 router.get("/user/:userId([0-9]+)", asyncHandler(async (req, res, next) => {
     const { userId } = req.params
     const watchList = await Watchlist.findAll({ where: { userId } })
-    console.log(watchList)
     return res.json({
         watchList
     })

@@ -20,7 +20,7 @@ router.post("/", asyncHandler(async (req, res, next) => {
     })
     return res.json({ stock, })
 })
-) 
+)
 
 router.put('/:userId([0-9]+)', asyncHandler(async (req, res, next) => {
     const { userId } = req.params
@@ -58,7 +58,7 @@ router.get("/search/:search", asyncHandler(async (req, res) => {
     })
 }))
 
-router.get('/:id([0-9]+)', asyncHandler(async (req, res, next) => {
+router.get('/:id([0-9]+)$', asyncHandler(async (req, res, next) => {
     const { id } = req.params
     const stock = await Stock.findAll({ where: { userId: id } })
     return res.json({
@@ -78,6 +78,7 @@ router.get("/:ticker(\\w+)$", asyncHandler(async (req, res) => {
 router.get("/:interval(\\d{0,2})(\\w+)/:ticker(\\w+)$", asyncHandler(async (req, res) => {
     const { interval, ticker } = req.params;
     let rez = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=${interval}min&outputsize=compact&apikey=${alphaApi}`)
+    // console.log(rez)
     let stock = await rez.json()
     return res.json({
         stock,

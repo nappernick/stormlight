@@ -39,6 +39,7 @@ export const fetchCoData = async (setCompanyIntraDayData, ticker, interval) => {
     setCompanyIntraDayData(data)
 }
 
+
 // export const dailyCandle = async (ticker) => {
 //     let currentTime = Math.round((new Date()).getTime() / 1000)
 //     let res = await fetch(`https://finnhub.io/api/v1/stock/candle?symbol=${ticker}&resolution=D&from=${currentTime - daySeconds}&to=${currentTime}&token=${api}`)

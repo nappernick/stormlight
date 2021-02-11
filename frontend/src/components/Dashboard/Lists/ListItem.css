@@ -1,11 +1,7 @@
-.chartContainer {
-    height: 50px;
-    width: 50px;
-}
-.tickerdiv {
+.listStocks li {
+    margin: 5px 0px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 150px;
-    color: #5a6571;
 }

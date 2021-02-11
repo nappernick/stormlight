@@ -9,6 +9,7 @@ import ListItem from './ListItem'
 function ListStocks() {
     const stocks = useSelector(state => state.stock)
     const intraday = useSelector(state => state.intraday)
+    const watchlist = useSelector(store => store.watchlist)
     const [stocksLen, setStocksLen] = useState(0)
     const [stocksTickerArr, setStocksTickerArr] = useState([])
     const [intradayLen, setIntradayLen] = useState(0)
@@ -22,20 +23,30 @@ function ListStocks() {
     font-weight: 700;
     width: 220px;
     box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
-    padding: 20px 20px 25px 20px;
+    padding: 10px 10px 15px 10px;
     font-family: 'DM Sans', sans-serif;
     `
 
     const ListHeader = styled.h3`
-    margin-bottom: 10px;
+    margin: 0px 0 0 10px;
     color: #5a6571;
     font-size: 1.3em;
+    display: flex;
+    align-self: flex-start;
+    width: 200px;
+    border-bottom: 1px solid lightgray;
     `
     const HorizontalLine = styled.hr`
     width: 200px
     `
+    const HorizontalLineLight = styled.hr`
+    width: 200px;
+    background-color: #d3d3d3;
+    height: 1px;
+    border: none;
+    `
     const PurchaseModalDiv = styled.div`
-    margin-top: 15px;
+    margin-top: 0px;
     `
     useEffect(() => {
         setStocksLen(Object.values(stocks).length)
@@ -44,13 +55,24 @@ function ListStocks() {
     }, [stocks, intraday])
     return (
         <ListContainer>
-            <ListHeader>Current Portfolio Stock Data</ListHeader>
-            <HorizontalLine />
+            <ListHeader>STOCKS</ListHeader>
             {stocksLen && Object.values(stocks) && intradayLen && stocksTickerArr.map((el) => {
-                return <li key={el}><ListItem ticker={el} test={intradayLen} /></li>
+                return (
+                    <li key={el}>
+                        <ListItem ticker={el} test={intradayLen} />
+                    </li>
+                )
             }) || ""}
             {stocksLen === 0 && "Buy a stock!"}
-
+            <ListHeader>WATCH</ListHeader>
+            {watchlist.length && watchlist.map((el) => {
+                return (
+                    <li key={el.id}>
+                        <ListItem ticker={el.ticker} />
+                    </li>
+                )
+            }) || ""}
+            {stocksLen === 0 && "Buy a stock!"}
             <PurchaseModalDiv>
                 <PurchaseModal />
             </PurchaseModalDiv>

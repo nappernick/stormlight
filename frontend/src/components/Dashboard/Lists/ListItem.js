@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Line } from "react-chartjs-2"
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,7 +6,8 @@ import Dropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem } from 'rc-menu';
 import { removeIntraDay } from '../../../store/intraday';
 import { updateBuyingPowerThunk } from '../../../store/buyingPower';
-import { currentPriceApi } from '../../../utils';
+import { currentPriceApi, intradayfetchapi } from '../../../utils';
+import "./ListItem.css"
 
 function ListItem({ ticker }) {
     const dispatch = useDispatch()
@@ -14,6 +15,8 @@ function ListItem({ ticker }) {
     const intraday = useSelector(state => state.intraday)
     const stocks = useSelector(store => store.stock)
     const buyingPower = useSelector(store => store.buyingPower)
+    const watchlistItem = !Object.keys(stocks).includes(ticker) ? true : false
+    const [watchlistIntraday, setWatchlistIntraday] = useState({})
 
     //* Sell stock dropdown on hover functions
     function onSelect() {
@@ -28,11 +31,28 @@ function ListItem({ ticker }) {
         increaseBuyPower()
     }
 
-    const menuCallback = () => (
-        <Menu onSelect={onSelect}>
+    const menuCallback = () => {
+        if (!watchlistItem) return <Menu onSelect={onSelect}>
             <MenuItem style={{ cursor: "pointer" }} key="2">{`Sell ${ticker}?`}</MenuItem>
         </Menu>
-    );
+        else return <></>
+    };
+
+    useEffect(() => {
+        const watchlistFetchIntraday = async () => {
+            let res = await intradayfetchapi(ticker, "15min")
+            let stockData = res.data.stock["Time Series (15min)"]
+            let obj = {}
+            for (let property in stockData) {
+                let event = stockData[property]
+                obj[property] = event
+            }
+            setWatchlistIntraday(obj)
+        }
+        if (watchlistItem && !Object.keys(watchlistIntraday).length) {
+            watchlistFetchIntraday()
+        }
+    }, [watchlistItem])
 
 
     //* Styled components
@@ -43,8 +63,8 @@ function ListItem({ ticker }) {
     width: 180px;
     `
     const ChartDiv = styled.div`
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     `
     const BuyPriceHFour = styled.h4`
 
@@ -55,22 +75,39 @@ function ListItem({ ticker }) {
     let recentDate = "2020-01-01 00:00:01";
     let buyPrice = 0
     let intradayObject = {};
-    if (intraday.length) intraday.flatMap(el => {
-        const tickerArr = Object.keys(el)
-        if (ticker === tickerArr[0]) Object.assign(intradayObject, { ...Object.values(el)[0] })
-        return null
-    })
-    if (intradayObject && Object.keys(intradayObject)) for (let key in intradayObject) {
-        if (key > recentDate) {
-            recentDate = key;
-            buyPrice = parseFloat(intradayObject[key]["4. close"]).toFixed(2)
+    if (!watchlistItem) {
+        if (intraday.length) intraday.flatMap(el => {
+            const tickerArr = Object.keys(el)
+            if (ticker === tickerArr[0]) Object.assign(intradayObject, { ...Object.values(el)[0] })
+            return null
+        })
+        console.log("INTRADAY", intradayObject)
+        if (intradayObject && Object.keys(intradayObject)) for (let key in intradayObject) {
+            if (key > recentDate) {
+                recentDate = key;
+                buyPrice = parseFloat(intradayObject[key]["4. close"]).toFixed(2)
+            }
+            recentDate = key > recentDate ? key : recentDate
+
+            data.push(intradayObject[key]["4. close"])
+            labels.push(intradayObject[key])
         }
-        recentDate = key > recentDate ? key : recentDate
-
-        data.push(intradayObject[key]["4. close"])
-        labels.push(intradayObject[key])
+        console.log("NORMAL DATA", data)
     }
+    else {
+        console.log("WL INTRADAY", watchlistIntraday)
+        if (watchlistIntraday && Object.keys(watchlistIntraday)) for (let key in watchlistIntraday) {
+            if (key > recentDate) {
+                recentDate = key;
+                buyPrice = parseFloat(watchlistIntraday[key]["4. close"]).toFixed(2)
+            }
+            recentDate = key > recentDate ? key : recentDate
 
+            data.push(watchlistIntraday[key]["4. close"])
+            labels.push(watchlistIntraday[key])
+        }
+        console.log("NEW DATA", data)
+    }
 
     const initialPrice = data ? data[data.length - 1] : 0
     const endPrice = data ? data[0] : 0
@@ -82,7 +119,7 @@ function ListItem({ ticker }) {
             {
                 data: data.reverse(),
                 fill: false,
-                borderWidth: .5,
+                borderWidth: 1,
                 backgroundColor: "rgba(75,192,192,1)",
                 borderColor: endPrice > initialPrice ? "#AFC23F" : "#e7545f",
                 pointRadius: 0,

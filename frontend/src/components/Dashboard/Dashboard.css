@@ -51,13 +51,13 @@ div.page-container-upper {
 }
 
 .list-stocks {
-    position: absolute;
+    position: fixed;
     top: 65px;
     right: 90px;
 }
 
 div.listStocks {
-    margin: 30px 0 30px 0;
+    margin: 10px 0 30px 0;
 }
 
 div.portfolio_change___dollar {
