@@ -11,6 +11,7 @@ import { initializeStock } from './store/stocks';
 import { initializeIntraDay } from './store/intraday';
 import { initializeNews } from "./store/news"
 import CompanyDetail from './components/Dashboard/CompanyDetail/CompanyDetail';
+import { initializeBuyingPower } from './store/buyingPower';
 
 function App() {
   const dispatch = useDispatch()
@@ -28,6 +29,7 @@ function App() {
     if (sessionUser) {
       dispatch(initializeStock(sessionUser.id))
       dispatch(initializeIntraDay(sessionUser.id))
+      dispatch(initializeBuyingPower(sessionUser.id))
     }
   }, [sessionUser, dispatch])
   useEffect(() => {

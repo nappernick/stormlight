@@ -4,11 +4,13 @@ import { currentPriceApi } from "../../utils";
 import { purchaseStock, updateStockNum } from "../../store/stocks"
 import "./PurchaseModal.css"
 import { addIntraDay, updateDataForIntraday } from "../../store/intraday";
+import { updateBuyingPowerThunk } from "../../store/buyingPower";
 
 function Purchase({ closeModal }) {
     const dispatch = useDispatch()
     const userId = useSelector(state => state.session.user.id)
     const stocks = useSelector(state => state.stock)
+    const buyingPower = useSelector(store => store.buyingPower)
     const [ticker, setTicker] = useState('')
     const [buyPrice, setBuyPrice] = useState(0)
     const [numStock, setNumStock] = useState('')
@@ -34,14 +36,16 @@ function Purchase({ closeModal }) {
         setErrors([])
         if (!stocks[ticker]) {
             dispatch(purchaseStock(ticker, parseInt(numStock, 10), buyPrice, userId))
+                .then(() => dispatch(addIntraDay(userId, ticker)))
+                .then(() => dispatch(updateBuyingPowerThunk(userId, (parseFloat(buyingPower[userId].dollars) - (parseInt(numStock, 10) * parseFloat(buyPrice))))))
                 .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-            dispatch(addIntraDay(userId, ticker))
-                .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-            if (!errors.length) closeModal()
+            // if (!errors.length) closeModal()
         } else {
             dispatch(updateStockNum(ticker, numStock, buyPrice, userId))
                 .then(() => dispatch(updateDataForIntraday(ticker, userId)))
-                // .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
+                .then(() => dispatch(updateBuyingPowerThunk(userId, (parseFloat(buyingPower[userId].dollars) - (parseInt(numStock, 10) * parseFloat(buyPrice))))))
+                .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
+            // if (!errors.length) closeModal()
         }
     }
 

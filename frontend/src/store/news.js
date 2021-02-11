@@ -16,7 +16,6 @@ export const initializeNews = () => async (dispatch) => {
     for (let index = 0; stories.length < 3; index++) {
         const story = res.data.news[index]
         if (story.category === "business" && story.summary) {
-            console.log(story)
             stories.push(story)
         }
     }

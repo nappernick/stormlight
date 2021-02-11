@@ -5,15 +5,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import Dropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem } from 'rc-menu';
 import { removeIntraDay } from '../../../store/intraday';
+import { updateBuyingPowerThunk } from '../../../store/buyingPower';
+import { currentPriceApi } from '../../../utils';
 
 function ListItem({ ticker }) {
     const dispatch = useDispatch()
     const userId = useSelector(state => state.session.user.id)
     const intraday = useSelector(state => state.intraday)
+    const stocks = useSelector(store => store.stock)
+    const buyingPower = useSelector(store => store.buyingPower)
 
     //* Sell stock dropdown on hover functions
     function onSelect() {
         dispatch(removeIntraDay(userId, ticker))
+        async function increaseBuyPower() {
+            let price = parseFloat(await currentPriceApi(ticker.toUpperCase()))
+            let numStock = parseInt(stocks[ticker].numStock)
+            let buyPowDollars = parseFloat(buyingPower[userId].dollars)
+            let newDollars = buyPowDollars + (price * numStock)
+            dispatch(updateBuyingPowerThunk(userId, newDollars))
+        }
+        increaseBuyPower()
     }
 
     const menuCallback = () => (
