@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   BuyingPower.init({
     dollars: {
-      type: DataTypes.DECIMAL(6, 2),
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
     userId: {

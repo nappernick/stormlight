@@ -10,7 +10,7 @@ module.exports = {
       },
       dollars: {
         defaultValue: 100000.00,
-        type: Sequelize.DECIMAL(6, 2)
+        type: Sequelize.DECIMAL(10, 2)
       },
       userId: {
         allowNull: false,
