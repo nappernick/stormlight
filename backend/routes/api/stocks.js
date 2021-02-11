@@ -20,7 +20,7 @@ router.post("/", asyncHandler(async (req, res, next) => {
     })
     return res.json({ stock, })
 })
-)
+) 
 
 router.put('/:userId([0-9]+)', asyncHandler(async (req, res, next) => {
     const { userId } = req.params

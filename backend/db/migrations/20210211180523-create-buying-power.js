@@ -13,6 +13,7 @@ module.exports = {
         type: Sequelize.DECIMAL(10, 2)
       },
       userId: {
+        unique: true,
         allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: "Users" }
