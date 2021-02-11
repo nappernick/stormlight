@@ -49,6 +49,15 @@ router.delete('/:userId([0-9]+)/:ticker(\\w+)$', asyncHandler(async (req, res) =
     })
 }))
 
+router.get("/search/:search", asyncHandler(async (req, res) => {
+    let { search } = req.params;
+    let searchRes = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${search}&apikey=${alphaApi}`)
+    search = await searchRes.json()
+    return res.json({
+        search,
+    })
+}))
+
 router.get('/:id([0-9]+)', asyncHandler(async (req, res, next) => {
     const { id } = req.params
     const stock = await Stock.findAll({ where: { userId: id } })
