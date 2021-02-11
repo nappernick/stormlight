@@ -78,7 +78,7 @@ function LineGraph({ setIntraDayEnd, companyIntraDayData }) {
             yPadding: "12",
             titleFontColor: '#5a6571',
             bodyFontColor: '#5a6571',
-            backgroundColor: 'rgba(0, 0, 0, 0)',
+            // backgroundColor: 'rgba(0, 0, 0, 0)',
             // Removes the color square from tooltip
             displayColors: false,
         },

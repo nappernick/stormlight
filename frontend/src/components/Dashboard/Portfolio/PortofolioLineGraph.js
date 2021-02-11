@@ -33,8 +33,6 @@ function PortofolioLineGraph({ user }) {
     }, [intraDayData])
 
     useEffect(() => {
-        const numEnd = intraDayEnd
-        const numStart = intraDayStart
         if (intraDayStart && intraDayEnd) setStartEndDiff((intraDayEnd - intraDayStart).toFixed(2))
     }, [intraDayStart, intraDayEnd])
 
