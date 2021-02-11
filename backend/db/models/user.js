@@ -1,5 +1,6 @@
 'use strict';
 const { Model, Validator } = require('sequelize');
+const { BuyingPower } = require("../models");
 const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes) => {
@@ -35,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
         email,
         hashedPassword,
       });
+      await BuyingPower.create({
+        dollars: 100000.00,
+        userId: user.id
+      })
       return await User.scope('currentUser').findByPk(user.id);
     };
     static associate(models) {

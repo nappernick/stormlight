@@ -10,12 +10,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      BuyingPower.belongsTo(models.User, { foreignKey: "userId" })
     }
   };
   BuyingPower.init({
-    dollars: DataTypes.FLOAT,
-    userId: DataTypes.INTEGER
+    dollars: {
+      type: DataTypes.DECIMAL(6, 2),
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {
     sequelize,
     modelName: 'BuyingPower',

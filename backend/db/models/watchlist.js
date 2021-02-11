@@ -10,12 +10,24 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Watchlist.belongsTo(models.User, { foreignKey: "userId" })
     }
   };
   Watchlist.init({
-    ticker: DataTypes.STRING,
-    userId: DataTypes.INTEGER
+    ticker: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: {
+          args: [0, 6],
+          msg: "Must be a valid stock ticker."
+        },
+      },
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   }, {
     sequelize,
     modelName: 'Watchlist',
