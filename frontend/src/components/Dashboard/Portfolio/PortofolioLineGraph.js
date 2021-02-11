@@ -39,7 +39,7 @@ function PortofolioLineGraph({ user }) {
     }, [intraDayStart, intraDayEnd])
 
     return (
-        <div className="portfolio__line_graph_container">
+        <div className="line_graph_container">
             <StyledValueContainer>
                 <PortfolioValue
                     intraDayEnd={intraDayEnd}

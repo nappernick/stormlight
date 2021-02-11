@@ -8,14 +8,12 @@ import { createIntradaData } from '../../../store/intradayData'
 import { fetchCoData, formatAMPM } from '../../../utils'
 import { useParams } from 'react-router-dom'
 
-function LineGraph({ setIntraDayEnd }) {
+function LineGraph({ setIntraDayEnd, companyIntraDayData }) {
     const { stockTicker } = useParams()
     const dispatch = useDispatch()
     const stocks = useSelector(state => state.stock)
     const intraDay = useSelector(state => state.intraday)
     const intraDayData = useSelector(state => state.intradayData)
-    const [interval, setInterval] = useState("15min")
-    const [companyIntraDayData, setCompanyIntraDayData] = useState({})
     const [numOfStocks, setNumOfStocks] = useState({})
 
 
@@ -34,12 +32,9 @@ function LineGraph({ setIntraDayEnd }) {
                 [ticker]: numStocks,
             })
         }
-        else {
-            fetchCoData(setCompanyIntraDayData, stockTicker, interval)
-        }
-    }, [stocks, stockTicker, setNumOfStocks, setCompanyIntraDayData])
+    }, [stocks, stockTicker, setNumOfStocks])
 
-    console.log(companyIntraDayData)
+
     // Formatting the date & time labels
     const labelsRev = companyIntraDayData && Object.keys(companyIntraDayData).length ? Object.keys(companyIntraDayData).reverse() : Object.keys(intraDayData).reverse()
     const formattedLabels = labelsRev.map(label => {
