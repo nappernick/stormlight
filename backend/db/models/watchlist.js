@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Watchlist.init({
     ticker: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false,  
+      unique: 'uniqueWatchlistItem',
       validate: {
         len: {
           args: [0, 6],
@@ -26,7 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false,  
+      unique: 'uniqueWatchlistItem'
     },
   }, {
     sequelize,

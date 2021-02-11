@@ -7,6 +7,7 @@ import intradayReducer from "./intraday"
 import intradayDataReducer from "./intradayData"
 import newsReducer from "./news"
 import buyingPowerReducer from "./buyingPower"
+import watchlistReducer from "./watchlist"
 
 // const USER_LOGOUT = "userLogout"
 
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     intradayData: intradayDataReducer,
     news: newsReducer,
     buyingPower: buyingPowerReducer,
+    watchlist: watchlistReducer,
 })
 // const rootReducer = (state, action) => {
 //     if (action.type === 'USER_LOGOUT') {

@@ -71,8 +71,7 @@ function ListItem({ ticker }) {
         labels.push(intradayObject[key])
     }
 
-    console.log(data[0])
-    console.log(ticker)
+
     const initialPrice = data ? data[data.length - 1] : 0
     const endPrice = data ? data[0] : 0
 
