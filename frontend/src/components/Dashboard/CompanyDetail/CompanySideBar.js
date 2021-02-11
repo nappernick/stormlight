@@ -1,10 +1,36 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { removeIntraDay } from '../../../store/intraday'
+import { currentPriceApi } from '../../../utils'
 
 function CompanySideBar() {
+    const dispatch = useDispatch()
     const { stockTicker } = useParams()
+    const userId = useSelector(state => state.session.user.id)
+    const stocks = useSelector(store => store.stock)
+    const [numShares, setNumShares] = useState(0)
+    const [marketPrice, setMarketPrice] = useState(0)
+    const [isOwned, setIsOwned] = useState(false)
     const SideBarDiv = styled.div``
+
+    const handleSale = async () => dispatch(removeIntraDay(userId, stockTicker))
+
+    useEffect(() => {
+        async function fetchPrice() {
+            let price = await currentPriceApi(stockTicker.toUpperCase())
+            if (price) setMarketPrice(price.toFixed(2))
+        }
+        fetchPrice()
+
+    }, [stockTicker])
+
+    useEffect(() => {
+        if (Object.keys(stocks).includes(stockTicker)) setIsOwned(true)
+    }, [stocks])
+
+    console.log(isOwned)
     return (
         <SideBarDiv>
             <div className="side-bar-container">
@@ -17,7 +43,11 @@ function CompanySideBar() {
                             Shares
                         </div>
                         <div className="shares-input">
-                            <input type="number" />
+                            <input
+                                type="number"
+                                value={numShares}
+                                onChange={(e) => setNumShares(parseInt(e.target.value))}
+                            />
                         </div>
                     </div>
                     <div className="market-price flex">
@@ -25,7 +55,7 @@ function CompanySideBar() {
                             Market Price
                         </div>
                         <div className="market-price-value">
-                            {/*// ! COMING SOON */}
+                            {marketPrice ? `$${marketPrice}` : "Loading..."}
                         </div>
                     </div>
                     <div className="estimated-cost flex">
@@ -33,7 +63,7 @@ function CompanySideBar() {
                             Estimated Cost
                         </div>
                         <div className="estimated-cost-value">
-                            {/*// ! COMING SOON */}
+                            {numShares ? `$${(numShares * marketPrice).toFixed(2)}` : ""}
                         </div>
                     </div>
                 </div>
@@ -42,7 +72,10 @@ function CompanySideBar() {
 
                     </div>
                     <div className="sell-stock">
-                        {/*// ! SHOULD BE INVISIBLE IF NOT OWNED  */}
+                        {isOwned ? <div
+                            className="sell-stock"
+                            onClick={handleSale}
+                        >Sell Stock</div> : ""}
                     </div>
                     <div className="buying-power">
                         {/*// ! WILL NEED A NEW TABLE  */}
