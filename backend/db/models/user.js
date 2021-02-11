@@ -1,6 +1,6 @@
 'use strict';
 const { Model, Validator } = require('sequelize');
-const { BuyingPower } = require("../models");
+const { BuyingPower } = require("./buyingpower");
 const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes) => {
