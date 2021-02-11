@@ -10,6 +10,7 @@ function CompanySideBar() {
     const { stockTicker } = useParams()
     const userId = useSelector(state => state.session.user.id)
     const stocks = useSelector(store => store.stock)
+    const buyingPower = useSelector(store => store.buyingPower)
     const [numShares, setNumShares] = useState(0)
     const [marketPrice, setMarketPrice] = useState(0)
     const [isOwned, setIsOwned] = useState(false)
@@ -78,7 +79,7 @@ function CompanySideBar() {
                         >Sell Stock</div> : ""}
                     </div>
                     <div className="buying-power">
-                        {/*// ! WILL NEED A NEW TABLE  */}
+                        ${parseFloat(buyingPower[userId].dollars).toFixed(2)} Buying Power Available
                     </div>
                     <div className="watch-list">
                         {/* // ! WILL ALSO NEED A NEW TABLE */}
