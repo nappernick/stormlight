@@ -4,6 +4,7 @@ import { Line } from "react-chartjs-2"
 import { useDispatch, useSelector } from 'react-redux'
 import Dropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem } from 'rc-menu';
+import _ from 'lodash'
 import { removeIntraDay } from '../../../store/intraday';
 import { updateBuyingPowerThunk } from '../../../store/buyingPower';
 import { currentPriceApi, intradayfetchapi } from '../../../utils';
@@ -49,7 +50,7 @@ function ListItem({ ticker }) {
             }
             setWatchlistIntraday(obj)
         }
-        if (watchlistItem && !Object.keys(watchlistIntraday).length) {
+        if (watchlistItem && _.isEmpty(watchlistIntraday)) {
             watchlistFetchIntraday()
         }
     }, [watchlistItem])
@@ -63,8 +64,8 @@ function ListItem({ ticker }) {
     width: 180px;
     `
     const ChartDiv = styled.div`
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     `
     const BuyPriceHFour = styled.h4`
 

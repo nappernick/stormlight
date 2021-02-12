@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { removeIntraDay } from '../../../store/intraday'
+import { addToWatchlist, removeFromWatchlist } from '../../../store/watchlist'
 import { currentPriceApi } from '../../../utils'
 
 function CompanySideBar() {
@@ -11,6 +12,7 @@ function CompanySideBar() {
     const userId = useSelector(state => state.session.user.id)
     const stocks = useSelector(store => store.stock)
     const buyingPower = useSelector(store => store.buyingPower)
+    const watchlist = useSelector(store => store.watchlist)
     const [numShares, setNumShares] = useState(0)
     const [marketPrice, setMarketPrice] = useState(0)
     const [isOwned, setIsOwned] = useState(false)
@@ -18,19 +20,30 @@ function CompanySideBar() {
     const SideBarDiv = styled.div``
 
     const handleSale = async () => dispatch(removeIntraDay(userId, stockTicker))
+    const handleRemoveWL = async () => {
+        setIsWatched(false)
+        dispatch(removeFromWatchlist(userId, stockTicker))
+    }
+    const handleAddWL = async () => {
+        setIsWatched(true)
+        dispatch(addToWatchlist(userId, stockTicker))
+    }
 
     useEffect(() => {
         async function fetchPrice() {
             let price = await currentPriceApi(stockTicker.toUpperCase())
             if (price) setMarketPrice(price.toFixed(2))
         }
-        fetchPrice()
+        if (marketPrice === 0) fetchPrice()
 
     }, [stockTicker])
 
     useEffect(() => {
         if (Object.keys(stocks).includes(stockTicker)) setIsOwned(true)
-    }, [stocks])
+        if (watchlist && watchlist.length) watchlist.forEach(item => {
+            if (item && item.ticker === stockTicker) setIsWatched(true)
+        })
+    }, [stocks, watchlist])
 
     console.log(isOwned)
     return (
@@ -83,7 +96,21 @@ function CompanySideBar() {
                         ${parseFloat(buyingPower[userId].dollars).toFixed(2)} Buying Power Available
                     </div>
                     <div className="watch-list">
-                        {/* // ! WILL ALSO NEED A NEW TABLE */}
+                        {isWatched ?
+                            <div
+                                className="remove_watchlist"
+                                onClick={handleRemoveWL}
+                            >
+                                Remove from Watchlist
+                            </div>
+                            :
+                            <div
+                                className="add_to_watchlist"
+                                onClick={handleAddWL}
+                            >
+                                Add to Watchlist
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
