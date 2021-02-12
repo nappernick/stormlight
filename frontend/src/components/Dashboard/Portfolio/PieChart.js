@@ -43,7 +43,7 @@ function PieChart() {
             mode: 'single',
             callbacks: {
                 label: function (tooltipItem, data) {
-                    console.log(data.labels[tooltipItem.index])
+                    // console.log(data.labels[tooltipItem.index])
                     let value = data.datasets[0].data[tooltipItem.index];
                     if (parseInt(value) >= 1000) {
                         // Using an array allows for multiline text - each item

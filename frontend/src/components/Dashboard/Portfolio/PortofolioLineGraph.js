@@ -6,6 +6,17 @@ import PieChart from './PieChart';
 import { useEffect, useState } from "react";
 import PortfolioValue from "./PortfolioValue";
 
+const StyledValueContainer = styled.div`
+display: flex;
+justify-content: space-between;
+font-family: 'DM Sans', sans-serif;
+font-weight: 700;
+font-size: 22pt;
+color: rgb(0, 78, 171);
+margin-top: 0px;
+margin-left: 30px;
+margin-bottom: 20px;
+`
 
 function PortofolioLineGraph({ user }) {
     const history = useHistory()
@@ -13,17 +24,6 @@ function PortofolioLineGraph({ user }) {
     const [intraDayStart, setIntraDayStart] = useState(0)
     const [intraDayEnd, setIntraDayEnd] = useState(0)
     const [startEndDiff, setStartEndDiff] = useState(0)
-    const StyledValueContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    font-size: 22pt;
-    color: rgb(0, 78, 171);
-    margin-top: 0px;
-    margin-left: 30px;
-    margin-bottom: 20px;
-    `
 
     const handleClick = (e) => setIntraDayEnd(parseFloat(Object.values(intraDayData)[0]).toFixed(2))
 

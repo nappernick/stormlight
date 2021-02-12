@@ -2,18 +2,19 @@ import React from 'react'
 import styled from "styled-components"
 import NumberFormat from 'react-number-format';
 
+const HeaderContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    `
+const ChangeContainer = styled.div`
+    font-size: 15px;
+    color: #5a6571;
+    display: flex;
+    margin-left: 12px;
+    min-width: 120px
+    `
+
 function PortfolioValue({ intraDayEnd, intraDayStart, startEndDiff }) {
-    const HeaderContainer = styled.div`
-        display: flex;
-        flex-direction: column;
-        `
-    const ChangeContainer = styled.div`
-        font-size: 15px;
-        color: #5a6571;
-        display: flex;
-        margin-left: 12px;
-        min-width: 120px
-        `
     return (
         <HeaderContainer>
             <NumberFormat

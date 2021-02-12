@@ -15,11 +15,10 @@ const normalizeData = (checkObj, closeObj, tickers) => {
         if (checkObj[key] !== countTickers) delete closeObj[key]
     }
     return closeObj
-} 
+}
 
 export const createIntradaData = (intraDay, numOfStocks) => async (dispatch) => {
     let stockArr = intraDay
-    console.log(stockArr)
     let closeObj = {}
     let checkObj = {}
     let tickers = []
@@ -28,10 +27,9 @@ export const createIntradaData = (intraDay, numOfStocks) => async (dispatch) => 
         for (let key in ele) {
             let ticker = key
             if (!tickers.includes(ticker)) tickers.push(ticker)
-            console.log(ticker)
-            console.log(numOfStocks[ticker])
-            for (let innerKey in ele[key]) {
-                let inner = parseFloat(ele[key][innerKey]["4. close"])
+            if (!numOfStocks[ticker]) return
+            for (let innerKey in ele[ticker]) {
+                let inner = parseFloat(ele[ticker][innerKey]["4. close"])
                 let stockPrice = numOfStocks[ticker]
                 let stockTotal = (inner * stockPrice).toFixed(2)
                 if (closeObj[innerKey]) closeObj[innerKey] = (parseFloat(closeObj[innerKey]) + parseFloat(stockTotal)).toFixed(2)
@@ -44,7 +42,7 @@ export const createIntradaData = (intraDay, numOfStocks) => async (dispatch) => 
 
     })
     normalizeData(checkObj, closeObj, tickers)
-    if (Object.values(closeObj)) dispatch(setIntradayData(closeObj))
+    if (Object.values(closeObj).length) dispatch(setIntradayData(closeObj))
 }
 
 

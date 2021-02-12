@@ -9,30 +9,29 @@ import { fetchCoData, formatAMPM } from '../../../utils'
 import { useParams } from 'react-router-dom'
 
 function LineGraph({ setIntraDayEnd, companyIntraDayData }) {
-    const { stockTicker } = useParams()
     const dispatch = useDispatch()
     const stocks = useSelector(state => state.stock)
     const intraDay = useSelector(state => state.intraday)
     const intraDayData = useSelector(state => state.intradayData)
-    const [numOfStocks, setNumOfStocks] = useState({})
+    const [numOfStocks, setNumOfStocks] = useState(null)
 
 
     useEffect(() => {
-        if (Object.keys(numOfStocks).length) dispatch(createIntradaData(intraDay, numOfStocks))
-    }, [dispatch, stocks, intraDay])
+        if (numOfStocks && (Object.keys(numOfStocks).length === intraDay.length)) dispatch(createIntradaData(intraDay, numOfStocks))
+    }, [dispatch, stocks, intraDay, numOfStocks])
 
     useEffect(() => {
-        console.log(stockTicker)
-        if (!stockTicker) for (let stock in stocks) {
-            let ele = stocks[stock]
-            let ticker = ele["ticker"]
-            let numStocks = ele["numStock"]
-            setNumOfStocks({
-                ...numOfStocks,
-                [ticker]: numStocks,
-            })
+        const numStocksObj = {}
+        if (!companyIntraDayData && (Object.keys(stocks).length === intraDay.length)) {
+            for (let stock in stocks) {
+                let ele = stocks[stock]
+                let ticker = ele["ticker"]
+                let numStocks = ele["numStock"]
+                numStocksObj[ticker] = numStocks
+            }
+            setNumOfStocks(numStocksObj)
         }
-    }, [stocks, stockTicker, setNumOfStocks])
+    }, [stocks, intraDay, companyIntraDayData, setNumOfStocks])
 
 
     // Formatting the date & time labels
@@ -78,7 +77,7 @@ function LineGraph({ setIntraDayEnd, companyIntraDayData }) {
             yPadding: "12",
             titleFontColor: '#5a6571',
             bodyFontColor: '#5a6571',
-            // backgroundColor: 'rgba(0, 0, 0, 0)',
+            backgroundColor: 'rgba(0, 0, 0, 0)',
             // Removes the color square from tooltip
             displayColors: false,
         },

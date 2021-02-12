@@ -6,6 +6,8 @@ import { removeIntraDay } from '../../../store/intraday'
 import { addToWatchlist, removeFromWatchlist } from '../../../store/watchlist'
 import { currentPriceApi } from '../../../utils'
 
+const SideBarDiv = styled.div``
+
 function CompanySideBar() {
     const dispatch = useDispatch()
     const { stockTicker } = useParams()
@@ -17,7 +19,6 @@ function CompanySideBar() {
     const [marketPrice, setMarketPrice] = useState(0)
     const [isOwned, setIsOwned] = useState(false)
     const [isWatched, setIsWatched] = useState(false)
-    const SideBarDiv = styled.div``
 
     const handleSale = async () => dispatch(removeIntraDay(userId, stockTicker))
     const handleRemoveWL = async () => {
@@ -45,7 +46,7 @@ function CompanySideBar() {
         })
     }, [stocks, watchlist])
 
-    console.log(isOwned)
+    // console.log(isOwned)
     return (
         <SideBarDiv>
             <div className="side-bar-container">

@@ -6,15 +6,6 @@ import styled from 'styled-components'
 import PurchaseModal from '../../PurchasePage/PurchaseModal';
 import ListItem from './ListItem'
 
-function ListStocks() {
-    const stocks = useSelector(state => state.stock)
-    const intraday = useSelector(state => state.intraday)
-    const watchlist = useSelector(store => store.watchlist)
-    const [stocksLen, setStocksLen] = useState(0)
-    const [stocksTickerArr, setStocksTickerArr] = useState([])
-    const [intradayLen, setIntradayLen] = useState(0)
-
-
     const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -48,6 +39,15 @@ function ListStocks() {
     const PurchaseModalDiv = styled.div`
     margin-top: 0px;
     `
+
+function ListStocks() {
+    const stocks = useSelector(state => state.stock)
+    const intraday = useSelector(state => state.intraday)
+    const watchlist = useSelector(store => store.watchlist)
+    const [stocksLen, setStocksLen] = useState(0)
+    const [stocksTickerArr, setStocksTickerArr] = useState([])
+    const [intradayLen, setIntradayLen] = useState(0)
+
     useEffect(() => {
         setStocksLen(Object.values(stocks).length)
         setStocksTickerArr(Object.keys(stocks))

@@ -35,7 +35,6 @@ const removeWatchlist = (item) => {
 
 export const initializeWatchlist = (userId) => async (dispatch) => {
     const watchlist = await fetch(`/api/watchlist/user/${userId}`)
-    console.log(watchlist.data.watchList)
     if (!watchlist.data.errors) return dispatch(setWatchlist(watchlist.data.watchList))
     else return watchlist.data.errors
 }
@@ -44,8 +43,7 @@ export const addToWatchlist = (userId, ticker) => async (dispatch) => {
     const watchlist = await fetch(`/api/watchlist/user/${userId}/ticker/${ticker}`, {
         method: "POST"
     })
-    console.log(watchlist.data.watchlist)
-    if (!watchlist.data.errors) return dispatch(addWatchlist(watchlist.data.watchlist))
+    if (!watchlist.data.errors) return dispatch(addWatchlist(watchlist.data["watchList"]))
     else return watchlist.data.errors
 }
 
@@ -65,7 +63,9 @@ const watchlistReducer = (state = [], action) => {
         case ADD_WATCHLIST:
             return [...state, action.payload.item]
         case REMOVE_WATCHLIST:
-            let unsetIndex = state.findIndex(el => el.id === action.payload.item.id);
+            let unsetIndex = state.findIndex((el, index) => {
+                if (el && el.id === action.payload.item["id"]) return index
+            });
             return [
                 ...state.slice(0, unsetIndex),
                 ...state.slice(unsetIndex + 1)

@@ -34,7 +34,7 @@ export const updateBuyingPowerThunk = (userId, newDollars) => async (dispatch) =
         method: "PUT",
         body: JSON.stringify({ dollars: parseFloat(newDollars) })
     })
-    console.log(newDollars)
+    // console.log(newDollars)
     if (!res.data.errors) return dispatch(updateBuyingPower(newDollars, userId))
     else return res.data.errors
 

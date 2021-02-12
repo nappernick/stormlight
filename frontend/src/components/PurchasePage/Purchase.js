@@ -39,13 +39,13 @@ function Purchase({ closeModal }) {
                 .then(() => dispatch(addIntraDay(userId, ticker)))
                 .then(() => dispatch(updateBuyingPowerThunk(userId, (parseFloat(buyingPower[userId].dollars) - (parseInt(numStock, 10) * parseFloat(buyPrice))))))
                 .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-            // if (!errors.length) closeModal()
+            if (!errors.length) closeModal()
         } else {
             dispatch(updateStockNum(ticker, numStock, buyPrice, userId))
                 .then(() => dispatch(updateDataForIntraday(ticker, userId)))
                 .then(() => dispatch(updateBuyingPowerThunk(userId, (parseFloat(buyingPower[userId].dollars) - (parseInt(numStock, 10) * parseFloat(buyPrice))))))
                 .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-            // if (!errors.length) closeModal()
+            if (!errors.length) closeModal()
         }
     }
 

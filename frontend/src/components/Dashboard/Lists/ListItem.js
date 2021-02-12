@@ -10,6 +10,23 @@ import { updateBuyingPowerThunk } from '../../../store/buyingPower';
 import { currentPriceApi, intradayfetchapi } from '../../../utils';
 import "./ListItem.css"
 
+
+
+//* Styled components
+const TickerDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 180px;
+    `
+const ChartDiv = styled.div`
+    height: 30px;
+    width: 30px;
+    `
+const BuyPriceHFour = styled.h4`
+
+    `
+
 function ListItem({ ticker }) {
     const dispatch = useDispatch()
     const userId = useSelector(state => state.session.user.id)
@@ -54,22 +71,6 @@ function ListItem({ ticker }) {
             watchlistFetchIntraday()
         }
     }, [watchlistItem])
-
-
-    //* Styled components
-    const TickerDiv = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 180px;
-    `
-    const ChartDiv = styled.div`
-    height: 30px;
-    width: 30px;
-    `
-    const BuyPriceHFour = styled.h4`
-
-    `
     //* Build the array of data for chart:
     let data = [];
     let labels = [];
@@ -82,7 +83,7 @@ function ListItem({ ticker }) {
             if (ticker === tickerArr[0]) Object.assign(intradayObject, { ...Object.values(el)[0] })
             return null
         })
-        console.log("INTRADAY", intradayObject)
+        // console.log("INTRADAY", intradayObject)
         if (intradayObject && Object.keys(intradayObject)) for (let key in intradayObject) {
             if (key > recentDate) {
                 recentDate = key;
@@ -93,10 +94,10 @@ function ListItem({ ticker }) {
             data.push(intradayObject[key]["4. close"])
             labels.push(intradayObject[key])
         }
-        console.log("NORMAL DATA", data)
+        // console.log("NORMAL DATA", data)
     }
     else {
-        console.log("WL INTRADAY", watchlistIntraday)
+        // console.log("WL INTRADAY", watchlistIntraday)
         if (watchlistIntraday && Object.keys(watchlistIntraday)) for (let key in watchlistIntraday) {
             if (key > recentDate) {
                 recentDate = key;
@@ -107,7 +108,7 @@ function ListItem({ ticker }) {
             data.push(watchlistIntraday[key]["4. close"])
             labels.push(watchlistIntraday[key])
         }
-        console.log("NEW DATA", data)
+        // console.log("NEW DATA", data)
     }
 
     const initialPrice = data ? data[data.length - 1] : 0
