@@ -11,7 +11,7 @@ const { json } = require("express");
 const router = express.Router()
 
 router.post("/user/:userId([0-9]+)/ticker/:ticker(\\w+)$", asyncHandler(async (req, res, next) => {
-    const { userId, ticker } = req.params
+    let { userId, ticker } = req.params
     ticker = ticker.toUpperCase()
     const watchList = await Watchlist.create({
         ticker,
@@ -21,7 +21,7 @@ router.post("/user/:userId([0-9]+)/ticker/:ticker(\\w+)$", asyncHandler(async (r
 }))
 
 router.delete('/user/:userId([0-9]+)/ticker/:ticker(\\w+)$', asyncHandler(async (req, res, next) => {
-    const { userId, ticker } = req.params
+    let { userId, ticker } = req.params
     ticker = ticker.toUpperCase()
     const toDelete = await Watchlist.findOne({
         where: {
