@@ -38,7 +38,7 @@ function ListItem({ ticker }) {
 
     //* Sell stock dropdown on hover functions
     function onSelect() {
-        dispatch(removeIntraDay(userId, ticker))
+        dispatch(removeIntraDay(userId, ticker, stocks[ticker]["numStock"], buyingPower[userId]["dollars"]))
         async function increaseBuyPower() {
             let price = parseFloat(await currentPriceApi(ticker.toUpperCase()))
             let numStock = parseInt(stocks[ticker].numStock)

@@ -1,7 +1,8 @@
-import { intradayfetchapi } from "../utils.js"
+import { currentPriceApi, intradayfetchapi } from "../utils.js"
 import { fetch } from "./csrf.js"
 import { unsetStock } from "./stocks.js"
 import { find, indexOf } from "lodash"
+import { updateBuyingPowerThunk } from "./buyingPower.js"
 
 const SET_INTRADAY = "stocks/setIntraDay"
 const UNSET_INTRADAY = "stocks/removeIntraDay"
@@ -39,7 +40,10 @@ export const updateDataForIntraday = (ticker, userId, interval) => async (dispat
     return data
 }
 
-export const removeIntraDay = (userId, ticker) => async (dispatch) => {
+export const removeIntraDay = (userId, ticker, numStocks, currDollars) => async (dispatch) => {
+    const currPrice = await currentPriceApi(ticker)
+    const newDollars = parseFloat(currDollars) + (currPrice * parseInt(numStocks))
+    dispatch(updateBuyingPowerThunk(userId, newDollars))
     dispatch(unsetIntraDay(ticker))
     dispatch(unsetStock(ticker))
     await fetch(`/api/stocks/${userId}/${ticker}`, {

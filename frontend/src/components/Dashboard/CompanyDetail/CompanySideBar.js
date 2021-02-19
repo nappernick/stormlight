@@ -26,9 +26,8 @@ function CompanySideBar() {
 
 
     const handleSale = async () => {
-        dispatch(removeIntraDay(userId, stockTicker))
+        dispatch(removeIntraDay(userId, stockTicker, stocks[stockTicker]["numStock"], buyingPower[userId]["dollars"]))
         setIsOwned(false)
-        setNumShares(0)
     }
     const handleRemoveWL = async () => {
         setIsWatched(false)
@@ -39,6 +38,7 @@ function CompanySideBar() {
         dispatch(addToWatchlist(userId, stockTicker))
     }
     const handlePurchase = async () => {
+        setNumShares(0)
         await buyStockAggregator(stockTicker, numShares, parseFloat(marketPrice),
             userId, parseFloat(buyingPower[userId].dollars), stocks, setErrors, dispatch)
     }
