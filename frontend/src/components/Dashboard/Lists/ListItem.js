@@ -9,6 +9,7 @@ import { removeIntraDay } from '../../../store/intraday';
 import { updateBuyingPowerThunk } from '../../../store/buyingPower';
 import { currentPriceApi, intradayfetchapi } from '../../../utils';
 import "./ListItem.css"
+import { removeFromWatchlist } from '../../../store/watchlist';
 
 
 
@@ -37,7 +38,7 @@ function ListItem({ ticker }) {
     const [watchlistIntraday, setWatchlistIntraday] = useState({})
 
     //* Sell stock dropdown on hover functions
-    function onSelect() {
+    function onSelectStock() {
         dispatch(removeIntraDay(userId, ticker, stocks[ticker]["numStock"], buyingPower[userId]["dollars"]))
         async function increaseBuyPower() {
             let price = parseFloat(await currentPriceApi(ticker.toUpperCase()))
@@ -48,12 +49,19 @@ function ListItem({ ticker }) {
         }
         increaseBuyPower()
     }
+    //* Remove Watchlist dropdown on hover functions
+    function onSelectWatchlist() {
+        dispatch(removeFromWatchlist(userId, ticker))
+        // ! NEED TO FIX BUGS
+    }
 
     const menuCallback = () => {
-        if (!watchlistItem) return <Menu onSelect={onSelect}>
+        if (!watchlistItem) return <Menu onSelect={onSelectStock}>
             <MenuItem style={{ cursor: "pointer" }} key="2">{`Sell ${ticker}?`}</MenuItem>
         </Menu>
-        else return <></>
+        else return <Menu onSelect={onSelectWatchlist}>
+            <MenuItem style={{ cursor: "pointer" }} key="2">{`Remove ${ticker}?`}</MenuItem>
+        </Menu>
     };
 
     useEffect(() => {

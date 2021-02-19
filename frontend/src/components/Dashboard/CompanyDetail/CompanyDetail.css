@@ -151,7 +151,7 @@ button.purchase__btn:disabled {
     display: flex;
     align-items: center;
     color: #AFC23F;
-    font-size: 17px;
+    font-size: 16.5px;
 }
 
 .purchase-details .shares-input > input {
