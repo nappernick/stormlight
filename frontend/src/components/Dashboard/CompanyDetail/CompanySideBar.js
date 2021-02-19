@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { removeIntraDay } from '../../../store/intraday'
 import { addToWatchlist, removeFromWatchlist } from '../../../store/watchlist'
 import { buyStockAggregator, currentPriceApi } from '../../../utils'
+import "./CompanyDetail.css"
 
 const SideBarDiv = styled.div``
 
@@ -27,6 +28,7 @@ function CompanySideBar() {
     const handleSale = async () => {
         dispatch(removeIntraDay(userId, stockTicker))
         setIsOwned(false)
+        setNumShares(0)
     }
     const handleRemoveWL = async () => {
         setIsWatched(false)
@@ -62,7 +64,7 @@ function CompanySideBar() {
         <SideBarDiv>
             <div className="side-bar-container">
                 <div className="header">
-                    Buy {stockTicker}
+                    BUY/SELL {stockTicker}
                 </div>
                 <div className="purchase-details">
                     <div className="shares flex">
@@ -96,16 +98,17 @@ function CompanySideBar() {
                 </div>
                 <div className="interactions">
                     <div className="purchase">
-                        <div
+                        <button
                             className="purchase__btn"
                             onClick={handlePurchase}
-                        >Purchase</div>
+                            disabled={numShares ? false : true}
+                        >Purchase</button>
                     </div>
                     <div className="sell-stock">
-                        {isOwned ? <div
+                        {isOwned ? <button
                             className="sell-stock"
                             onClick={handleSale}
-                        >Sell Stock</div> : ""}
+                        >Sell Stock</button> : ""}
                     </div>
                     <div className="buying-power">
                         <div className="buying_power__number">
@@ -124,19 +127,19 @@ function CompanySideBar() {
                     </div>
                     <div className="watch-list">
                         {isWatched ?
-                            <div
+                            <button
                                 className="remove_watchlist"
                                 onClick={handleRemoveWL}
                             >
                                 Remove from Watchlist
-                            </div>
+                            </button>
                             :
-                            <div
+                            <button
                                 className="add_to_watchlist"
                                 onClick={handleAddWL}
                             >
                                 Add to Watchlist
-                            </div>
+                            </button>
                         }
                     </div>
                 </div>

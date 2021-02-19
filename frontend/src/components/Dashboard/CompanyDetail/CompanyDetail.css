@@ -1,0 +1,58 @@
+div.company-line-graph {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* width: 60%; */
+    margin: 30px 270px 0 0 ;
+}
+
+div.company-stock-side-bar {
+    position: fixed;
+    top: 65px;
+    right: 90px;
+}
+
+div.side-bar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    width: 220px;
+    box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
+    padding: 10px 10px 15px 10px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+div.side-bar-container > .header {
+    margin: 0px 0 0 10px;
+    color: #5a6571;
+    font-size: 1.3em;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-self: flex-start;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    width: 200px;
+    border-bottom: 1px solid lightgray;
+}
+
+div.side-bar-container .flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+button.remove_watchlist,
+button.add_to_watchlist {
+    width: 140px;
+}
+
+.interactions > * {
+    /* height: 50px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

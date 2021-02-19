@@ -5,6 +5,19 @@ import { useParams } from 'react-router-dom'
 import PortfolioValue from '../Portfolio/PortfolioValue'
 import CompanySideBar from './CompanySideBar'
 import News from '../News/News'
+import styled from 'styled-components'
+
+const StyledValueContainer = styled.div`
+display: flex;
+justify-content: space-between;
+font-family: 'DM Sans', sans-serif;
+font-weight: 700;
+font-size: 22pt;
+color: rgb(0, 78, 171);
+margin-top: 0px;
+margin-left: 30px;
+margin-bottom: 20px;
+`
 
 function CompanyDetail() {
     const { stockTicker } = useParams()
@@ -27,26 +40,30 @@ function CompanyDetail() {
     }, [intraDayStart, intraDayEnd])
 
     return (
-        <div>
-            <div className="value-and-line">
-                <div className="value_container">
-                    <PortfolioValue
-                        intraDayEnd={intraDayEnd}
-                        intraDayStart={intraDayStart}
-                        startEndDiff={startEndDiff}
-                    />
+        <>
+            <div className="page-container-upper">
+                <div className="company-line-graph">
+                    <StyledValueContainer>
+                        <PortfolioValue
+                            intraDayEnd={intraDayEnd}
+                            intraDayStart={intraDayStart}
+                            startEndDiff={startEndDiff}
+                        />
+                    </StyledValueContainer>
+                    <div className="line_graph">
+                        <LineGraph setIntraDayEnd={setIntraDayEnd} companyIntraDayData={companyIntraDayData} />
+                    </div>
                 </div>
-                <div className="line_graph">
-                    <LineGraph setIntraDayEnd={setIntraDayEnd} companyIntraDayData={companyIntraDayData} />
+                <div className="company-stock-side-bar">
+                    <CompanySideBar />
                 </div>
             </div>
-            <div className="side-bar">
-                <CompanySideBar />
+            <div className="page-container-lower">
+                <div className="news">
+                    <News />
+                </div>
             </div>
-            <div className="news">
-                <News />
-            </div>
-        </div >
+        </ >
     )
 }
 
