@@ -23,8 +23,11 @@ function CompanySideBar() {
     const [errors, setErrors] = useState([])
 
 
-    
-    const handleSale = async () => dispatch(removeIntraDay(userId, stockTicker))
+
+    const handleSale = async () => {
+        dispatch(removeIntraDay(userId, stockTicker))
+        setIsOwned(false)
+    }
     const handleRemoveWL = async () => {
         setIsWatched(false)
         dispatch(removeFromWatchlist(userId, stockTicker))
@@ -34,8 +37,8 @@ function CompanySideBar() {
         dispatch(addToWatchlist(userId, stockTicker))
     }
     const handlePurchase = async () => {
-        await buyStockAggregator(stockTicker, numShares, parseFloat(marketPrice), 
-        userId, parseFloat(buyingPower[userId].dollars), stocks, setErrors, dispatch)
+        await buyStockAggregator(stockTicker, numShares, parseFloat(marketPrice),
+            userId, parseFloat(buyingPower[userId].dollars), stocks, setErrors, dispatch)
     }
 
     useEffect(() => {
