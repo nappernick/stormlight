@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import NumberFormat from 'react-number-format'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { removeIntraDay } from '../../../store/intraday'
 import { addToWatchlist, removeFromWatchlist } from '../../../store/watchlist'
-import { currentPriceApi } from '../../../utils'
+import { buyStockAggregator, currentPriceApi } from '../../../utils'
 
 const SideBarDiv = styled.div``
 
@@ -19,7 +20,10 @@ function CompanySideBar() {
     const [marketPrice, setMarketPrice] = useState(0)
     const [isOwned, setIsOwned] = useState(false)
     const [isWatched, setIsWatched] = useState(false)
+    const [errors, setErrors] = useState([])
 
+
+    
     const handleSale = async () => dispatch(removeIntraDay(userId, stockTicker))
     const handleRemoveWL = async () => {
         setIsWatched(false)
@@ -28,6 +32,10 @@ function CompanySideBar() {
     const handleAddWL = async () => {
         setIsWatched(true)
         dispatch(addToWatchlist(userId, stockTicker))
+    }
+    const handlePurchase = async () => {
+        await buyStockAggregator(stockTicker, numShares, parseFloat(marketPrice), 
+        userId, parseFloat(buyingPower[userId].dollars), stocks, setErrors, dispatch)
     }
 
     useEffect(() => {
@@ -85,7 +93,10 @@ function CompanySideBar() {
                 </div>
                 <div className="interactions">
                     <div className="purchase">
-
+                        <div
+                            className="purchase__btn"
+                            onClick={handlePurchase}
+                        >Purchase</div>
                     </div>
                     <div className="sell-stock">
                         {isOwned ? <div
@@ -94,7 +105,19 @@ function CompanySideBar() {
                         >Sell Stock</div> : ""}
                     </div>
                     <div className="buying-power">
-                        ${parseFloat(buyingPower[userId].dollars).toFixed(2)} Buying Power Available
+                        <div className="buying_power__number">
+                            <NumberFormat
+                                // style={{ marginLeft: '10px' }}
+                                value={buyingPower ? buyingPower[userId].dollars : null}
+                                displayType={'text'}
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                thousandSeparator={true}
+                                prefix={'$'}
+                                className="buying_power__number"
+                            />
+                        </div>
+                        <div className="buying_power__text">Buying Power Available</div>
                     </div>
                     <div className="watch-list">
                         {isWatched ?

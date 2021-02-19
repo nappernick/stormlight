@@ -1,4 +1,7 @@
+import { updateBuyingPowerThunk } from "./store/buyingPower.js"
 import { fetch as apiFetch } from "./store/csrf.js"
+import { addIntraDay, updateDataForIntraday } from "./store/intraday.js"
+import { purchaseStock, updateStockNum } from "./store/stocks.js"
 
 export const currentPriceApi = async (ticker) => {
     let res = await apiFetch(`/api/stocks/${ticker}`)
@@ -37,6 +40,21 @@ export const fetchCoData = async (setCompanyIntraDayData, ticker, interval) => {
         data[date] = data[date]["4. close"]
     }
     setCompanyIntraDayData(data)
+}
+
+export const buyStockAggregator = async (ticker, numStock, buyPrice, userId, dollars, stocks, setErrors, dispatch) => {
+    if (!stocks[ticker]) {
+        dispatch(purchaseStock(ticker, numStock, buyPrice, userId))
+            .then(() => dispatch(addIntraDay(userId, ticker)))
+            .then(() => dispatch(updateBuyingPowerThunk(userId, (dollars - (numStock * buyPrice)))))
+            .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
+        return
+    } else {
+        dispatch(updateStockNum(ticker, numStock, buyPrice, userId))
+            .then(() => dispatch(updateDataForIntraday(ticker, userId)))
+            .then(() => dispatch(updateBuyingPowerThunk(userId, (dollars - (numStock * buyPrice)))))
+            .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
+    }
 }
 
 

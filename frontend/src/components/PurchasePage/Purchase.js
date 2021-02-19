@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { currentPriceApi } from "../../utils";
-import { purchaseStock, updateStockNum } from "../../store/stocks"
+import { currentPriceApi, buyStockAggregator } from "../../utils";
+import { updateStockNum } from "../../store/stocks"
 import "./PurchaseModal.css"
-import { addIntraDay, updateDataForIntraday } from "../../store/intraday";
+import { updateDataForIntraday } from "../../store/intraday";
 import { updateBuyingPowerThunk } from "../../store/buyingPower";
 
 function Purchase({ closeModal }) {
@@ -34,19 +34,8 @@ function Purchase({ closeModal }) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setErrors([])
-        if (!stocks[ticker]) {
-            dispatch(purchaseStock(ticker, parseInt(numStock, 10), buyPrice, userId))
-                .then(() => dispatch(addIntraDay(userId, ticker)))
-                .then(() => dispatch(updateBuyingPowerThunk(userId, (parseFloat(buyingPower[userId].dollars) - (parseInt(numStock, 10) * parseFloat(buyPrice))))))
-                .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-            if (!errors.length) closeModal()
-        } else {
-            dispatch(updateStockNum(ticker, numStock, buyPrice, userId))
-                .then(() => dispatch(updateDataForIntraday(ticker, userId)))
-                .then(() => dispatch(updateBuyingPowerThunk(userId, (parseFloat(buyingPower[userId].dollars) - (parseInt(numStock, 10) * parseFloat(buyPrice))))))
-                .catch((res) => { if (res.data && res.data.errors) setErrors(res.data.errors) });
-            if (!errors.length) closeModal()
-        }
+        await buyStockAggregator(ticker, parseInt(numStock, 10), parseFloat(buyPrice), userId, parseFloat(buyingPower[userId].dollars), stocks, setErrors, dispatch)
+        if (!errors.length) closeModal()
     }
 
     const handleNumStockChange = (e) => setNumStock(e.target.value)

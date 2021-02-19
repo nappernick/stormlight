@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   Stock.init({
     ticker: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING, 
       allowNull: false,
       validate: {
         len: {
