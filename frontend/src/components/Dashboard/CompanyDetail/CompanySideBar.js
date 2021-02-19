@@ -64,14 +64,14 @@ function CompanySideBar() {
         <SideBarDiv>
             <div className="side-bar-container">
                 <div className="header">
-                    BUY/SELL {stockTicker}
+                    Buy / Sell {stockTicker}
                 </div>
                 <div className="purchase-details">
                     <div className="shares flex">
-                        <div className="shares-title">
+                        <div className="shares-title title">
                             Shares
                         </div>
-                        <div className="shares-input">
+                        <div className="shares-input value">
                             <input
                                 type="number"
                                 value={numShares}
@@ -80,18 +80,19 @@ function CompanySideBar() {
                         </div>
                     </div>
                     <div className="market-price flex">
-                        <div className="market-price-title">
+                        <div className="market-price-title title">
                             Market Price
                         </div>
-                        <div className="market-price-value">
+                        <div className="market-price-value value">
                             {marketPrice ? `$${marketPrice}` : "Loading..."}
                         </div>
                     </div>
+                    <div className="hr"></div>
                     <div className="estimated-cost flex">
-                        <div className="estimated-cost-title">
+                        <div className="estimated-cost-title title">
                             Estimated Cost
                         </div>
-                        <div className="estimated-cost-value">
+                        <div className="estimated-cost-value value">
                             {numShares ? `$${(numShares * marketPrice).toFixed(2)}` : ""}
                         </div>
                     </div>
@@ -104,11 +105,11 @@ function CompanySideBar() {
                             disabled={numShares ? false : true}
                         >Purchase</button>
                     </div>
-                    <div className="sell-stock">
-                        {isOwned ? <button
-                            className="sell-stock"
+                    <div className={isOwned ? "sell-stock" : "invisible"}>
+                        <button
+                            className="sell__btn"
                             onClick={handleSale}
-                        >Sell Stock</button> : ""}
+                        >Sell Stock</button>
                     </div>
                     <div className="buying-power">
                         <div className="buying_power__number">
@@ -123,7 +124,7 @@ function CompanySideBar() {
                                 className="buying_power__number"
                             />
                         </div>
-                        <div className="buying_power__text">Buying Power Available</div>
+                        <div className="buying_power__text">Buying Power</div>
                     </div>
                     <div className="watch-list">
                         {isWatched ?
@@ -131,14 +132,14 @@ function CompanySideBar() {
                                 className="remove_watchlist"
                                 onClick={handleRemoveWL}
                             >
-                                Remove from Watchlist
+                                Don't Watch
                             </button>
                             :
                             <button
                                 className="add_to_watchlist"
                                 onClick={handleAddWL}
                             >
-                                Add to Watchlist
+                                Watch
                             </button>
                         }
                     </div>

@@ -9,8 +9,9 @@ div.company-line-graph {
 
 div.company-stock-side-bar {
     position: fixed;
-    top: 65px;
+    top: 75px;
     right: 90px;
+    color: #5a6571;
 }
 
 div.side-bar-container {
@@ -23,6 +24,10 @@ div.side-bar-container {
     box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
     padding: 10px 10px 15px 10px;
     font-family: 'DM Sans', sans-serif;
+}
+
+div.side-bar-container > * > * {
+    width: 100%;
 }
 
 div.side-bar-container > .header {
@@ -40,19 +45,127 @@ div.side-bar-container > .header {
     border-bottom: 1px solid lightgray;
 }
 
+div.purchase-details {
+    width: 100%;
+    font-size: 15px;
+}
+
+div.purchase-details > .shares {
+    height: 40px;
+    margin-top: 20px;
+}
+
+.title {
+    margin-left: 12px;
+}
+
+.value {
+    margin-right: 12px;
+}
+
+div.purchase-details > * {
+    margin: 10px 0;
+}
+
 div.side-bar-container .flex {
     display: flex;
     justify-content: space-between;
+    width: 100%;
+}
+
+div.side-bar-container > .purchase-details > .hr {
+    border-bottom: 1px solid lightgray;
+    width: 90%;
+    margin: 10px auto;
+}
+
+button.purchase__btn,
+button.sell__btn {
+    background-color: #AFC23F;
+}
+
+.watch-list > button.remove_watchlist {
+    background-color: #C63641;
 }
 
 button.remove_watchlist,
-button.add_to_watchlist {
+button.add_to_watchlist,
+button.purchase__btn,
+button.sell__btn {
     width: 140px;
+    cursor: pointer;
 }
 
-.interactions > * {
+.purchase-details .shares-input > input:focus,
+button.remove_watchlist:focus,
+button.add_to_watchlist:focus,
+button.purchase__btn:focus,
+button.sell__btn:focus {
+    outline: none;
+}
+
+button.purchase__btn:disabled {
+    cursor: not-allowed;
+}
+
+.interactions {
+    width: 100%;
+    font-size: 15px;
+    transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+}
+
+
+.interactions > .purchase,
+.interactions > .buying-power,
+.interactions > .watch-list,
+.interactions > .sell-stock {
     /* height: 50px; */
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 16px 0;
+}
+
+.interactions > .invisible {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 16px 0;
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+    transition: visibility 0s .4s, height .4s linear, opacity .2s linear;
+}
+
+.interactions > .sell-stock {
+    visibility: visible;
+    height: 100%;
+    opacity: 1;
+    transition: height .4s linear, opacity .2s linear;
+}
+
+.interactions .buying-power {
+    display: flex;
+    align-items: center;
+    color: #AFC23F;
+}
+
+.purchase-details .shares-input > input {
+    width: 40px;
+    background-color: initial;
+    border: 1px solid lightgray;
+    padding-left: 5px;
+}
+
+.buying_power__number {
+    margin-right: 5px;
+}
+
+@keyframes slow-entry {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
