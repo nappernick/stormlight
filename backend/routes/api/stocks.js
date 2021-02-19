@@ -36,7 +36,7 @@ router.put('/:userId([0-9]+)', asyncHandler(async (req, res, next) => {
 
 router.delete('/:userId([0-9]+)/:ticker(\\w+)$', asyncHandler(async (req, res) => {
     const { ticker, userId } = req.params;
-    console.log("____________HERE")
+    console.log("ticker")
     const toDelete = await Stock.findOne({ where: { userId, ticker } })
     await Stock.destroy({
         where: {

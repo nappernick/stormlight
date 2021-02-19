@@ -40,9 +40,12 @@ export const updateDataForIntraday = (ticker, userId, interval) => async (dispat
 }
 
 export const removeIntraDay = (userId, ticker) => async (dispatch) => {
+    console.log(userId)
+    console.log(ticker)
+
     dispatch(unsetIntraDay(ticker))
     dispatch(unsetStock(ticker))
-    await fetch(`api/stocks/${userId}/${ticker}`, {
+    await fetch(`/api/stocks/${userId}/${ticker}`, {
         method: "DELETE",
     })
 }
