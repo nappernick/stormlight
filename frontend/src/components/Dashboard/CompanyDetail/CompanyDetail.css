@@ -85,7 +85,8 @@ button.sell__btn {
     background-color: #AFC23F;
 }
 
-.watch-list > button.remove_watchlist {
+.watch-list > button.remove_watchlist,
+.interactions > .sell-stock > button {
     background-color: #C63641;
 }
 
