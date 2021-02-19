@@ -59,9 +59,10 @@ function ListItem({ ticker }) {
         if (!watchlistItem) return <Menu onSelect={onSelectStock}>
             <MenuItem style={{ cursor: "pointer" }} key="2">{`Sell ${ticker}?`}</MenuItem>
         </Menu>
-        else return <Menu onSelect={onSelectWatchlist}>
-            <MenuItem style={{ cursor: "pointer" }} key="2">{`Remove ${ticker}?`}</MenuItem>
-        </Menu>
+        // else return <Menu onSelect={onSelectWatchlist}>
+        //     <MenuItem style={{ cursor: "pointer" }} key="2">{`Remove ${ticker}?`}</MenuItem>
+        // </Menu>
+        else return ""
     };
 
     useEffect(() => {
