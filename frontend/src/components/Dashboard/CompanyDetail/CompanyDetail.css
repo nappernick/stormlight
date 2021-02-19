@@ -19,7 +19,7 @@ div.side-bar-container {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    font-weight: 700;
+    font-weight: 500;
     width: 220px;
     box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
     padding: 10px 10px 15px 10px;
@@ -32,6 +32,7 @@ div.side-bar-container > * > * {
 
 div.side-bar-container > .header {
     margin: 0px 0 0 10px;
+    font-weight: 700;
     color: #5a6571;
     font-size: 1.3em;
     display: -webkit-box;
@@ -112,6 +113,8 @@ button.purchase__btn:disabled {
     width: 100%;
     font-size: 15px;
     transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -126,28 +129,29 @@ button.purchase__btn:disabled {
     margin: 16px 0;
 }
 
-.interactions > .invisible {
+.side-bar-container > .interactions > .invisible {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 16px 0;
+    margin: 0 0;
     visibility: hidden;
-    height: 0;
+    height: 0px;
     opacity: 0;
-    transition: visibility 0s .4s, height .4s linear, opacity .2s linear;
+    transition: margin .4s, visibility 3s, height .4s linear, opacity .2s linear;
 }
 
 .interactions > .sell-stock {
     visibility: visible;
     height: 100%;
     opacity: 1;
-    transition: height .4s linear, opacity .2s linear;
+    transition: margin .4s, visibility .4s, height .4s linear, opacity .2s linear;
 }
 
 .interactions .buying-power {
     display: flex;
     align-items: center;
     color: #AFC23F;
+    font-size: 17px;
 }
 
 .purchase-details .shares-input > input {
@@ -159,13 +163,4 @@ button.purchase__btn:disabled {
 
 .buying_power__number {
     margin-right: 5px;
-}
-
-@keyframes slow-entry {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
 }
