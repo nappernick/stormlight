@@ -75,7 +75,7 @@ function LineGraph({ setIntraDayEnd, companyIntraDayData }) {
                     // }
                 }
             },
-            yPadding: "12",
+            yPadding: "20",
             titleFontColor: '#5a6571',
             bodyFontColor: '#5a6571',
             backgroundColor: 'rgba(0, 0, 0, 0)',

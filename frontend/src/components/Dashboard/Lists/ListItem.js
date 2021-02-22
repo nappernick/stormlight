@@ -23,8 +23,8 @@ const ChartDiv = styled.div`
     height: 30px;
     width: 30px;
     `
-const BuyPriceHFour = styled.h4`
-
+const StockTickerH4 = styled.h4`
+    cursor: pointer;
     `
 
 function ListItem({ ticker }) {
@@ -171,9 +171,9 @@ function ListItem({ ticker }) {
 
     return (
         <TickerDiv>
-            <h4
+            <StockTickerH4
                 onClick={handleStockClick}
-            >{ticker}</h4>
+            >{ticker}</StockTickerH4>
             <ChartDiv>
                 <Line data={chartData} options={options} height={250} width={250} />
             </ChartDiv>
@@ -182,7 +182,7 @@ function ListItem({ ticker }) {
                 overlay={menuCallback}
                 animation="slide-up"
             >
-                <BuyPriceHFour>{data.length ? `$${buyPrice}` : "Loading..."}</BuyPriceHFour>
+                <h4>{data.length ? `$${buyPrice}` : "Loading..."}</h4>
             </Dropdown>
         </TickerDiv>
     )
