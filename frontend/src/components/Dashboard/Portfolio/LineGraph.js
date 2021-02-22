@@ -62,6 +62,7 @@ function LineGraph({ setIntraDayEnd, companyIntraDayData }) {
             enabled: true,
             mode: 'index',
             axis: "x",
+            intersect: false,
             callbacks: {
                 label: function (tooltipItem, data) {
                     var value = data.datasets[0].data[tooltipItem.index];
@@ -80,6 +81,10 @@ function LineGraph({ setIntraDayEnd, companyIntraDayData }) {
             backgroundColor: 'rgba(0, 0, 0, 0)',
             // Removes the color square from tooltip
             displayColors: false,
+        },
+        hover: {
+            mode: 'index',
+            intersect: false
         },
         elements: {
             // Make the circles on the graph disappear
@@ -101,17 +106,6 @@ function LineGraph({ setIntraDayEnd, companyIntraDayData }) {
         scales: {
             yAxes: [{
                 display: false,
-                // ticks: {
-                //     // Include a dollar sign in the ticks
-                //     callback: function (value) {
-                //         return '$' + value;
-                //     },
-                //     fontColor: "#215C8A",
-                //     fontFamily: 'DM Sans',
-                // },
-                // gridLines: {
-                //     color: "rgba(0, 0, 0, 0.05)",
-                // },
             }],
             xAxes: [{
                 display: false,

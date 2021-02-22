@@ -11,8 +11,6 @@ import { currentPriceApi, intradayfetchapi } from '../../../utils';
 import "./ListItem.css"
 import { removeFromWatchlist } from '../../../store/watchlist';
 
-
-
 //* Styled components
 const TickerDiv = styled.div`
     display: flex;
@@ -33,8 +31,10 @@ function ListItem({ ticker }) {
     const userId = useSelector(state => state.session.user.id)
     const intraday = useSelector(state => state.intraday)
     const stocks = useSelector(store => store.stock)
+    const watchlist = useSelector(store => store.watchlist)
     const buyingPower = useSelector(store => store.buyingPower)
-    const watchlistItem = !Object.keys(stocks).includes(ticker) ? true : false
+    const [watchlistTickers, setWatchlistTickers] = useState([])
+    let watchlistItem = watchlistTickers.length ? watchlistTickers.includes(ticker) ? true : false : null
     const [watchlistIntraday, setWatchlistIntraday] = useState({})
 
     //* Sell stock dropdown on hover functions
@@ -52,19 +52,24 @@ function ListItem({ ticker }) {
     //* Remove Watchlist dropdown on hover functions
     function onSelectWatchlist() {
         dispatch(removeFromWatchlist(userId, ticker))
-        // ! NEED TO FIX BUGS
+        const rmTicker = watchlist.filter(el => el.ticker === ticker)
+        setWatchlistTickers(rmTicker)
+        watchlistItem = false
     }
 
+    // * Dropdown menu options on stock price hover
     const menuCallback = () => {
+        // If owned stock, return "sell" option
         if (!watchlistItem) return <Menu onSelect={onSelectStock}>
             <MenuItem style={{ cursor: "pointer" }} key="2">{`Sell ${ticker}?`}</MenuItem>
         </Menu>
-        // else return <Menu onSelect={onSelectWatchlist}>
-        //     <MenuItem style={{ cursor: "pointer" }} key="2">{`Remove ${ticker}?`}</MenuItem>
-        // </Menu>
-        else return ""
+        // If watched stock, return option to remove from watchlist
+        else return <Menu onSelect={onSelectWatchlist}>
+            <MenuItem style={{ cursor: "pointer" }} key="2">{`Remove ${ticker}?`}</MenuItem>
+        </Menu>
     };
 
+    //* Set intraday trading data for specific stock
     useEffect(() => {
         const watchlistFetchIntraday = async () => {
             let res = await intradayfetchapi(ticker, "15min")
@@ -80,6 +85,13 @@ function ListItem({ ticker }) {
             watchlistFetchIntraday()
         }
     }, [watchlistItem])
+
+    //* Create component friendly version of watchlist
+    useEffect(() => {
+        const tickers = watchlist.map(el => el.ticker)
+        setWatchlistTickers(tickers)
+    }, [])
+
     //* Build the array of data for chart:
     let data = [];
     let labels = [];
@@ -92,7 +104,6 @@ function ListItem({ ticker }) {
             if (ticker === tickerArr[0]) Object.assign(intradayObject, { ...Object.values(el)[0] })
             return null
         })
-        // console.log("INTRADAY", intradayObject)
         if (intradayObject && Object.keys(intradayObject)) for (let key in intradayObject) {
             if (key > recentDate) {
                 recentDate = key;
@@ -103,21 +114,17 @@ function ListItem({ ticker }) {
             data.push(intradayObject[key]["4. close"])
             labels.push(intradayObject[key])
         }
-        // console.log("NORMAL DATA", data)
     }
     else {
-        // console.log("WL INTRADAY", watchlistIntraday)
         if (watchlistIntraday && Object.keys(watchlistIntraday)) for (let key in watchlistIntraday) {
             if (key > recentDate) {
                 recentDate = key;
                 buyPrice = parseFloat(watchlistIntraday[key]["4. close"]).toFixed(2)
             }
             recentDate = key > recentDate ? key : recentDate
-
             data.push(watchlistIntraday[key]["4. close"])
             labels.push(watchlistIntraday[key])
         }
-        // console.log("NEW DATA", data)
     }
 
     const initialPrice = data ? data[data.length - 1] : 0
@@ -137,8 +144,9 @@ function ListItem({ ticker }) {
             }
         ]
     }
-
     const options = {
+        tooltips: { enabled: false },
+        hover: { mode: null },
         responsive: true,
         maintainAspectRatio: false,
         legend: {
@@ -156,7 +164,9 @@ function ListItem({ ticker }) {
 
     return (
         <TickerDiv>
-            <h4>{ticker}</h4>
+            <h4
+                
+            >{ticker}</h4>
             <ChartDiv>
                 <Line data={chartData} options={options} height={250} width={250} />
             </ChartDiv>
