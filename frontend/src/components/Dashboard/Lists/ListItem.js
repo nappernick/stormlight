@@ -10,6 +10,7 @@ import { updateBuyingPowerThunk } from '../../../store/buyingPower';
 import { currentPriceApi, intradayfetchapi } from '../../../utils';
 import "./ListItem.css"
 import { removeFromWatchlist } from '../../../store/watchlist';
+import { useHistory } from 'react-router-dom';
 
 //* Styled components
 const TickerDiv = styled.div`
@@ -27,6 +28,7 @@ const BuyPriceHFour = styled.h4`
     `
 
 function ListItem({ ticker }) {
+    const history = useHistory()
     const dispatch = useDispatch()
     const userId = useSelector(state => state.session.user.id)
     const intraday = useSelector(state => state.intraday)
@@ -36,6 +38,11 @@ function ListItem({ ticker }) {
     const [watchlistTickers, setWatchlistTickers] = useState([])
     let watchlistItem = watchlistTickers.length ? watchlistTickers.includes(ticker) ? true : false : null
     const [watchlistIntraday, setWatchlistIntraday] = useState({})
+
+    //* Click on stock name forwards to stock detail page
+    const handleStockClick = () => {
+        return history.push(`/stock-detail/${ticker}`)
+    }
 
     //* Sell stock dropdown on hover functions
     function onSelectStock() {
@@ -49,7 +56,7 @@ function ListItem({ ticker }) {
         }
         increaseBuyPower()
     }
-    //* Remove Watchlist dropdown on hover functions
+    //* Remove item from watchlist on hover click
     function onSelectWatchlist() {
         dispatch(removeFromWatchlist(userId, ticker))
         const rmTicker = watchlist.filter(el => el.ticker === ticker)
@@ -165,7 +172,7 @@ function ListItem({ ticker }) {
     return (
         <TickerDiv>
             <h4
-                
+                onClick={handleStockClick}
             >{ticker}</h4>
             <ChartDiv>
                 <Line data={chartData} options={options} height={250} width={250} />
