@@ -13,10 +13,14 @@ import { removeFromWatchlist } from '../../../store/watchlist';
 import { useHistory } from 'react-router-dom';
 
 //* Styled components
-const TickerDiv = styled.div`
+const Container = styled.div`
+    min-height: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+`
+
+const TickerDiv = styled.div`
     width: 180px;
     `
 const ChartDiv = styled.div`
@@ -171,19 +175,21 @@ function ListItem({ ticker }) {
 
     return (
         <TickerDiv>
-            <StockTickerH4
-                onClick={handleStockClick}
-            >{ticker}</StockTickerH4>
-            <ChartDiv>
-                <Line data={chartData} options={options} height={250} width={250} />
-            </ChartDiv>
-            <Dropdown
-                trigger={['hover']}
-                overlay={menuCallback}
-                animation="slide-up"
-            >
-                <h4>{data.length ? `$${buyPrice}` : "Loading..."}</h4>
-            </Dropdown>
+            <Container>
+                <StockTickerH4
+                    onClick={handleStockClick}
+                >{ticker}</StockTickerH4>
+                <ChartDiv>
+                    <Line data={chartData} options={options} height={250} width={250} />
+                </ChartDiv>
+                <Dropdown
+                    trigger={['hover']}
+                    overlay={menuCallback}
+                    animation="slide-up"
+                >
+                    <h4>{data.length ? `$${buyPrice}` : "Loading..."}</h4>
+                </Dropdown>
+            </Container>
         </TickerDiv>
     )
 }

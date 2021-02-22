@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import PurchaseModal from '../../PurchasePage/PurchaseModal';
 import ListItem from './ListItem'
 
-    const ListContainer = styled.div`
+const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -18,7 +18,7 @@ import ListItem from './ListItem'
     font-family: 'DM Sans', sans-serif;
     `
 
-    const ListHeader = styled.h3`
+const ListHeader = styled.h3`
     margin: 0px 0 0 10px;
     color: #5a6571;
     font-size: 1.3em;
@@ -27,17 +27,23 @@ import ListItem from './ListItem'
     width: 200px;
     border-bottom: 1px solid lightgray;
     `
-    const HorizontalLine = styled.hr`
+const HorizontalLine = styled.hr`
     width: 200px
     `
-    const HorizontalLineLight = styled.hr`
+const HorizontalLineLight = styled.hr`
     width: 200px;
     background-color: #d3d3d3;
     height: 1px;
     border: none;
     `
-    const PurchaseModalDiv = styled.div`
+const PurchaseModalDiv = styled.div`
     margin-top: 0px;
+    `
+
+const NoStocks = styled.div`
+    margin: 10px;
+    color: #5a6571;
+    text-align: center;
     `
 
 function ListStocks() {
@@ -56,22 +62,22 @@ function ListStocks() {
     return (
         <ListContainer>
             <ListHeader>STOCKS</ListHeader>
-            {stocksLen && Object.values(stocks) && intradayLen && stocksTickerArr.map((el) => {
+            {stocksLen ? Object.values(stocks) && intradayLen && stocksTickerArr.map((el) => {
                 return (
                     <li key={el}>
                         <ListItem ticker={el} test={intradayLen} />
                     </li>
                 )
-            }) || ""}
+            }) || "" : <NoStocks>Search stocks & buy them to view here</NoStocks>}
             {stocksLen === 0 && "Buy a stock!"}
             <ListHeader>WATCH</ListHeader>
-            {watchlist.length && watchlist.map((el) => {
+            {watchlist.length ? watchlist.map((el) => {
                 return (
                     <li key={el.id}>
                         <ListItem ticker={el.ticker} />
                     </li>
                 )
-            }) || ""}
+            }) || "" : <NoStocks>Search stocks & watch them to view here</NoStocks>}
             {stocksLen === 0 && "Buy a stock!"}
             <PurchaseModalDiv>
                 <PurchaseModal />
