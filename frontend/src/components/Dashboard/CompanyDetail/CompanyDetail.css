@@ -147,7 +147,6 @@ button.purchase__btn:disabled {
     opacity: 1;
     transition: margin .4s, visibility .4s, height .4s linear, opacity .2s linear;
 }
-
 .interactions .buying-power {
     display: flex;
     align-items: center;
