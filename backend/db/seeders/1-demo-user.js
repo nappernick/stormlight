@@ -9,16 +9,22 @@ module.exports = {
         email: 'demo@user.io',
         username: 'Demo-lition',
         hashedPassword: bcrypt.hashSync('password'),
+        createdAt: Sequelize.fn("now"),
+        updatedAt: Sequelize.fn("now"),
       },
       {
         email: faker.internet.email(),
         username: 'FakeUser1',
         hashedPassword: bcrypt.hashSync(faker.internet.password()),
+        createdAt: Sequelize.fn("now"),
+        updatedAt: Sequelize.fn("now"),
       },
       {
         email: faker.internet.email(),
         username: 'FakeUser2',
         hashedPassword: bcrypt.hashSync(faker.internet.password()),
+        createdAt: Sequelize.fn("now"),
+        updatedAt: Sequelize.fn("now"),
       },
     ], {});
   },
