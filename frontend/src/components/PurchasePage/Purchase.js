@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { currentPriceApi, buyStockAggregator } from "../../utils";
-import { updateStockNum } from "../../store/stocks"
 import "./PurchaseModal.css"
-import { updateDataForIntraday } from "../../store/intraday";
-import { updateBuyingPowerThunk } from "../../store/buyingPower";
 
 function Purchase({ closeModal }) {
     const dispatch = useDispatch()
